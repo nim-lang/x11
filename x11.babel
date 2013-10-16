@@ -1,7 +1,7 @@
 [Package]
 name: "x11"
-version: "VER"
-author: "FOO"
+version: "1.0"
+author: "Andreas Rumpf"
 description: "Wrapper for X11"
 license: "MIT"
 
