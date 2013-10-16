@@ -221,9 +221,9 @@ proc XF86VidModeGetPermissions*(dpy: PDisplay, screen: cint, permissions: Pcint)
     CDecl, dynlib: libXxf86vm, importc.}
 # implementation
 
-when defined(MACROS): 
-  proc XF86VidModeSelectNextMode(disp: PDisplay, scr: cint): TBool = 
-    XF86VidModeSelectNextMode = XF86VidModeSwitchMode(disp, scr, 1)
+#when defined(MACROS): 
+proc XF86VidModeSelectNextMode(disp: PDisplay, scr: cint): TBool = 
+  XF86VidModeSwitchMode(disp, scr, 1)
 
-  proc XF86VidModeSelectPrevMode(disp: PDisplay, scr: cint): TBool = 
-    XF86VidModeSelectPrevMode = XF86VidModeSwitchMode(disp, scr, - 1)
+proc XF86VidModeSelectPrevMode(disp: PDisplay, scr: cint): TBool = 
+  XF86VidModeSwitchMode(disp, scr, - 1)
