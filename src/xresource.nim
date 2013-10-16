@@ -174,7 +174,7 @@ proc NULLSTRING(): TXrmString =
 #when defined(MACROS): 
 proc XrmStringsEqual(a1, a2: cstring): bool = 
   #result = (strcomp(a1, a2)) == 0
-  a1 == a2
+  $a1 == $a2
 
 proc XrmNameToString(name: int32): TXrmString = 
   result = XrmQuarkToString(name)
