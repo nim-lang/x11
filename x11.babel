@@ -1,8 +1,11 @@
 [Package]
-name: "NAME"
+name: "x11"
 version: "VER"
 author: "FOO"
-description: "FOO"
+description: "Wrapper for X11"
 license: "MIT"
 
 srcDir: "src"
+
+[Deps]
+requires: "nimrod > 0.9.2"
