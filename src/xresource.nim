@@ -36,8 +36,8 @@ proc XrmPermStringToQuark*(para1: cstring): TXrmQuark{.cdecl, dynlib: libX11,
 proc XrmQuarkToString*(para1: TXrmQuark): TXrmString{.cdecl, dynlib: libX11, 
     importc.}
 proc XrmUniqueQuark*(): TXrmQuark{.cdecl, dynlib: libX11, importc.}
-when defined(MACROS): 
-  proc XrmStringsEqual*(a1, a2: cstring): bool
+#when defined(MACROS): 
+proc XrmStringsEqual*(a1, a2: cstring): bool
 type 
   PXrmBinding* = ptr TXrmBinding
   TXrmBinding* = enum 
@@ -56,27 +56,27 @@ type
   PXrmNameList* = ptr TXrmNameList
   TXrmNameList* = TXrmQuarkList
 
-when defined(MACROS): 
-  proc XrmNameToString*(name: int32): TXrmString
-  proc XrmStringToName*(str: cstring): int32
-  proc XrmStringToNameList*(str: cstring, name: PXrmQuark)
+#when defined(MACROS): 
+proc XrmNameToString*(name: int32): TXrmString
+proc XrmStringToName*(str: cstring): int32
+proc XrmStringToNameList*(str: cstring, name: PXrmQuark)
 type 
   PXrmClass* = ptr TXrmClass
   TXrmClass* = TXrmQuark
   PXrmClassList* = ptr TXrmClassList
   TXrmClassList* = TXrmQuarkList
 
-when defined(MACROS): 
-  proc XrmClassToString*(c_class: int32): TXrmString
-  proc XrmStringToClass*(c_class: cstring): int32
-  proc XrmStringToClassList*(str: cstring, c_class: PXrmQuark)
+#when defined(MACROS): 
+proc XrmClassToString*(c_class: int32): TXrmString
+proc XrmStringToClass*(c_class: cstring): int32
+proc XrmStringToClassList*(str: cstring, c_class: PXrmQuark)
 type 
   PXrmRepresentation* = ptr TXrmRepresentation
   TXrmRepresentation* = TXrmQuark
 
-when defined(MACROS): 
-  proc XrmStringToRepresentation*(str: cstring): int32
-  proc XrmRepresentationToString*(thetype: int32): TXrmString
+#when defined(MACROS): 
+proc XrmStringToRepresentation*(str: cstring): int32
+proc XrmRepresentationToString*(thetype: int32): TXrmString
 type 
   PXrmValue* = ptr TXrmValue
   TXrmValue*{.final.} = object 
@@ -171,30 +171,31 @@ proc NULLQUARK(): TXrmQuark =
 proc NULLSTRING(): TXrmString = 
   result = nil
 
-when defined(MACROS): 
-  proc XrmStringsEqual(a1, a2: cstring): bool = 
-    result = (strcomp(a1, a2)) == 0
+#when defined(MACROS): 
+proc XrmStringsEqual(a1, a2: cstring): bool = 
+  #result = (strcomp(a1, a2)) == 0
+  a1 == a2
 
-  proc XrmNameToString(name: int32): TXrmString = 
-    result = XrmQuarkToString(name)
+proc XrmNameToString(name: int32): TXrmString = 
+  result = XrmQuarkToString(name)
 
-  proc XrmStringToName(str: cstring): int32 = 
-    result = XrmStringToQuark(str)
+proc XrmStringToName(str: cstring): int32 = 
+  result = XrmStringToQuark(str)
 
-  proc XrmStringToNameList(str: cstring, name: PXrmQuark) = 
-    XrmStringToQuarkList(str, name)
+proc XrmStringToNameList(str: cstring, name: PXrmQuark) = 
+  XrmStringToQuarkList(str, name)
 
-  proc XrmClassToString(c_class: int32): TXrmString = 
-    result = XrmQuarkToString(c_class)
+proc XrmClassToString(c_class: int32): TXrmString = 
+  result = XrmQuarkToString(c_class)
 
-  proc XrmStringToClass(c_class: cstring): int32 = 
-    result = XrmStringToQuark(c_class)
+proc XrmStringToClass(c_class: cstring): int32 = 
+  result = XrmStringToQuark(c_class)
 
-  proc XrmStringToClassList(str: cstring, c_class: PXrmQuark) = 
-    XrmStringToQuarkList(str, c_class)
+proc XrmStringToClassList(str: cstring, c_class: PXrmQuark) = 
+  XrmStringToQuarkList(str, c_class)
 
-  proc XrmStringToRepresentation(str: cstring): int32 = 
-    result = XrmStringToQuark(str)
+proc XrmStringToRepresentation(str: cstring): int32 = 
+  result = XrmStringToQuark(str)
 
-  proc XrmRepresentationToString(thetype: int32): TXrmString = 
-    result = XrmQuarkToString(thetype)
+proc XrmRepresentationToString(thetype: int32): TXrmString = 
+  result = XrmQuarkToString(thetype)
