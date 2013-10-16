@@ -39,13 +39,6 @@ const
   XcmsInitSuccess* = 0x00000001
   XcmsInitFailure* = 0x000000FF
 
-when defined(MACROS): 
-  proc DisplayOfCCC*(ccc: int32): int32
-  proc ScreenNumberOfCCC*(ccc: int32): int32
-  proc VisualOfCCC*(ccc: int32): int32
-  proc ClientWhitePointOfCCC*(ccc: int32): int32
-  proc ScreenWhitePointOfCCC*(ccc: int32): int32
-  proc FunctionSetOfCCC*(ccc: int32): int32
 type 
   PXcmsFloat* = ptr TXcmsFloat
   TXcmsFloat* = float64
@@ -376,21 +369,21 @@ proc XcmsRGBFormat(): TXcmsColorFormat =
 proc XcmsRGBiFormat(): TXcmsColorFormat = 
   result = 0x80000001'i32
 
-when defined(MACROS): 
-  proc DisplayOfCCC(ccc: int32): int32 = 
-    result = ccc.dpy
+#when defined(MACROS): 
+proc DisplayOfCCC(ccc: TXcmsCCC): PDisplay = 
+  result = ccc.dpy
 
-  proc ScreenNumberOfCCC(ccc: int32): int32 = 
-    result = ccc.screenNumber
+proc ScreenNumberOfCCC(ccc: TXcmsCCC): int32 = 
+  result = ccc.screenNumber
 
-  proc VisualOfCCC(ccc: int32): int32 = 
-    result = ccc.visual
+proc VisualOfCCC(ccc: TXcmsCCC): PVisual = 
+  result = ccc.visual
 
-  proc ClientWhitePointOfCCC(ccc: int32): int32 = 
-    result = addr(ccc.clientWhitePt)
+proc ClientWhitePointOfCCC(ccc: var TXcmsCCC): ptr TXcmsColor = 
+  result = addr(ccc.clientWhitePt)
 
-  proc ScreenWhitePointOfCCC(ccc: int32): int32 = 
-    result = addr(ccc.pPerScrnInfo.screenWhitePt)
+proc ScreenWhitePointOfCCC(ccc: var TXcmsCCC): ptr TXcmsColor = 
+  result = addr(ccc.pPerScrnInfo.screenWhitePt)
 
-  proc FunctionSetOfCCC(ccc: int32): int32 = 
-    result = ccc.pPerScrnInfo.functionSet
+proc FunctionSetOfCCC(ccc: TXcmsCCC): TXpointer =
+  result = ccc.pPerScrnInfo.functionSet
