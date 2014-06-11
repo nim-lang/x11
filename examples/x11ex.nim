@@ -11,6 +11,10 @@ var
   depth: int
   win: TWindow
   sizeHints: TXSizeHints
+  wmDeleteMessage: TAtom
+  running: bool
+  xev: TXEvent
+  display_string = "Hello, Nimrods."
 
 proc create_window = 
   width = WINDOW_WIDTH
@@ -18,8 +22,7 @@ proc create_window =
 
   display = XOpenDisplay(nil)
   if display == nil:
-    echo("Verbindung zum X-Server fehlgeschlagen")
-    quit(1)
+    quit "Failed to open display"
 
   screen = XDefaultScreen(display)
   depth = XDefaultDepth(display, screen)
@@ -36,36 +39,38 @@ proc create_window =
   discard XSetStandardProperties(display, win, "Simple Window", "window",
                          0, nil, 0, addr(size_hints))
   discard XSelectInput(display, win, ButtonPressMask or KeyPressMask or 
-                                     PointerMotionMask)
+                                     PointerMotionMask or ExposureMask)
   discard XMapWindow(display, win)
+
+  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.TBool)
+  discard XSetWMProtocols(display, win, wmDeleteMessage.addr, 1)
+  running = true
 
 proc close_window =
   discard XDestroyWindow(display, win)
   discard XCloseDisplay(display)
-    
-var
-  xev: TXEvent
 
-proc process_event =
-  var key: TKeySym
-  case int(xev.theType)
+proc draw_screen =
+  discard XDrawString(display,win, DefaultGC(display,screen), 10,50, display_string.cstring, display_string.len.cint)
+
+proc handle_event =
+  discard XNextEvent(display, xev.addr)
+  case xev.theType
+  of Expose:
+    draw_screen()
+  of ClientMessage:
+    if cast[TAtom](xev.xclient.data[0]) == wmDeleteMessage:
+      running = false
   of KeyPress:
-    key = XLookupKeysym(cast[ptr TXKeyEvent](addr(xev)), 0)
-    if key.int != 0:
-      echo("keyboard event")
+    var key = XLookupKeysym(cast[PXKeyEvent](xev.addr), 0)
+    if key != 0:
+      echo "Keyboard event"
   of ButtonPressMask, PointerMotionMask:
-    Echo("Mouse event")
-  else: nil
-
-proc eventloop =
-  discard XFlush(display)
-  var num_events = int(XPending(display))
-  while num_events != 0:
-    dec(num_events)
-    discard XNextEvent(display, addr(xev))
-    process_event()
+    echo "Mouse event"
+  else:
+    #echo "Unhandled event ", xev.theType
 
 create_window()
-while true:
-  eventloop()
+while running:
+  handle_event()
 close_window()
