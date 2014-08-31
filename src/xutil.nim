@@ -92,7 +92,7 @@ const
 type 
   PXTextProperty* = ptr TXTextProperty
   TXTextProperty*{.final.} = object 
-    value*: pcuchar
+    value*: Pcuchar
     encoding*: TAtom
     format*: cint
     nitems*: culong
@@ -408,5 +408,5 @@ proc IsMiscFunctionKey(keysym: TKeySym): bool =
   (keysym >= XK_Select) and (keysym <= XK_Break)
 
 proc IsModifierKey(keysym: TKeySym): bool = 
-  ((keysym >= XK_Shift_L) And (keysym <= XK_Hyper_R)) Or
-      (keysym == XK_Mode_switch) Or (keysym == XK_Num_Lock)
+  ((keysym >= XK_Shift_L) and (keysym <= XK_Hyper_R)) or
+      (keysym == XK_Mode_switch) or (keysym == XK_Num_Lock)
