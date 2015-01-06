@@ -68,6 +68,7 @@ proc handle_event =
   of ButtonPressMask, PointerMotionMask:
     echo "Mouse event"
   else:
+    discard
     #echo "Unhandled event ", xev.theType
 
 create_window()
