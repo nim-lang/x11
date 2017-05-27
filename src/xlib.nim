@@ -675,6 +675,12 @@ type
     state*: cint
 
   PXClientMessageEvent* = ptr TXClientMessageEvent
+
+  XClientMessageData* = object {.union.}
+    b*: array[20, cchar]
+    s*: array[10, cshort]
+    long*: array[5, clong]
+
   TXClientMessageEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -683,8 +689,7 @@ type
     window*: TWindow
     message_type*: TAtom
     format*: cint
-    data*: array[0..4, clong] # using clong here to be 32/64-bit dependent
-        # as the original C union
+    data*: XClientMessageData
 
   PXMappingEvent* = ptr TXMappingEvent
   TXMappingEvent*{.final.} = object
@@ -716,52 +721,40 @@ type
     window*: TWindow
 
   PXEvent* = ptr TXEvent
-  TXEvent*{.final.} = object
+  TXEvent*{.final.} = object {.union.}
     theType*: cint
-    pad*: array[0..22, clong] #
-                              #       case longint of
-                              #          0 : ( theType : cint );
-                              #          1 : ( xany : TXAnyEvent );
-                              #          2 : ( xkey : TXKeyEvent );
-                              #          3 : ( xbutton : TXButtonEvent );
-                              #          4 : ( xmotion : TXMotionEvent );
-                              #          5 : ( xcrossing : TXCrossingEvent );
-                              #          6 : ( xfocus : TXFocusChangeEvent );
-                              #          7 : ( xexpose : TXExposeEvent );
-                              #          8 : ( xgraphicsexpose : TXGraphicsExposeEvent );
-                              #          9 : ( xnoexpose : TXNoExposeEvent );
-                              #          10 : ( xvisibility : TXVisibilityEvent );
-                              #          11 : ( xcreatewindow : TXCreateWindowEvent );
-                              #          12 : ( xdestroywindow : TXDestroyWindowEvent );
-                              #          13 : ( xunmap : TXUnmapEvent );
-                              #          14 : ( xmap : TXMapEvent );
-                              #          15 : ( xmaprequest : TXMapRequestEvent );
-                              #          16 : ( xreparent : TXReparentEvent );
-                              #          17 : ( xconfigure : TXConfigureEvent );
-                              #          18 : ( xgravity : TXGravityEvent );
-                              #          19 : ( xresizerequest : TXResizeRequestEvent );
-                              #          20 : ( xconfigurerequest : TXConfigureRequestEvent );
-                              #          21 : ( xcirculate : TXCirculateEvent );
-                              #          22 : ( xcirculaterequest : TXCirculateRequestEvent );
-                              #          23 : ( xproperty : TXPropertyEvent );
-                              #          24 : ( xselectionclear : TXSelectionClearEvent );
-                              #          25 : ( xselectionrequest : TXSelectionRequestEvent );
-                              #          26 : ( xselection : TXSelectionEvent );
-                              #          27 : ( xcolormap : TXColormapEvent );
-                              #          28 : ( xclient : TXClientMessageEvent );
-                              #          29 : ( xmapping : TXMappingEvent );
-                              #          30 : ( xerror : TXErrorEvent );
-                              #          31 : ( xkeymap : TXKeymapEvent );
-                              #          32 : ( pad : array[0..23] of clong );
-                              #
-
-
-proc xclient*(e: PXEvent): PXClientMessageEvent =
-    ## Treats XEvent as XClientMessageEvent
-    return cast[PXClientMessageEvent](e)
-
-proc xclient*(e: var TXEvent): PXClientMessageEvent =
-    return xclient(PXEvent(e.addr))
+    xany*: TXAnyEvent
+    xkey*: TXKeyEvent
+    xbutton*: TXButtonEvent
+    xmotion*: TXMotionEvent
+    xcrossing*: TXCrossingEvent
+    xfocus*: TXFocusChangeEvent
+    xexpose*: TXExposeEvent
+    xgraphicsexpose*: TXGraphicsExposeEvent
+    xnoexpose*: TXNoExposeEvent
+    xvisibility*: TXVisibilityEvent
+    xcreatewindow*: TXCreateWindowEvent
+    xdestroywindow*: TXDestroyWindowEvent
+    xunmap*: TXUnmapEvent
+    xmap*: TXMapEvent
+    xmaprequest*: TXMapRequestEvent
+    xreparent*: TXReparentEvent
+    xconfigure*: TXConfigureEvent
+    xgravity*: TXGravityEvent
+    xresizerequest*: TXResizeRequestEvent
+    xconfigurerequest*: TXConfigureRequestEvent
+    xcirculate*: TXCirculateEvent
+    xcirculaterequest*: TXCirculateRequestEvent
+    xproperty*: TXPropertyEvent
+    xselectionclear*: TXSelectionClearEvent
+    xselectionrequest*: TXSelectionRequestEvent
+    xselection*: TXSelectionEvent
+    xcolormap*: TXColormapEvent
+    xclient*: TXClientMessageEvent
+    xmapping*: TXMappingEvent
+    xerror*: TXErrorEvent
+    xkeymap*: TXKeymapEvent
+    pad: array[0..23, clong]
 
 type
   PXCharStruct* = ptr TXCharStruct
