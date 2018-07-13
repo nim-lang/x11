@@ -1866,7 +1866,7 @@ proc XAllocID*(dpy: PDisplay): TXID
 # implementation
 
 #when defined(MACROS):
-template privDisp : expr = cast[PXPrivDisplay](dpy)
+template privDisp : untyped = cast[PXPrivDisplay](dpy)
 
 proc ConnectionNumber(dpy: PDisplay): cint =
   privDisp.fd
