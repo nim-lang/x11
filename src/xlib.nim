@@ -32,7 +32,7 @@ type
   PXPointer* = ptr TXPointer
   TXPointer* = ptr char
   PBool* = ptr TBool
-  TBool* = int           #cint?
+  TBool* = cint
   PStatus* = ptr TStatus
   TStatus* = cint
 
