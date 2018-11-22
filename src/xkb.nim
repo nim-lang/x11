@@ -1258,7 +1258,7 @@ type
     name*: TAtom
     num_outlines*: int16
     sz_outlines*: int16
-    outlines*: ptr array [0..0xffff, TXkbOutlineRec]
+    outlines*: ptr array[0..0xffff, TXkbOutlineRec]
     approx*: ptr array[0..0xffff, TXkbOutlineRec]
     primary*: ptr array[0..0xffff, TXkbOutlineRec]
     bounds*: TXkbBoundsRec
@@ -2292,7 +2292,7 @@ proc XkbBoundsHeight(b: PXkbBoundsPtr): int16 =
 
 proc XkbOutlineIndex(s: PXkbShapePtr, o: PXkbOutlinePtr): int32 =
   ##define XkbOutlineIndex(s,o) ((int)((o)-&(s)->outlines[0]))
-  result = int32((cast[TAddress](o) - cast[TAddress](addr(s.outlines[0]))) div sizeof(PXkbOutlinePtr))
+  result = int32((cast[ByteAddress](o) - cast[ByteAddress](addr(s.outlines[0]))) div sizeof(PXkbOutlinePtr))
 
 proc XkbShapeDoodadColor(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr): PXkbColorPtr =
   ##define XkbShapeDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
@@ -2305,12 +2305,12 @@ proc XkbShapeDoodadShape(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr): PXkbShapePt
 proc XkbSetShapeDoodadColor(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr,
                             c: PXkbColorPtr) =
   ##define XkbSetShapeDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
+  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
 
 proc XkbSetShapeDoodadShape(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr,
                             s: PXkbShapePtr) =
   ##define XkbSetShapeDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[TAddress](s) - cast[TAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
+  d.shape_ndx = toU16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
 
 proc XkbTextDoodadColor(g: PXkbGeometryPtr, d: PXkbTextDoodadPtr): PXkbColorPtr =
   ##define XkbTextDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
@@ -2319,7 +2319,7 @@ proc XkbTextDoodadColor(g: PXkbGeometryPtr, d: PXkbTextDoodadPtr): PXkbColorPtr 
 proc XkbSetTextDoodadColor(g: PXkbGeometryPtr, d: PXkbTextDoodadPtr,
                            c: PXkbColorPtr) =
   ##define XkbSetTextDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
+  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
 
 proc XkbIndicatorDoodadShape(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr): PXkbShapeDoodadPtr =
   ##define XkbIndicatorDoodadShape(g,d) (&(g)->shapes[(d)->shape_ndx])
@@ -2336,17 +2336,17 @@ proc XkbIndicatorDoodadOffColor(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr): 
 proc XkbSetIndicatorDoodadOnColor(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr,
                                   c: PXkbColorPtr) =
   ##define XkbSetIndicatorDoodadOnColor(g,d,c) ((d)->on_color_ndx= (c)-&(g)->colors[0])
-  d.on_color_ndx = toU16((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
+  d.on_color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
 
 proc XkbSetIndicatorDoodadOffColor(g: PXkbGeometryPtr,
                                    d: PXkbIndicatorDoodadPtr, c: PXkbColorPtr) =
   ##define        XkbSetIndicatorDoodadOffColor(g,d,c) ((d)->off_color_ndx= (c)-&(g)->colors[0])
-  d.off_color_ndx = toU16((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TxkbColorRec))
+  d.off_color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TxkbColorRec))
 
 proc XkbSetIndicatorDoodadShape(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr,
                                 s: PXkbShapeDoodadPtr) =
   ##define XkbSetIndicatorDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[TAddress](s) - (cast[TAddress](addr(g.shapes[0])))) div sizeof(TXkbShapeRec))
+  d.shape_ndx = toU16((cast[ByteAddress](s) - (cast[ByteAddress](addr(g.shapes[0])))) div sizeof(TXkbShapeRec))
 
 proc XkbLogoDoodadColor(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr): PXkbColorPtr =
   ##define XkbLogoDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
@@ -2359,12 +2359,12 @@ proc XkbLogoDoodadShape(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr): PXkbShapeDood
 proc XkbSetLogoDoodadColor(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr,
                            c: PXkbColorPtr) =
   ##define XkbSetLogoDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
+  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TXkbColorRec))
 
 proc XkbSetLogoDoodadShape(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr,
                            s: PXkbShapeDoodadPtr) =
   ##define XkbSetLogoDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[TAddress](s) - cast[TAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
+  d.shape_ndx = toU16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
 
 proc XkbKeyShape(g: PXkbGeometryPtr, k: PXkbKeyPtr): PXkbShapeDoodadPtr =
   ##define XkbKeyShape(g,k) (&(g)->shapes[(k)->shape_ndx])
@@ -2376,12 +2376,12 @@ proc XkbKeyColor(g: PXkbGeometryPtr, k: PXkbKeyPtr): PXkbColorPtr =
 
 proc XkbSetKeyShape(g: PXkbGeometryPtr, k: PXkbKeyPtr, s: PXkbShapeDoodadPtr) =
   ##define XkbSetKeyShape(g,k,s) ((k)->shape_ndx= (s)-&(g)->shapes[0])
-  k.shape_ndx = toU8((cast[TAddress](s) - cast[TAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
+  k.shape_ndx = toU8((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(TXkbShapeRec))
 
 proc XkbSetKeyColor(g: PXkbGeometryPtr, k: PXkbKeyPtr, c: PXkbColorPtr) =
   ##define XkbSetKeyColor(g,k,c) ((k)->color_ndx= (c)-&(g)->colors[0])
-  k.color_ndx = toU8((cast[TAddress](c) - cast[TAddress](addr(g.colors[0]))) div sizeof(TxkbColorRec))
+  k.color_ndx = toU8((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(TxkbColorRec))
 
 proc XkbGeomColorIndex(g: PXkbGeometryPtr, c: PXkbColorPtr): int32 =
   ##define XkbGeomColorIndex(g,c) ((int)((c)-&(g)->colors[0]))
-  result = toU16((cast[TAddress](c) - (cast[TAddress](addr(g.colors[0])))) div sizeof(TxkbColorRec))
+  result = toU16((cast[ByteAddress](c) - (cast[ByteAddress](addr(g.colors[0])))) div sizeof(TxkbColorRec))
