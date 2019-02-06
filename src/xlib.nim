@@ -679,7 +679,7 @@ type
   XClientMessageData* = object {.union.}
     b*: array[20, cchar]
     s*: array[10, cshort]
-    long*: array[5, clong]
+    l*: array[5, clong]
 
   TXClientMessageEvent*{.final.} = object
     theType*: cint
