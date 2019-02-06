@@ -59,7 +59,7 @@ proc handle_event =
   of Expose:
     draw_screen()
   of ClientMessage:
-    if cast[TAtom](xev.xclient.data[0]) == wmDeleteMessage:
+    if cast[TAtom](xev.xclient.data.l[0]) == wmDeleteMessage:
       running = false
   of KeyPress:
     var key = XLookupKeysym(cast[PXKeyEvent](xev.addr), 0)
