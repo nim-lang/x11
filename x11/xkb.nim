@@ -69,7 +69,7 @@
 #
 
 import
-  X, Xlib
+  x, xlib
 
 include "x11pragma.nim"
 
