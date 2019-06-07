@@ -50,7 +50,7 @@
 #
 
 import
-  X, Xlib, XKB
+  x, xlib, xkb
 
 
 include "x11pragma.nim"
