@@ -1118,7 +1118,7 @@ type
   chararr32* = array[0..31, char]
 
 const
-  AllPlanes*: culong = culong(not 0)
+  AllPlanes*: culong = not culong(0)
 
 proc XLoadQueryFont*(para1: PDisplay, para2: cstring): PXFontStruct{.libx11.}
 proc XQueryFont*(para1: PDisplay, para2: TXID): PXFontStruct{.libx11.}
