@@ -1,9 +1,9 @@
-import xlib, xutil, x, keysym
+import x11/xlib, x11/xutil, x11/x, x11/keysym
 
 const
   WINDOW_WIDTH = 400
   WINDOW_HEIGHT = 300
-  
+
 var
   width, height: cuint
   display: PDisplay
