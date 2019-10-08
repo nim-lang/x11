@@ -28,7 +28,7 @@ import
   x, xlib
 
 const
-  libXrandr* = "libXrandr.so"
+  libXrandr* = "libXrandr.so(.2|)"
 
 # * $XFree86: xc/include/extensions/randr.h,v 1.4 2001/11/24 07:24:58 keithp Exp $
 # *
@@ -62,6 +62,16 @@ type
   TSizeID* = cushort
   PSubpixelOrder* = ptr TSubpixelOrder
   TSubpixelOrder* = cushort
+  PRRCrtc* = ptr TRRCrtc
+  TRRCrtc* = TXID
+  PRROutput* = ptr TRROutput
+  TRROutput* = TXID
+  PRRMode* = ptr TRRMode
+  TRRMode* = TXID
+  PXRRModeFlags* = ptr TXRRModeFlags
+  TXRRModeFlags* = culong
+  PConnection* = ptr TConnection
+  TConnection* = cushort
 
 const
   RANDR_NAME* = "RANDR"
@@ -88,6 +98,9 @@ const
   RRSetConfigInvalidConfigTime* = 1
   RRSetConfigInvalidTime* = 2
   RRSetConfigFailed* = 3
+  RR_Connected* = 0
+  RR_Disconnected* = 1
+  RR_UnknownConnection* = 2
 
 type
   PXRRScreenSize* = ptr TXRRScreenSize
@@ -115,13 +128,65 @@ type
     mheight*: cint
 
   PXRRScreenConfiguration* = ptr TXRRScreenConfiguration
-  TXRRScreenConfiguration*{.final.} = object
+  TXRRScreenConfiguration* {.final.} = object
+
+  PXRRModeInfo* = ptr TXRRModeInfo
+  TXRRModeInfo* {.final.} = object
+    id*: TRRMode
+    width*, height*: cuint
+    dotClock*: culong
+    hSyncStart*, hSyncEnd*, hTotal*, hSkew*: cuint
+    vSyncStart*, vSyncEnd*, vTotal*: cuint
+    name*: cstring
+    nameLength*: cuint
+    modeFlags*: TXRRModeFlags
+
+  PXRRScreenResources* = ptr TXRRScreenResources
+  TXRRScreenResources* {.final.} = object
+    timestamp*, configTimestamp*: TTime
+    ncrtc*: cint
+    crtcs*: ptr UncheckedArray[TRRCrtc]
+    noutput*: cint
+    outputs*: ptr UncheckedArray[TRROutput]
+    nmode*: cint
+    modes*: ptr UncheckedArray[TXRRModeInfo]
+
+  PXRROutputInfo* = ptr TXRROutputInfo
+  TXRROutputInfo* {.final.} = object
+    timestamp*: TTime
+    crtc*: TRRCrtc
+    name*: cstring
+    nameLen*: cint
+    mmWidth*, mmHeight*: culong
+    connection*: TConnection
+    subpixelOrder*: TSubpixelOrder
+    ncrtc*: cint
+    crtcs*: ptr UncheckedArray[TRRCrtc]
+    nclone*: cint
+    clones*: ptr UncheckedArray[TRROutput]
+    nmode*, npreferred*: cint
+    modes*: ptr UncheckedArray[TRRMode]
+
+  PXRRPropertyInfo* = ptr TXRRPropertyInfo
+  TXRRPropertyInfo* {.final.} = object
+    pending, range, immutable: bool
+    numValues: cint
+    values: ptr UncheckedArray[clong]
+
+  RandrFormat* = enum
+    randrFormat16bit = 16, randrFormat32bit = 32
+
 
 proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): TBool{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRQueryVersion*(dpy: PDisplay, major_versionp: Pcint,
                       minor_versionp: Pcint): TStatus{.cdecl, dynlib: libXrandr,
     importc.}
+proc XRRQueryOutputProperty*(dpy: PDisplay, output: TRROutput, property: TAtom):
+    PXRRPropertyInfo {.cdecl, dynlib: libXrandr, importc.}
+proc XRRChangeOutputProperty*(dpy: PDisplay, output: TRROutput,
+    property, kind: TAtom, format, mode: cint, data: ptr cuchar, nelements: cint) {.
+    cdecl, dynlib: libXrandr, importc.}
 proc XRRGetScreenInfo*(dpy: PDisplay, draw: TDrawable): PXRRScreenConfiguration{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRFreeScreenConfigInfo*(config: PXRRScreenConfiguration){.cdecl,
@@ -192,3 +257,11 @@ proc XRRTimes*(dpy: PDisplay, screen: cint, config_timestamp: PTime): TTime{.
 proc XRRUpdateConfiguration*(event: PXEvent): cint{.cdecl, dynlib: libXrandr,
     importc.}
 # implementation
+proc XRRGetScreenResourcesCurrent*(dpy: PDisplay, win: TWindow):
+    PXRRScreenResources {.cdecl, dynlib: libXrandr, importc.}
+proc XRRFreeScreenResources*(res: PXRRScreenResources) {.cdecl,
+    dynlib: libXrandr, importc.}
+proc XRRGetOutputInfo*(dpy: PDisplay, res: PXRRScreenResources, ret: TRROutput):
+    PXRROutputInfo {.cdecl, dynlib: libXrandr, importc.}
+proc XRRFreeOutputInfo*(info: PXRROutputInfo) {.cdecl, dynlib: libXrandr,
+    importc.}
