@@ -47,9 +47,6 @@ type
   PKeyCode* = ptr TKeyCode
   TKeyCode* = cuchar
 
-proc `==`*(a, b: TAtom): bool =
-    return system.`==`(a,b)
-
 const
   None* = 0
   ParentRelative* = 1
