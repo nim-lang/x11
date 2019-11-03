@@ -880,10 +880,8 @@ type
     font_struct_list*: ptr PXFontStruct
     font_name_list*: PPChar
 
-  PXIM* = ptr TXIM
-  TXIM*{.final.} = object
-  PXIC* = ptr TXIC
-  TXIC*{.final.} = object
+  TXIM*{.final.} = ptr object
+  TXIC*{.final.} = ptr object
   TXIMProc* = proc (para1: TXIM, para2: TXPointer, para3: TXPointer){.cdecl.}
   TXICProc* = proc (para1: TXIC, para2: TXPointer, para3: TXPointer): TBool{.
       cdecl.}
