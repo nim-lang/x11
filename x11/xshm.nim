@@ -2,8 +2,8 @@
 import
   x, xlib
 
-#const
-#  libX11* = "libX11.so"
+const
+ libXext* = "libXext.so"
 
 #
 #  Automatically converted by H2Pas 0.99.15 from xshm.h
@@ -51,27 +51,27 @@ type
     readOnly*: TBool
 
 
-proc XShmQueryExtension*(para1: PDisplay): TBool{.cdecl, dynlib: libX11, importc.}
-proc XShmGetEventBase*(para1: PDisplay): cint{.cdecl, dynlib: libX11, importc.}
+proc XShmQueryExtension*(para1: PDisplay): TBool{.cdecl, dynlib: libXext, importc.}
+proc XShmGetEventBase*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
 proc XShmQueryVersion*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: PBool): TBool{.
-    cdecl, dynlib: libX11, importc.}
-proc XShmPixmapFormat*(para1: PDisplay): cint{.cdecl, dynlib: libX11, importc.}
+    cdecl, dynlib: libXext, importc.}
+proc XShmPixmapFormat*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
 proc XShmAttach*(para1: PDisplay, para2: PXShmSegmentInfo): TStatus{.cdecl,
-    dynlib: libX11, importc.}
+    dynlib: libXext, importc.}
 proc XShmDetach*(para1: PDisplay, para2: PXShmSegmentInfo): TStatus{.cdecl,
-    dynlib: libX11, importc.}
+    dynlib: libXext, importc.}
 proc XShmPutImage*(para1: PDisplay, para2: TDrawable, para3: TGC,
                    para4: PXImage, para5: cint, para6: cint, para7: cint,
                    para8: cint, para9: cuint, para10: cuint, para11: TBool): TStatus{.
-    cdecl, dynlib: libX11, importc.}
+    cdecl, dynlib: libXext, importc.}
 proc XShmGetImage*(para1: PDisplay, para2: TDrawable, para3: PXImage,
                    para4: cint, para5: cint, para6: culong): TStatus{.cdecl,
-    dynlib: libX11, importc.}
+    dynlib: libXext, importc.}
 proc XShmCreateImage*(para1: PDisplay, para2: PVisual, para3: cuint,
                       para4: cint, para5: cstring, para6: PXShmSegmentInfo,
                       para7: cuint, para8: cuint): PXImage{.cdecl,
-    dynlib: libX11, importc.}
+    dynlib: libXext, importc.}
 proc XShmCreatePixmap*(para1: PDisplay, para2: TDrawable, para3: cstring,
                        para4: PXShmSegmentInfo, para5: cuint, para6: cuint,
-                       para7: cuint): TPixmap{.cdecl, dynlib: libX11, importc.}
+                       para7: cuint): TPixmap{.cdecl, dynlib: libXext, importc.}
 # implementation
