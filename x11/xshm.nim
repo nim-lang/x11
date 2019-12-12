@@ -3,7 +3,7 @@ import
   x, xlib
 
 const
- libXext* = "libXext.so"
+ libXext* = "libXext.so(.6|)"
 
 #
 #  Automatically converted by H2Pas 0.99.15 from xshm.h
