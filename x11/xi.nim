@@ -59,6 +59,9 @@
 #        2004/10/03 - Conversion from C header to Pascal unit.
 #
 
+const
+  libXi* = "libXi.so(|.6)"
+
 const 
   sz_xGetExtensionVersionReq* = 8
   sz_xGetExtensionVersionReply* = 32
