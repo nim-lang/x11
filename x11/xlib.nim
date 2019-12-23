@@ -676,7 +676,7 @@ type
 
   PXClientMessageEvent* = ptr TXClientMessageEvent
 
-  XClientMessageData* = object {.union.}
+  XClientMessageData* {.union.} = object
     b*: array[20, cchar]
     s*: array[10, cshort]
     l*: array[5, clong]
@@ -721,7 +721,7 @@ type
     window*: TWindow
 
   PXEvent* = ptr TXEvent
-  TXEvent*{.final.} = object {.union.}
+  TXEvent*{.final, union.} = object
     theType*: cint
     xany*: TXAnyEvent
     xkey*: TXKeyEvent
