@@ -1,4 +1,7 @@
-import x11/xlib, x11/xutil, x11/x, x11/keysym
+import 
+  x11/xlib,
+  x11/xutil,
+  x11/x
 
 const
   WINDOW_WIDTH = 400
@@ -9,11 +12,11 @@ var
   display: PDisplay
   screen: cint
   depth: int
-  win: TWindow
-  sizeHints: TXSizeHints
-  wmDeleteMessage: TAtom
+  win: Window
+  sizeHints: XSizeHints
+  wmDeleteMessage: Atom
   running: bool
-  xev: TXEvent
+  xev: XEvent
   display_string = "Hello, Nimrods."
 
 proc create_window = 
@@ -42,7 +45,7 @@ proc create_window =
                                      PointerMotionMask or ExposureMask)
   discard XMapWindow(display, win)
 
-  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.TBool)
+  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.Bool)
   discard XSetWMProtocols(display, win, wmDeleteMessage.addr, 1)
   running = true
 
@@ -59,7 +62,7 @@ proc handle_event =
   of Expose:
     draw_screen()
   of ClientMessage:
-    if cast[TAtom](xev.xclient.data.l[0]) == wmDeleteMessage:
+    if cast[Atom](xev.xclient.data.l[0]) == wmDeleteMessage:
       running = false
   of KeyPress:
     var key = XLookupKeysym(cast[PXKeyEvent](xev.addr), 0)
