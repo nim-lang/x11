@@ -31,26 +31,33 @@ const
 
 type
   PXRecordClientSpec* = ptr XRecordClientSpec
+  TXRecordClientSpec* {.deprecated: "Use XRecordClientSpec instead".} = XRecordClientSpec
   XRecordClientSpec* = culong
+
   PXRecordContext* = ptr XRecordContext
+  TXRecordContext* {.deprecated: "Use XRecordContext instead".} = XRecordContext
   XRecordContext* = culong
 
   PXRecordRange8* = ptr XRecordRange8
+  TXRecordRange8* {.deprecated: "Use XRecordRange8 instead".} = XRecordRange8
   XRecordRange8* {.final.} = object
     first*: cuchar
     last*: cuchar
 
   PXRecordRange16* = ptr XRecordRange16
+  TXRecordRange16* {.deprecated: "Use XRecordRange16 instead".} = XRecordRange16
   XRecordRange16* {.final.} = object
     first*: cushort
     last*: cushort
 
   PXRecordExtRange* = ptr XRecordExtRange
+  TXRecordExtRange* {.deprecated: "Use XRecordExtRange instead".} = XRecordExtRange
   XRecordExtRange* {.final.} = object
     ext_major*: XRecordRange8
     ext_minor*: XRecordRange16
 
   PXRecordRange* = ptr XRecordRange
+  TXRecordRange* {.deprecated: "Use XRecordRange instead".} = XRecordRange
   XRecordRange* {.final.} = object
     core_requests*: XRecordRange8 ##  core X requests
     core_replies*: XRecordRange8 ##  core X replies
@@ -63,12 +70,14 @@ type
     client_died*: Bool         ##  notice of client disconnect
 
   PXRecordClientInfo* = ptr XRecordClientInfo
+  TXRecordClientInfo* {.deprecated: "Use XRecordClientInfo instead".} = XRecordClientInfo
   XRecordClientInfo* {.final.} = object
     client*: XRecordClientSpec
     nranges*: culong
     ranges*: ptr UncheckedArray[XRecordRange]
 
   PXRecordState* = ptr XRecordState
+  TXRecordState* {.deprecated: "Use XRecordState instead".} = XRecordState
   XRecordState* {.final.} = object
     enabled*: Bool
     datum_flags*: cint
@@ -76,6 +85,7 @@ type
     client_info*: ptr UncheckedArray[XRecordClientInfo]
 
   PXRecordInterceptData* = ptr XRecordInterceptData
+  TXRecordInterceptData* {.deprecated: "Use XRecordInterceptData instead".} = XRecordInterceptData
   XRecordInterceptData* {.final.} = object
     id_base*: XID
     server_time*: Time
@@ -85,6 +95,7 @@ type
     data*: cstring
     data_len*: culong          ##  in 4-byte units
 
+  TXRecordInterceptProc* {.deprecated: "Use XRecordInterceptProc instead".} = XRecordInterceptProc
   XRecordInterceptProc* = proc (a1: XPointer, a2: PXRecordInterceptData)
 
 

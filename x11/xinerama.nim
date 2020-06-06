@@ -7,6 +7,7 @@ const
 
 type
   PXineramaScreenInfo* = ptr XineramaScreenInfo
+  TXineramaScreenInfo* {.deprecated: "Use XineramaScreenInfo instead".} = XineramaScreenInfo
   XineramaScreenInfo*{.final.} = object
     screen_number*: cint
     x_org*: int16

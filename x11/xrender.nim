@@ -34,12 +34,19 @@ else:
 
 type
   PGlyph* = ptr Glyph
+  TGlyph* {.deprecated: "Use Glyph instead".} = Glyph
   Glyph* = int32
+
   PGlyphSet* = ptr GlyphSet
+  TGlyphSet* {.deprecated: "Use GlyphSet instead".} = GlyphSet
   GlyphSet* = int32
+
   PPicture* = ptr Picture
+  TPicture* {.deprecated: "Use Picture instead".} = Picture
   Picture* = int32
+
   PPictFormat* = ptr PictFormat
+  TPictFormat* {.deprecated: "Use PictFormat instead".} = PictFormat
   PictFormat* = int32
 
 const
@@ -115,6 +122,7 @@ const
 
 type
   PXRenderDirectFormat* = ptr XRenderDirectFormat
+  TXRenderDirectFormat* {.deprecated: "Use XRenderDirectFormat instead".} = XRenderDirectFormat
   XRenderDirectFormat*{.final.} = object
     red*: int16
     redMask*: int16
@@ -126,6 +134,7 @@ type
     alphaMask*: int16
 
   PXRenderPictFormat* = ptr XRenderPictFormat
+  TXRenderPictFormat* {.deprecated: "Use XRenderPictFormat instead".} = XRenderPictFormat
   XRenderPictFormat*{.final.} = object
     id*: PictFormat
     thetype*: int32
@@ -149,23 +158,27 @@ const
 
 type
   PXRenderVisual* = ptr XRenderVisual
+  TXRenderVisual* {.deprecated: "Use XRenderVisual instead".} = XRenderVisual
   XRenderVisual*{.final.} = object
     visual*: PVisual
     format*: PXRenderPictFormat
 
   PXRenderDepth* = ptr XRenderDepth
+  TXRenderDepth* {.deprecated: "Use XRenderDepth instead".} = XRenderDepth
   XRenderDepth*{.final.} = object
     depth*: int32
     nvisuals*: int32
     visuals*: PXRenderVisual
 
   PXRenderScreen* = ptr XRenderScreen
+  TXRenderScreen* {.deprecated: "Use XRenderScreen instead".} = XRenderScreen
   XRenderScreen*{.final.} = object
     depths*: PXRenderDepth
     ndepths*: int32
     fallback*: PXRenderPictFormat
 
   PXRenderInfo* = ptr XRenderInfo
+  TXRenderInfo* {.deprecated: "Use XRenderInfo instead".} = XRenderInfo
   XRenderInfo*{.final.} = object
     format*: PXRenderPictFormat
     nformat*: int32
@@ -177,6 +190,7 @@ type
     nvisual*: int32
 
   PXRenderPictureAttributes* = ptr XRenderPictureAttributes
+  TXRenderPictureAttributes* {.deprecated: "Use XRenderPictureAttributes instead".} = XRenderPictureAttributes
   XRenderPictureAttributes*{.final.} = object
     repeat*: Bool
     alpha_map*: Picture
@@ -192,6 +206,7 @@ type
     dither*: Atom
 
   PXGlyphInfo* = ptr XGlyphInfo
+  TXGlyphInfo* {.deprecated: "Use XGlyphInfo instead".} = XGlyphInfo
   XGlyphInfo*{.final.} = object
     width*: int16
     height*: int16

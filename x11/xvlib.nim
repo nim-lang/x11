@@ -58,11 +58,13 @@ const
 
 type
   PXvRational* = ptr XvRational
+  TXvRational* {.deprecated: "Use XvRational instead".} = XvRational
   XvRational*{.final.} = object
     numerator*: cint
     denominator*: cint
 
   PXvAttribute* = ptr XvAttribute
+  TXvAttribute* {.deprecated: "Use XvAttribute instead".} = XvAttribute
   XvAttribute*{.final.} = object
     flags*: cint              # XvGettable, XvSettable
     min_value*: cint
@@ -71,6 +73,7 @@ type
 
   PPXvEncodingInfo* = ptr PXvEncodingInfo
   PXvEncodingInfo* = ptr XvEncodingInfo
+  TXvEncodingInfo* {.deprecated: "Use XvEncodingInfo instead".} = XvEncodingInfo
   XvEncodingInfo*{.final.} = object
     encoding_id*: XvEncodingID
     name*: cstring
@@ -80,12 +83,14 @@ type
     num_encodings*: culong
 
   PXvFormat* = ptr XvFormat
+  TXvFormat* {.deprecated: "Use XvFormat instead".} = XvFormat
   XvFormat*{.final.} = object
     depth*: cchar
     visual_id*: culong
 
   PPXvAdaptorInfo* = ptr PXvAdaptorInfo
   PXvAdaptorInfo* = ptr XvAdaptorInfo
+  TXvAdaptorInfo* {.deprecated: "Use XvAdaptorInfo instead".} = XvAdaptorInfo
   XvAdaptorInfo*{.final.} = object
     base_id*: XvPortID
     num_ports*: culong
@@ -96,6 +101,7 @@ type
     num_adaptors*: culong
 
   PXvVideoNotifyEvent* = ptr XvVideoNotifyEvent
+  TXvVideoNotifyEvent* {.deprecated: "Use XvVideoNotifyEvent instead".} = XvVideoNotifyEvent
   XvVideoNotifyEvent*{.final.} = object
     theType*: cint
     serial*: culong          # # of last request processed by server
@@ -107,6 +113,7 @@ type
     time*: Time              # milliseconds
 
   PXvPortNotifyEvent* = ptr XvPortNotifyEvent
+  TXvPortNotifyEvent* {.deprecated: "Use XvPortNotifyEvent instead".} = XvPortNotifyEvent
   XvPortNotifyEvent*{.final.} = object
     theType*: cint
     serial*: culong          # # of last request processed by server
@@ -118,8 +125,9 @@ type
     value*: clong            # value of attribute
 
   PXvEvent* = ptr XvEvent
+  TXvEvent* {.deprecated: "Use XvEvent instead".} = XvEvent
   XvEvent*{.final.} = object
-    pad*: array[0..23, clong] #case longint of
+    pad*: array[0..23, clong] # case longint of
                               #      0 : (
                               #            theType : cint;
                               #	  );
@@ -134,6 +142,7 @@ type
                               #          );
 
   PXvImageFormatValues* = ptr XvImageFormatValues
+  TXvImageFormatValues* {.deprecated: "Use XvImageFormatValues instead".} = XvImageFormatValues
   XvImageFormatValues*{.final.} = object
     id*: cint                 # Unique descriptor for the format
     theType*: cint            # XvRGB, XvYUV
@@ -159,6 +168,7 @@ type
     scanline_order*: cint     # XvTopToBottom, XvBottomToTop
 
   PXvImage* = ptr XvImage
+  TXvImage* {.deprecated: "Use XvImage instead".} = XvImage
   XvImage*{.final.} = object
     id*: cint
     width*, height*: cint

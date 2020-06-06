@@ -83,6 +83,7 @@ type
   PWord* = ptr array[0..64_000, int16]
   PByte* = ptr byte
   PXkbStatePtr* = ptr XkbStateRec
+  TXkbStateRec* {.deprecated: "Use XkbStateRec instead".} = XkbStateRec
   XkbStateRec*{.final.} = object
     group*: int8
     locked_group*: int8
@@ -108,6 +109,7 @@ proc XkbStateFieldFromRec*(s: PXkbStatePtr): int
 proc XkbGrabStateFromRec*(s: PXkbStatePtr): int
 type
   PXkbModsPtr* = ptr XkbModsRec
+  TXkbModsRec* {.deprecated: "Use XkbModsRec instead".} = XkbModsRec
   XkbModsRec*{.final.} = object
     mask*: int8               # effective mods
     real_mods*: int8
@@ -116,6 +118,7 @@ type
 
 type
   PXkbKTMapEntryPtr* = ptr XkbKTMapEntryRec
+  TXkbKTMapEntryRec* {.deprecated: "Use XkbKTMapEntryRec instead".} = XkbKTMapEntryRec
   XkbKTMapEntryRec*{.final.} = object
     active*: bool
     level*: int8
@@ -124,6 +127,7 @@ type
 
 type
   PXkbKeyTypePtr* = ptr XkbKeyTypeRec
+  TXkbKeyTypeRec* {.deprecated: "Use XkbKeyTypeRec instead".} = XkbKeyTypeRec
   XkbKeyTypeRec*{.final.} = object
     mods*: XkbModsRec
     num_levels*: int8
@@ -145,6 +149,7 @@ proc XkbSetNumGroups*(g, n: int16): int16
   #
 type
   PXkbBehavior* = ptr XkbBehavior
+  TXkbBehavior* {.deprecated: "Use XkbBehavior instead".} = XkbBehavior
   XkbBehavior*{.final.} = object
     theType*: int8
     data*: int8
@@ -152,6 +157,7 @@ type
 
 type
   PXkbModAction* = ptr XkbModAction
+  TXkbModAction* {.deprecated: "Use XkbModAction instead".} = XkbModAction
   XkbModAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -165,6 +171,7 @@ proc XkbModActionVMods*(a: PXkbModAction): int16
 proc XkbSetModActionVMods*(a: PXkbModAction, v: int8)
 type
   PXkbGroupAction* = ptr XkbGroupAction
+  TXkbGroupAction* {.deprecated: "Use XkbGroupAction instead".} = XkbGroupAction
   XkbGroupAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -175,6 +182,7 @@ proc XkbSAGroup*(a: PXkbGroupAction): int8
 proc XkbSASetGroupProc*(a: PXkbGroupAction, g: int8)
 type
   PXkbISOAction* = ptr XkbISOAction
+  TXkbISOAction* {.deprecated: "Use XkbISOAction instead".} = XkbISOAction
   XkbISOAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -188,6 +196,7 @@ type
 
 type
   PXkbPtrAction* = ptr XkbPtrAction
+  TXkbPtrAction* {.deprecated: "Use XkbPtrAction instead".} = XkbPtrAction
   XkbPtrAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -203,6 +212,7 @@ proc XkbSetPtrActionX*(a: PXkbPtrAction, x: int8)
 proc XkbSetPtrActionY*(a: PXkbPtrAction, y: int8)
 type
   PXkbPtrBtnAction* = ptr XkbPtrBtnAction
+  TXkbPtrBtnAction* {.deprecated: "Use XkbPtrBtnAction instead".} = XkbPtrBtnAction
   XkbPtrBtnAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -212,6 +222,7 @@ type
 
 type
   PXkbPtrDfltAction* = ptr XkbPtrDfltAction
+  TXkbPtrDfltAction* {.deprecated: "Use XkbPtrDfltAction instead".} = XkbPtrDfltAction
   XkbPtrDfltAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -223,6 +234,7 @@ proc XkbSAPtrDfltValue*(a: PXkbPtrDfltAction): int8
 proc XkbSASetPtrDfltValue*(a: PXkbPtrDfltAction, c: pointer)
 type
   PXkbSwitchScreenAction* = ptr XkbSwitchScreenAction
+  TXkbSwitchScreenAction* {.deprecated: "Use XkbSwitchScreenAction instead".} = XkbSwitchScreenAction
   XkbSwitchScreenAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -233,6 +245,7 @@ proc XkbSAScreen*(a: PXkbSwitchScreenAction): int8
 proc XkbSASetScreen*(a: PXkbSwitchScreenAction, s: pointer)
 type
   PXkbCtrlsAction* = ptr XkbCtrlsAction
+  TXkbCtrlsAction* {.deprecated: "Use XkbCtrlsAction instead".} = XkbCtrlsAction
   XkbCtrlsAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -246,6 +259,7 @@ proc XkbActionSetCtrls*(a: PXkbCtrlsAction, c: int8)
 proc XkbActionCtrls*(a: PXkbCtrlsAction): int16
 type
   PXkbMessageAction* = ptr XkbMessageAction
+  TXkbMessageAction* {.deprecated: "Use XkbMessageAction instead".} = XkbMessageAction
   XkbMessageAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -254,6 +268,7 @@ type
 
 type
   PXkbRedirectKeyAction* = ptr XkbRedirectKeyAction
+  TXkbRedirectKeyAction* {.deprecated: "Use XkbRedirectKeyAction instead".} = XkbRedirectKeyAction
   XkbRedirectKeyAction*{.final.} = object
     theType*: int8
     new_key*: int8
@@ -271,6 +286,7 @@ proc XkbSARedirectVModsMask*(a: PXkbRedirectKeyAction): int16
 proc XkbSARedirectSetVModsMask*(a: PXkbRedirectKeyAction, m: int8)
 type
   PXkbDeviceBtnAction* = ptr XkbDeviceBtnAction
+  TXkbDeviceBtnAction* {.deprecated: "Use XkbDeviceBtnAction instead".} = XkbDeviceBtnAction
   XkbDeviceBtnAction*{.final.} = object
     theType*: int8
     flags*: int8
@@ -281,7 +297,8 @@ type
 
 type
   PXkbDeviceValuatorAction* = ptr XkbDeviceValuatorAction
-  XkbDeviceValuatorAction*{.final.} = object  #
+  TXkbDeviceValuatorAction* {.deprecated: "Use XkbDeviceValuatorAction instead".} = XkbDeviceValuatorAction
+  XkbDeviceValuatorAction*{.final.} = object   #
                                                #      Macros to classify key actions
                                                #
     theType*: int8
@@ -299,6 +316,7 @@ const
 
 type
   PXkbAnyAction* = ptr XkbAnyAction
+  TXkbAnyAction* {.deprecated: "Use XkbAnyAction instead".} = XkbAnyAction
   XkbAnyAction*{.final.} = object
     theType*: int8
     data*: array[0..XkbAnyActionDataSize - 1, int8]
@@ -309,7 +327,8 @@ proc XkbIsGroupAction*(a: PXkbAnyAction): bool
 proc XkbIsPtrAction*(a: PXkbAnyAction): bool
 type
   PXkbAction* = ptr XkbAction
-  XkbAction*{.final.} = object  #
+  TXkbAction* {.deprecated: "Use XkbAction instead".} = XkbAction
+  XkbAction*{.final.} = object   #
                                  #      XKB request codes, used in:
                                  #      -  xkbReqType field of all requests
                                  #      -  requestMinor field of some events
@@ -883,6 +902,7 @@ const
 proc XkbIsLegalKeycode*(k: int): bool
 type
   PXkbControlsPtr* = ptr XkbControlsRec
+  TXkbControlsRec* {.deprecated: "Use XkbControlsRec instead".} = XkbControlsRec
   XkbControlsRec*{.final.} = object
     mk_dflt_btn*: int8
     num_groups*: int8
@@ -933,6 +953,7 @@ const
 
 type
   PXkbServerMapPtr* = ptr XkbServerMapRec
+  TXkbServerMapRec* {.deprecated: "Use XkbServerMapRec instead".} = XkbServerMapRec
   XkbServerMapRec*{.final.} = object
     num_acts*: int16
     size_acts*: int16
@@ -950,6 +971,7 @@ proc XkbSMKeyActionsPtr*(m: PXkbServerMapPtr, k: int16): PXkbAction
   #
 type
   PXkbSymMapPtr* = ptr XkbSymMapRec
+  TXkbSymMapRec* {.deprecated: "Use XkbSymMapRec instead".} = XkbSymMapRec
   XkbSymMapRec*{.final.} = object
     kt_index*: array[0..XkbNumKbdGroups - 1, int8]
     group_info*: int8
@@ -959,6 +981,7 @@ type
 
 type
   PXkbClientMapPtr* = ptr XkbClientMapRec
+  TXkbClientMapRec* {.deprecated: "Use XkbClientMapRec instead".} = XkbClientMapRec
   XkbClientMapRec*{.final.} = object
     size_types*: int8
     num_types*: int8
@@ -983,6 +1006,7 @@ proc XkbCMKeySymsOffset*(m: PXkbClientMapPtr, k: int16): int8
   #
 type
   PXkbSymInterpretPtr* = ptr XkbSymInterpretRec
+  TXkbSymInterpretRec* {.deprecated: "Use XkbSymInterpretRec instead".} = XkbSymInterpretRec
   XkbSymInterpretRec*{.final.} = object
     sym*: KeySym
     flags*: int8
@@ -994,6 +1018,7 @@ type
 
 type
   PXkbCompatMapPtr* = ptr XkbCompatMapRec
+  TXkbCompatMapRec* {.deprecated: "Use XkbCompatMapRec instead".} = XkbCompatMapRec
   XkbCompatMapRec*{.final.} = object
     sym_interpret*: PXkbSymInterpretPtr
     groups*: array[0..XkbNumKbdGroups - 1, XkbModsRec]
@@ -1003,6 +1028,7 @@ type
 
 type
   PXkbIndicatorMapPtr* = ptr XkbIndicatorMapRec
+  TXkbIndicatorMapRec* {.deprecated: "Use XkbIndicatorMapRec instead".} = XkbIndicatorMapRec
   XkbIndicatorMapRec*{.final.} = object
     flags*: int8
     which_groups*: int8
@@ -1016,6 +1042,7 @@ proc XkbIM_IsAuto*(i: PXkbIndicatorMapPtr): bool
 proc XkbIM_InUse*(i: PXkbIndicatorMapPtr): bool
 type
   PXkbIndicatorPtr* = ptr XkbIndicatorRec
+  TXkbIndicatorRec* {.deprecated: "Use XkbIndicatorRec instead".} = XkbIndicatorRec
   XkbIndicatorRec*{.final.} = object
     phys_indicators*: int32
     maps*: array[0..XkbNumIndicators - 1, XkbIndicatorMapRec]
@@ -1023,12 +1050,14 @@ type
 
 type
   PXkbKeyNamePtr* = ptr XkbKeyNameRec
+  TXkbKeyNameRec* {.deprecated: "Use XkbKeyNameRec instead".} = XkbKeyNameRec
   XkbKeyNameRec*{.final.} = object
     name*: array[0..XkbKeyNameLength - 1, char]
 
 
 type
   PXkbKeyAliasPtr* = ptr XkbKeyAliasRec
+  TXkbKeyAliasRec* {.deprecated: "Use XkbKeyAliasRec instead".} = XkbKeyAliasRec
   XkbKeyAliasRec*{.final.} = object  #
                                       #          Names for everything
                                       #
@@ -1038,6 +1067,7 @@ type
 
 type
   PXkbNamesPtr* = ptr XkbNamesRec
+  TXkbNamesRec* {.deprecated: "Use XkbNamesRec instead".} = XkbNamesRec
   XkbNamesRec*{.final.} = object  #
                                    #      Key Type index and mask for the four standard key types.
                                    #
@@ -1213,6 +1243,7 @@ const
 
 type
   PXkbPropertyPtr* = ptr XkbPropertyRec
+  TXkbPropertyRec* {.deprecated: "Use XkbPropertyRec instead".} = XkbPropertyRec
   XkbPropertyRec*{.final.} = object
     name*: cstring
     value*: cstring
@@ -1220,6 +1251,7 @@ type
 
 type
   PXkbColorPtr* = ptr XkbColorRec
+  TXkbColorRec* {.deprecated: "Use XkbColorRec instead".} = XkbColorRec
   XkbColorRec*{.final.} = object
     pixel*: int16
     spec*: cstring
@@ -1227,6 +1259,7 @@ type
 
 type
   PXkbPointPtr* = ptr XkbPointRec
+  TXkbPointRec* {.deprecated: "Use XkbPointRec instead".} = XkbPointRec
   XkbPointRec*{.final.} = object
     x*: int16
     y*: int16
@@ -1234,6 +1267,7 @@ type
 
 type
   PXkbBoundsPtr* = ptr XkbBoundsRec
+  TXkbBoundsRec* {.deprecated: "Use XkbBoundsRec instead".} = XkbBoundsRec
   XkbBoundsRec*{.final.} = object
     x1*: int16
     y1*: int16
@@ -1245,6 +1279,7 @@ proc XkbBoundsWidth*(b: PXkbBoundsPtr): int16
 proc XkbBoundsHeight*(b: PXkbBoundsPtr): int16
 type
   PXkbOutlinePtr* = ptr XkbOutlineRec
+  TXkbOutlineRec* {.deprecated: "Use XkbOutlineRec instead".} = XkbOutlineRec
   XkbOutlineRec*{.final.} = object
     num_points*: int16
     sz_points*: int16
@@ -1254,6 +1289,7 @@ type
 
 type
   PXkbShapePtr* = ptr XkbShapeRec
+  TXkbShapeRec* {.deprecated: "Use XkbShapeRec instead".} = XkbShapeRec
   XkbShapeRec*{.final.} = object
     name*: Atom
     num_outlines*: int16
@@ -1267,6 +1303,7 @@ type
 proc XkbOutlineIndex*(s: PXkbShapePtr, o: PXkbOutlinePtr): int32
 type
   PXkbShapeDoodadPtr* = ptr XkbShapeDoodadRec
+  TXkbShapeDoodadRec* {.deprecated: "Use XkbShapeDoodadRec instead".} = XkbShapeDoodadRec
   XkbShapeDoodadRec*{.final.} = object
     name*: Atom
     theType*: int8
@@ -1280,6 +1317,7 @@ type
 
 type
   PXkbTextDoodadPtr* = ptr XkbTextDoodadRec
+  TXkbTextDoodadRec* {.deprecated: "Use XkbTextDoodadRec instead".} = XkbTextDoodadRec
   XkbTextDoodadRec*{.final.} = object
     name*: Atom
     theType*: int8
@@ -1296,6 +1334,7 @@ type
 
 type
   PXkbIndicatorDoodadPtr* = ptr XkbIndicatorDoodadRec
+  TXkbIndicatorDoodadRec* {.deprecated: "Use XkbIndicatorDoodadRec instead".} = XkbIndicatorDoodadRec
   XkbIndicatorDoodadRec*{.final.} = object
     name*: Atom
     theType*: int8
@@ -1310,6 +1349,7 @@ type
 
 type
   PXkbLogoDoodadPtr* = ptr XkbLogoDoodadRec
+  TXkbLogoDoodadRec* {.deprecated: "Use XkbLogoDoodadRec instead".} = XkbLogoDoodadRec
   XkbLogoDoodadRec*{.final.} = object
     name*: Atom
     theType*: int8
@@ -1324,6 +1364,7 @@ type
 
 type
   PXkbAnyDoodadPtr* = ptr XkbAnyDoodadRec
+  TXkbAnyDoodadRec* {.deprecated: "Use XkbAnyDoodadRec instead".} = XkbAnyDoodadRec
   XkbAnyDoodadRec*{.final.} = object
     name*: Atom
     theType*: int8
@@ -1335,6 +1376,7 @@ type
 
 type
   PXkbDoodadPtr* = ptr XkbDoodadRec
+  TXkbDoodadRec* {.deprecated: "Use XkbDoodadRec instead".} = XkbDoodadRec
   XkbDoodadRec*{.final.} = object
     any*: XkbAnyDoodadRec
     shape*: XkbShapeDoodadRec
@@ -1353,6 +1395,7 @@ const
 
 type
   PXkbKeyPtr* = ptr XkbKeyRec
+  TXkbKeyRec* {.deprecated: "Use XkbKeyRec instead".} = XkbKeyRec
   XkbKeyRec*{.final.} = object
     name*: XkbKeyNameRec
     gap*: int16
@@ -1362,6 +1405,7 @@ type
 
 type
   PXkbRowPtr* = ptr XkbRowRec
+  TXkbRowRec* {.deprecated: "Use XkbRowRec instead".} = XkbRowRec
   XkbRowRec*{.final.} = object
     top*: int16
     left*: int16
@@ -1376,6 +1420,7 @@ type
   PXkbOverlayPtr* = ptr XkbOverlayRec #forward for XkbSectionRec use.
                                        #Do not add more "type"
   PXkbSectionPtr* = ptr XkbSectionRec
+  TXkbSectionRec* {.deprecated: "Use XkbSectionRec instead".} = XkbSectionRec
   XkbSectionRec*{.final.} = object  #Do not add more "type"
     name*: Atom
     priority*: int8
@@ -1393,17 +1438,20 @@ type
     overlays*: PXkbOverlayPtr
 
   PXkbOverlayKeyPtr* = ptr XkbOverlayKeyRec
+  TXkbOverlayKeyRec* {.deprecated: "Use XkbOverlayKeyRec instead".} = XkbOverlayKeyRec
   XkbOverlayKeyRec*{.final.} = object  #Do not add more "type"
     over*: XkbKeyNameRec
     under*: XkbKeyNameRec
 
   PXkbOverlayRowPtr* = ptr XkbOverlayRowRec
+  TXkbOverlayRowRec* {.deprecated: "Use XkbOverlayRowRec instead".} = XkbOverlayRowRec
   XkbOverlayRowRec*{.final.} = object  #Do not add more "type"
     row_under*: int16
     num_keys*: int16
     sz_keys*: int16
     keys*: PXkbOverlayKeyPtr
 
+  TXkbOverlayRec* {.deprecated: "Use XkbOverlayRec instead".} = XkbOverlayRec
   XkbOverlayRec*{.final.} = object
     name*: Atom
     section_under*: PXkbSectionPtr
@@ -1416,6 +1464,7 @@ type
 type
   PXkbGeometryRec* = ptr XkbGeometryRec
   PXkbGeometryPtr* = PXkbGeometryRec
+  TXkbGeometryRec* {.deprecated: "Use XkbGeometryRec instead".} = XkbGeometryRec
   XkbGeometryRec*{.final.} = object
     name*: Atom
     width_mm*: int16
@@ -1453,7 +1502,8 @@ const
 
 type
   PXkbGeometrySizesPtr* = ptr XkbGeometrySizesRec
-  XkbGeometrySizesRec*{.final.} = object  #
+  TXkbGeometrySizesRec* {.deprecated: "Use XkbGeometrySizesRec instead".} = XkbGeometrySizesRec
+  XkbGeometrySizesRec*{.final.} = object   #
                                            #          Tie it all together into one big keyboard description
                                            #
     which*: int16
@@ -1467,6 +1517,7 @@ type
 
 type
   PXkbDescPtr* = ptr XkbDescRec
+  TXkbDescRec* {.deprecated: "Use XkbDescRec instead".} = XkbDescRec
   XkbDescRec*{.final.} = object
     dpy*: PDisplay
     flags*: int16
@@ -1504,6 +1555,7 @@ proc XkbNumKeys*(d: PXkbDescPtr): int8
   #
 type
   PXkbMapChangesPtr* = ptr XkbMapChangesRec
+  TXkbMapChangesRec* {.deprecated: "Use XkbMapChangesRec instead".} = XkbMapChangesRec
   XkbMapChangesRec*{.final.} = object
     changed*: int16
     min_key_code*: KeyCode
@@ -1528,6 +1580,7 @@ type
 
 type
   PXkbControlsChangesPtr* = ptr XkbControlsChangesRec
+  TXkbControlsChangesRec* {.deprecated: "Use XkbControlsChangesRec instead".} = XkbControlsChangesRec
   XkbControlsChangesRec*{.final.} = object
     changed_ctrls*: int16
     enabled_ctrls_changes*: int16
@@ -1536,6 +1589,7 @@ type
 
 type
   PXkbIndicatorChangesPtr* = ptr XkbIndicatorChangesRec
+  TXkbIndicatorChangesRec* {.deprecated: "Use XkbIndicatorChangesRec instead".} = XkbIndicatorChangesRec
   XkbIndicatorChangesRec*{.final.} = object
     state_changes*: int16
     map_changes*: int16
@@ -1543,6 +1597,7 @@ type
 
 type
   PXkbNameChangesPtr* = ptr XkbNameChangesRec
+  TXkbNameChangesRec* {.deprecated: "Use XkbNameChangesRec instead".} = XkbNameChangesRec
   XkbNameChangesRec*{.final.} = object
     changed*: int16
     first_type*: int8
@@ -1560,6 +1615,7 @@ type
 
 type
   PXkbCompatChangesPtr* = ptr XkbCompatChangesRec
+  TXkbCompatChangesRec* {.deprecated: "Use XkbCompatChangesRec instead".} = XkbCompatChangesRec
   XkbCompatChangesRec*{.final.} = object
     changed_groups*: int8
     first_si*: int16
@@ -1568,7 +1624,8 @@ type
 
 type
   PXkbChangesPtr* = ptr XkbChangesRec
-  XkbChangesRec*{.final.} = object  #
+  TXkbChangesRec* {.deprecated: "Use XkbChangesRec instead".} = XkbChangesRec
+  XkbChangesRec*{.final.} = object   #
                                      #          These data structures are used to construct a keymap from
                                      #          a set of components or to list components in the server
                                      #          database.
@@ -1584,6 +1641,7 @@ type
 
 type
   PXkbComponentNamesPtr* = ptr XkbComponentNamesRec
+  TXkbComponentNamesRec* {.deprecated: "Use XkbComponentNamesRec instead".} = XkbComponentNamesRec
   XkbComponentNamesRec*{.final.} = object
     keymap*: ptr int16
     keycodes*: ptr int16
@@ -1595,6 +1653,7 @@ type
 
 type
   PXkbComponentNamePtr* = ptr XkbComponentNameRec
+  TXkbComponentNameRec* {.deprecated: "Use XkbComponentNameRec instead".} = XkbComponentNameRec
   XkbComponentNameRec*{.final.} = object
     flags*: int16
     name*: cstring
@@ -1602,7 +1661,8 @@ type
 
 type
   PXkbComponentListPtr* = ptr XkbComponentListRec
-  XkbComponentListRec*{.final.} = object  #
+  TXkbComponentListRec* {.deprecated: "Use XkbComponentListRec instead".} = XkbComponentListRec
+  XkbComponentListRec*{.final.} = object   #
                                            #          The following data structures describe and track changes to a
                                            #          non-keyboard extension device
                                            #
@@ -1622,6 +1682,7 @@ type
 
 type
   PXkbDeviceLedInfoPtr* = ptr XkbDeviceLedInfoRec
+  TXkbDeviceLedInfoRec* {.deprecated: "Use XkbDeviceLedInfoRec instead".} = XkbDeviceLedInfoRec
   XkbDeviceLedInfoRec*{.final.} = object
     led_class*: int16
     led_id*: int16
@@ -1635,6 +1696,7 @@ type
 
 type
   PXkbDeviceInfoPtr* = ptr XkbDeviceInfoRec
+  TXkbDeviceInfoRec* {.deprecated: "Use XkbDeviceInfoRec instead".} = XkbDeviceInfoRec
   XkbDeviceInfoRec*{.final.} = object
     name*: cstring
     theType*: Atom
@@ -1665,6 +1727,7 @@ type
 
 type
   PXkbDeviceChangesPtr* = ptr XkbDeviceChangesRec
+  TXkbDeviceChangesRec* {.deprecated: "Use XkbDeviceChangesRec instead".} = XkbDeviceChangesRec
   XkbDeviceChangesRec*{.final.} = object
     changed*: int16
     first_btn*: int16

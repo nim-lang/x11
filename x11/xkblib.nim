@@ -58,6 +58,7 @@ include "x11pragma.nim"
 
 type
   PXkbAnyEvent* = ptr XkbAnyEvent
+  TXkbAnyEvent* {.deprecated: "Use XkbAnyEvent instead".} = XkbAnyEvent
   XkbAnyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # # of last req processed by server
@@ -70,6 +71,7 @@ type
 
 type
   PXkbNewKeyboardNotifyEvent* = ptr XkbNewKeyboardNotifyEvent
+  TXkbNewKeyboardNotifyEvent* {.deprecated: "Use XkbNewKeyboardNotifyEvent instead".} = XkbNewKeyboardNotifyEvent
   XkbNewKeyboardNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -90,6 +92,7 @@ type
 
 type
   PXkbMapNotifyEvent* = ptr XkbMapNotifyEvent
+  TXkbMapNotifyEvent* {.deprecated: "Use XkbMapNotifyEvent instead".} = XkbMapNotifyEvent
   XkbMapNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -121,6 +124,7 @@ type
 
 type
   PXkbStateNotifyEvent* = ptr XkbStateNotifyEvent
+  TXkbStateNotifyEvent* {.deprecated: "Use XkbStateNotifyEvent instead".} = XkbStateNotifyEvent
   XkbStateNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # # of last req processed by server
@@ -152,6 +156,7 @@ type
 
 type
   PXkbControlsNotifyEvent* = ptr XkbControlsNotifyEvent
+  TXkbControlsNotifyEvent* {.deprecated: "Use XkbControlsNotifyEvent instead".} = XkbControlsNotifyEvent
   XkbControlsNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -172,6 +177,7 @@ type
 
 type
   PXkbIndicatorNotifyEvent* = ptr XkbIndicatorNotifyEvent
+  TXkbIndicatorNotifyEvent* {.deprecated: "Use XkbIndicatorNotifyEvent instead".} = XkbIndicatorNotifyEvent
   XkbIndicatorNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -186,6 +192,7 @@ type
 
 type
   PXkbNamesNotifyEvent* = ptr XkbNamesNotifyEvent
+  TXkbNamesNotifyEvent* {.deprecated: "Use XkbNamesNotifyEvent instead".} = XkbNamesNotifyEvent
   XkbNamesNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -210,6 +217,7 @@ type
 
 type
   PXkbCompatMapNotifyEvent* = ptr XkbCompatMapNotifyEvent
+  TXkbCompatMapNotifyEvent* {.deprecated: "Use XkbCompatMapNotifyEvent instead".} = XkbCompatMapNotifyEvent
   XkbCompatMapNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -226,6 +234,7 @@ type
 
 type
   PXkbBellNotifyEvent* = ptr XkbBellNotifyEvent
+  TXkbBellNotifyEvent* {.deprecated: "Use XkbBellNotifyEvent instead".} = XkbBellNotifyEvent
   XkbBellNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -246,6 +255,7 @@ type
 
 type
   PXkbActionMessageEvent* = ptr XkbActionMessageEvent
+  TXkbActionMessageEvent* {.deprecated: "Use XkbActionMessageEvent instead".} = XkbActionMessageEvent
   XkbActionMessageEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -264,6 +274,7 @@ type
 
 type
   PXkbAccessXNotifyEvent* = ptr XkbAccessXNotifyEvent
+  TXkbAccessXNotifyEvent* {.deprecated: "Use XkbAccessXNotifyEvent instead".} = XkbAccessXNotifyEvent
   XkbAccessXNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -280,6 +291,7 @@ type
 
 type
   PXkbExtensionDeviceNotifyEvent* = ptr XkbExtensionDeviceNotifyEvent
+  TXkbExtensionDeviceNotifyEvent* {.deprecated: "Use XkbExtensionDeviceNotifyEvent instead".} = XkbExtensionDeviceNotifyEvent
   XkbExtensionDeviceNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -302,6 +314,7 @@ type
 
 type
   PXkbEvent* = ptr XkbEvent
+  TXkbEvent* {.deprecated: "Use XkbEvent instead".} = XkbEvent
   XkbEvent*{.final.} = object
     theType*: int16
     any*: XkbAnyEvent
@@ -321,6 +334,7 @@ type
 
 type
   PXkbKbdDpyStatePtr* = ptr XkbKbdDpyStateRec
+  TXkbKbdDpyStateRec* {.deprecated: "Use XkbKbdDpyStateRec instead".} = XkbKbdDpyStateRec
   XkbKbdDpyStateRec*{.final.} = object  # XkbOpenDisplay error codes
 
 const

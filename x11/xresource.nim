@@ -17,15 +17,21 @@ import
 #
 
 proc Xpermalloc*(para1: int32): cstring{.cdecl, dynlib: libX11, importc.}
+
 type
   PXrmQuark* = ptr XrmQuark
+  TXrmQuark* {.deprecated: "Use XrmQuark instead".} = XrmQuark
   XrmQuark* = int32
+
+  TXrmQuarkList* {.deprecated: "Use XrmQuarkList instead".} = XrmQuarkList
   XrmQuarkList* = PXrmQuark
   PXrmQuarkList* = ptr XrmQuarkList
 
 proc NULLQUARK*(): XrmQuark
+
 type
   PXrmString* = ptr XrmString
+  TXrmString* {.deprecated: "Use XrmString instead".} = XrmString
   XrmString* = ptr char
 
 proc NULLSTRING*(): XrmString
@@ -38,10 +44,14 @@ proc XrmQuarkToString*(para1: XrmQuark): XrmString{.cdecl, dynlib: libX11,
 proc XrmUniqueQuark*(): XrmQuark{.cdecl, dynlib: libX11, importc.}
 #when defined(MACROS):
 proc XrmStringsEqual*(a1, a2: cstring): bool
+
 type
   PXrmBinding* = ptr XrmBinding
+  TXrmBinding* {.deprecated: "Use XrmBinding instead".} = XrmBinding
   XrmBinding* = enum
     XrmBindTightly, XrmBindLoosely
+
+  TXrmBindingList* {.deprecated: "Use XrmBindingList instead".} = XrmBindingList
   XrmBindingList* = PXrmBinding
   PXrmBindingList* = ptr XrmBindingList
 
@@ -50,49 +60,70 @@ proc XrmStringToQuarkList*(para1: cstring, para2: XrmQuarkList){.cdecl,
 proc XrmStringToBindingQuarkList*(para1: cstring, para2: XrmBindingList,
                                   para3: XrmQuarkList){.cdecl, dynlib: libX11,
     importc.}
+
 type
   PXrmName* = ptr XrmName
+  TXrmName* {.deprecated: "Use XrmName instead".} = XrmName
   XrmName* = XrmQuark
+
   PXrmNameList* = ptr XrmNameList
+  TXrmNameList* {.deprecated: "Use XrmNameList instead".} = XrmNameList
   XrmNameList* = XrmQuarkList
 
 #when defined(MACROS):
 proc XrmNameToString*(name: int32): XrmString
 proc XrmStringToName*(str: cstring): int32
 proc XrmStringToNameList*(str: cstring, name: PXrmQuark)
+
 type
   PXrmClass* = ptr XrmClass
+  TXrmClass* {.deprecated: "Use XrmClass instead".} = XrmClass
   XrmClass* = XrmQuark
+
   PXrmClassList* = ptr XrmClassList
+  TXrmClassList* {.deprecated: "Use XrmClassList instead".} = XrmClassList
   XrmClassList* = XrmQuarkList
 
 #when defined(MACROS):
 proc XrmClassToString*(c_class: int32): XrmString
 proc XrmStringToClass*(c_class: cstring): int32
 proc XrmStringToClassList*(str: cstring, c_class: PXrmQuark)
+
 type
   PXrmRepresentation* = ptr XrmRepresentation
+  TXrmRepresentation* {.deprecated: "Use XrmRepresentation instead".} = XrmRepresentation
   XrmRepresentation* = XrmQuark
 
 #when defined(MACROS):
 proc XrmStringToRepresentation*(str: cstring): int32
 proc XrmRepresentationToString*(thetype: int32): XrmString
+
 type
   PXrmValue* = ptr XrmValue
+  TXrmValue* {.deprecated: "Use XrmValue instead".} = XrmValue
   XrmValue*{.final.} = object
     size*: int32
     address*: XPointer
 
-  XrmValuePtr* = PXrmValue
   PXrmValuePtr* = ptr XrmValuePtr
+  TXrmValuePtr* {.deprecated: "Use XrmValuePtr instead".} = XrmValuePtr
+  XrmValuePtr* = PXrmValue
+
   PXrmHashBucketRec* = ptr XrmHashBucketRec
+  TXrmHashBucketRec* {.deprecated: "Use XrmHashBucketRec instead".} = XrmHashBucketRec
   XrmHashBucketRec*{.final.} = object
-  XrmHashBucket* = PXrmHashBucketRec
+
   PXrmHashBucket* = ptr XrmHashBucket
+  TXrmHashBucket* {.deprecated: "Use XrmHashBucket instead".} = XrmHashBucket
+  XrmHashBucket* = PXrmHashBucketRec
+
   PXrmHashTable* = ptr XrmHashTable
+  TXrmHashTable* {.deprecated: "Use XrmHashTable instead".} = XrmHashTable
   XrmHashTable* = ptr XrmHashBucket
-  XrmDatabase* = PXrmHashBucketRec
+
   PXrmDatabase* = ptr XrmDatabase
+  TXrmDatabase* {.deprecated: "Use XrmDatabase instead".} = XrmDatabase
+  XrmDatabase* = PXrmHashBucketRec
 
 proc XrmDestroyDatabase*(para1: XrmDatabase){.cdecl, dynlib: libX11, importc.}
 proc XrmQPutResource*(para1: PXrmDatabase, para2: XrmBindingList,
@@ -145,12 +176,16 @@ proc XrmEnumerateDatabase*(para1: XrmDatabase, para2: XrmNameList,
     importc.}
 proc XrmLocaleOfDatabase*(para1: XrmDatabase): cstring{.cdecl, dynlib: libX11,
     importc.}
+
 type
   PXrmOptionKind* = ptr XrmOptionKind
+  TXrmOptionKind* {.deprecated: "Use XrmOptionKind instead".} = XrmOptionKind
   XrmOptionKind* = enum
     XrmoptionNoArg, XrmoptionIsArg, XrmoptionStickyArg, XrmoptionSepArg,
     XrmoptionResArg, XrmoptionSkipArg, XrmoptionSkipLine, XrmoptionSkipNArgs
+
   PXrmOptionDescRec* = ptr XrmOptionDescRec
+  TXrmOptionDescRec* {.deprecated: "Use XrmOptionDescRec instead".} = XrmOptionDescRec
   XrmOptionDescRec*{.final.} = object
     option*: cstring
     specifier*: cstring
@@ -158,6 +193,7 @@ type
     value*: XPointer
 
   XrmOptionDescList* = PXrmOptionDescRec
+  TPXrmOptionDescList* {.deprecated: "Use PXrmOptionDescList instead".} = PXrmOptionDescList
   PXrmOptionDescList* = ptr XrmOptionDescList
 
 proc XrmParseCommand*(para1: PXrmDatabase, para2: XrmOptionDescList,

@@ -124,6 +124,7 @@ template DeviceBusy*(dpy, error: untyped): untyped =
 
 type
   PXDeviceKeyEvent* = ptr XDeviceKeyEvent
+  TXDeviceKeyEvent* {.deprecated: "Use XDeviceKeyEvent instead".} = XDeviceKeyEvent
   XDeviceKeyEvent* {.final.} = object
     ##  DeviceKey events.  These events are sent by input devices that
     ##  support input class Keys.
@@ -151,12 +152,15 @@ type
     axis_data*: array[6, cint]
 
   PXDeviceKeyPressedEvent* = PXDeviceKeyEvent
+  TXDeviceKeyPressedEvent* {.deprecated: "Use XDeviceKeyPressedEvent instead".} = XDeviceKeyPressedEvent
   XDeviceKeyPressedEvent* = XDeviceKeyEvent
 
   PXDeviceKeyReleasedEvent* = PXDeviceKeyEvent
+  TXDeviceKeyReleasedEvent* {.deprecated: "Use XDeviceKeyReleasedEvent instead".} = XDeviceKeyReleasedEvent
   XDeviceKeyReleasedEvent* = XDeviceKeyEvent
 
   PXDeviceButtonEvent* = ptr XDeviceButtonEvent
+  TXDeviceButtonEvent* {.deprecated: "Use XDeviceButtonEvent instead".} = XDeviceButtonEvent
   XDeviceButtonEvent* {.final.} = object
     ##  DeviceButton events.  These events are sent by extension devices
     ##  that support input class Buttons.
@@ -182,12 +186,15 @@ type
     axis_data*: array[6, cint]
 
   PXDeviceButtonPressedEvent* = PXDeviceButtonEvent
+  TXDeviceButtonPressedEvent* {.deprecated: "Use XDeviceButtonPressedEvent instead".} = XDeviceButtonPressedEvent
   XDeviceButtonPressedEvent* = XDeviceButtonEvent
 
   PXDeviceButtonReleasedEvent* = PXDeviceButtonEvent
+  TXDeviceButtonReleasedEvent* {.deprecated: "Use XDeviceButtonReleasedEvent instead".} = XDeviceButtonReleasedEvent
   XDeviceButtonReleasedEvent* = XDeviceButtonEvent
 
   PXDeviceMotionEvent* = ptr XDeviceMotionEvent
+  TXDeviceMotionEvent* {.deprecated: "Use XDeviceMotionEvent instead".} = XDeviceMotionEvent
   XDeviceMotionEvent* {.final.} = object
     ##  DeviceMotionNotify event.  These events are sent by extension devices
     ##  that support input class Valuators.
@@ -213,6 +220,7 @@ type
     axis_data*: array[6, cint]
 
   PXDeviceFocusChangeEvent* = ptr XDeviceFocusChangeEvent
+  TXDeviceFocusChangeEvent* {.deprecated: "Use XDeviceFocusChangeEvent instead".} = XDeviceFocusChangeEvent
   XDeviceFocusChangeEvent* {.final.} = object
     ##  DeviceFocusChange events.  These events are sent when the focus
     ##  of an extension device that can be focused is changed.
@@ -231,12 +239,15 @@ type
     time*: Time
 
   PXDeviceFocusInEvent* = PXDeviceFocusChangeEvent
+  TXDeviceFocusInEvent* {.deprecated: "Use XDeviceFocusInEvent instead".} = XDeviceFocusInEvent
   XDeviceFocusInEvent* = XDeviceFocusChangeEvent
 
   PXDeviceFocusOutEvent* = PXDeviceFocusChangeEvent
+  TXDeviceFocusOutEvent* {.deprecated: "Use XDeviceFocusOutEvent instead".} = XDeviceFocusOutEvent
   XDeviceFocusOutEvent* = XDeviceFocusChangeEvent
 
   PXProximityNotifyEvent* = ptr XProximityNotifyEvent
+  TXProximityNotifyEvent* {.deprecated: "Use XProximityNotifyEvent instead".} = XProximityNotifyEvent
   XProximityNotifyEvent* {.final.} = object
     ##  ProximityNotify events.  These events are sent by those absolute
     ##  positioning devices that are capable of generating proximity information.
@@ -261,17 +272,21 @@ type
     axis_data*: array[6, cint]
 
   PXProximityInEvent* = PXProximityNotifyEvent
+  TXProximityInEvent* {.deprecated: "Use XProximityInEvent instead".} = XProximityInEvent
   XProximityInEvent* = XProximityNotifyEvent
 
   PXProximityOutEvent* = PXProximityNotifyEvent
+  TXProximityOutEvent* {.deprecated: "Use XProximityOutEvent instead".} = XProximityOutEvent
   XProximityOutEvent* = XProximityNotifyEvent
 
   PXInputClass* = ptr XInputClass
+  TXInputClass* {.deprecated: "Use XInputClass instead".} = XInputClass
   XInputClass* {.final.} = object
     class*: cuchar
     length*: cuchar
 
   PXDeviceStateNotifyEvent* = ptr XDeviceStateNotifyEvent
+  TXDeviceStateNotifyEvent* {.deprecated: "Use XDeviceStateNotifyEvent instead".} = XDeviceStateNotifyEvent
   XDeviceStateNotifyEvent* {.final.} = object
     ##  DeviceStateNotify events are generated on EnterWindow and FocusIn
     ##  for those clients who have selected DeviceState.
@@ -286,6 +301,7 @@ type
     data*: array[64, char]
 
   PXValuatorStatus* = ptr XValuatorStatus
+  TXValuatorStatus* {.deprecated: "Use XValuatorStatus instead".} = XValuatorStatus
   XValuatorStatus* {.final.} = object
     class*: cuchar
     length*: cuchar
@@ -294,6 +310,7 @@ type
     valuators*: array[6, cint]
 
   PXKeyStatus* = ptr XKeyStatus
+  TXKeyStatus* {.deprecated: "Use XKeyStatus instead".} = XKeyStatus
   XKeyStatus* {.final.} = object
     class*: cuchar
     length*: cuchar
@@ -301,6 +318,7 @@ type
     keys*: array[32, char]
 
   PXButtonStatus* = ptr XButtonStatus
+  TXButtonStatus* {.deprecated: "Use XButtonStatus instead".} = XButtonStatus
   XButtonStatus* {.final.} = object
     class*: cuchar
     length*: cuchar
@@ -308,6 +326,7 @@ type
     buttons*: array[32, char]
 
   PXDeviceMappingEvent* = ptr XDeviceMappingEvent
+  TXDeviceMappingEvent* {.deprecated: "Use XDeviceMappingEvent instead".} = XDeviceMappingEvent
   XDeviceMappingEvent* {.final.} = object
     ##  DeviceMappingNotify event.  This event is sent when the key mapping,
     ##  modifier mapping, or button mapping of an extension device is changed.
@@ -324,6 +343,7 @@ type
     count*: cint               ##  defines range of change w. first_keycode
 
   PXChangeDeviceNotifyEvent* = ptr XChangeDeviceNotifyEvent
+  TXChangeDeviceNotifyEvent* {.deprecated: "Use XChangeDeviceNotifyEvent instead".} = XChangeDeviceNotifyEvent
   XChangeDeviceNotifyEvent* {.final.} = object
     ##  ChangeDeviceNotify event.  This event is sent when an
     ##  XChangeKeyboard or XChangePointer request is made.
@@ -337,6 +357,7 @@ type
     request*: cint             ##  NewPointer or NewKeyboard
 
   PXDevicePresenceNotifyEvent* = ptr XDevicePresenceNotifyEvent
+  TXDevicePresenceNotifyEvent* {.deprecated: "Use XDevicePresenceNotifyEvent instead".} = XDevicePresenceNotifyEvent
   XDevicePresenceNotifyEvent* {.final.} = object
     ##  DevicePresenceNotify event.  This event is sent when the list of
     ##  input devices changes, in which case devchange will be false, and
@@ -358,6 +379,7 @@ type
     control*: XID
 
   PXDevicePropertyNotifyEvent* = ptr XDevicePropertyNotifyEvent
+  TXDevicePropertyNotifyEvent* {.deprecated: "Use XDevicePropertyNotifyEvent instead".} = XDevicePropertyNotifyEvent
   XDevicePropertyNotifyEvent* {.final.} = object
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
@@ -370,12 +392,14 @@ type
     state*: cint               ##  PropertyNewValue or PropertyDeleted
 
   PXFeedbackState* = ptr XFeedbackState
+  TXFeedbackState* {.deprecated: "Use XFeedbackState instead".} = XFeedbackState
   XFeedbackState* {.final.} = object
     class*: XID
     length*: cint
     id*: XID
 
   PXKbdFeedbackState* = ptr XKbdFeedbackState
+  TXKbdFeedbackState* {.deprecated: "Use XKbdFeedbackState instead".} = XKbdFeedbackState
   XKbdFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -389,6 +413,7 @@ type
     auto_repeats*: array[32, char]
 
   PXPtrFeedbackState* = ptr XPtrFeedbackState
+  TXPtrFeedbackState* {.deprecated: "Use XPtrFeedbackState instead".} = XPtrFeedbackState
   XPtrFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -398,6 +423,7 @@ type
     threshold*: cint
 
   PXIntegerFeedbackState* = ptr XIntegerFeedbackState
+  TXIntegerFeedbackState* {.deprecated: "Use XIntegerFeedbackState instead".} = XIntegerFeedbackState
   XIntegerFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -407,6 +433,7 @@ type
     maxVal*: cint
 
   PXStringFeedbackState* = ptr XStringFeedbackState
+  TXStringFeedbackState* {.deprecated: "Use XStringFeedbackState instead".} = XStringFeedbackState
   XStringFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -416,6 +443,7 @@ type
     syms_supported*: PKeySym
 
   PXBellFeedbackState* = ptr XBellFeedbackState
+  TXBellFeedbackState* {.deprecated: "Use XBellFeedbackState instead".} = XBellFeedbackState
   XBellFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -425,6 +453,7 @@ type
     duration*: cint
 
   PXLedFeedbackState* = ptr XLedFeedbackState
+  TXLedFeedbackState* {.deprecated: "Use XLedFeedbackState instead".} = XLedFeedbackState
   XLedFeedbackState* {.final.} = object
     class*: XID
     length*: cint
@@ -433,12 +462,14 @@ type
     led_mask*: cint
 
   PXFeedbackControl* = ptr XFeedbackControl
+  TXFeedbackControl* {.deprecated: "Use XFeedbackControl instead".} = XFeedbackControl
   XFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
     id*: XID
 
   PXPtrFeedbackControl* = ptr XPtrFeedbackControl
+  TXPtrFeedbackControl* {.deprecated: "Use XPtrFeedbackControl instead".} = XPtrFeedbackControl
   XPtrFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -448,6 +479,7 @@ type
     threshold*: cint
 
   PXKbdFeedbackControl* = ptr XKbdFeedbackControl
+  TXKbdFeedbackControl* {.deprecated: "Use XKbdFeedbackControl instead".} = XKbdFeedbackControl
   XKbdFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -462,6 +494,7 @@ type
     auto_repeat_mode*: cint
 
   PXStringFeedbackControl* = ptr XStringFeedbackControl
+  TXStringFeedbackControl* {.deprecated: "Use XStringFeedbackControl instead".} = XStringFeedbackControl
   XStringFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -470,6 +503,7 @@ type
     syms_to_display*: PKeySym
 
   PXIntegerFeedbackControl* = ptr XIntegerFeedbackControl
+  TXIntegerFeedbackControl* {.deprecated: "Use XIntegerFeedbackControl instead".} = XIntegerFeedbackControl
   XIntegerFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -477,6 +511,7 @@ type
     int_to_display*: cint
 
   PXBellFeedbackControl* = ptr XBellFeedbackControl
+  TXBellFeedbackControl* {.deprecated: "Use XBellFeedbackControl instead".} = XBellFeedbackControl
   XBellFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -486,6 +521,7 @@ type
     duration*: cint
 
   PXLedFeedbackControl* = ptr XLedFeedbackControl
+  TXLedFeedbackControl* {.deprecated: "Use XLedFeedbackControl instead".} = XLedFeedbackControl
   XLedFeedbackControl* {.final.} = object
     class*: XID
     length*: cint
@@ -494,11 +530,13 @@ type
     led_values*: cint
 
   PXDeviceControl* = ptr XDeviceControl
+  TXDeviceControl* {.deprecated: "Use XDeviceControl instead".} = XDeviceControl
   XDeviceControl* {.final.} = object
     control*: XID
     length*: cint
 
   PXDeviceResolutionControl* = ptr XDeviceResolutionControl
+  TXDeviceResolutionControl* {.deprecated: "Use XDeviceResolutionControl instead".} = XDeviceResolutionControl
   XDeviceResolutionControl* {.final.} = object
     control*: XID
     length*: cint
@@ -507,6 +545,7 @@ type
     resolutions*: ptr cint
 
   PXDeviceResolutionState* = ptr XDeviceResolutionState
+  TXDeviceResolutionState* {.deprecated: "Use XDeviceResolutionState instead".} = XDeviceResolutionState
   XDeviceResolutionState* {.final.} = object
     control*: XID
     length*: cint
@@ -516,6 +555,7 @@ type
     max_resolutions*: ptr cint
 
   PXDeviceAbsCalibControl* = ptr XDeviceAbsCalibControl
+  TXDeviceAbsCalibControl* {.deprecated: "Use XDeviceAbsCalibControl instead".} = XDeviceAbsCalibControl
   XDeviceAbsCalibControl* {.final.} = object
     control*: XID
     length*: cint
@@ -529,9 +569,11 @@ type
     button_threshold*: cint
 
   PXDeviceAbsCalibState* = PXDeviceAbsCalibControl
+  TXDeviceAbsCalibState* {.deprecated: "Use XDeviceAbsCalibState instead".} = XDeviceAbsCalibState
   XDeviceAbsCalibState* = XDeviceAbsCalibControl
 
   PXDeviceAbsAreaControl* = ptr XDeviceAbsAreaControl
+  TXDeviceAbsAreaControl* {.deprecated: "Use XDeviceAbsAreaControl instead".} = XDeviceAbsAreaControl
   XDeviceAbsAreaControl* {.final.} = object
     control*: XID
     length*: cint
@@ -543,15 +585,18 @@ type
     following*: XID
 
   PXDeviceAbsAreaState* = PXDeviceAbsAreaControl
+  TXDeviceAbsAreaState* {.deprecated: "Use XDeviceAbsAreaState instead".} = XDeviceAbsAreaState
   XDeviceAbsAreaState* = XDeviceAbsAreaControl
 
   PXDeviceCoreControl* = ptr XDeviceCoreControl
+  TXDeviceCoreControl* {.deprecated: "Use XDeviceCoreControl instead".} = XDeviceCoreControl
   XDeviceCoreControl* {.final.} = object
     control*: XID
     length*: cint
     status*: cint
 
   PXDeviceCoreState* = ptr XDeviceCoreState
+  TXDeviceCoreState* {.deprecated: "Use XDeviceCoreState instead".} = XDeviceCoreState
   XDeviceCoreState* {.final.} = object
     control*: XID
     length*: cint
@@ -559,20 +604,24 @@ type
     iscore*: cint
 
   PXDeviceEnableControl* = ptr XDeviceEnableControl
+  TXDeviceEnableControl* {.deprecated: "Use XDeviceEnableControl instead".} = XDeviceEnableControl
   XDeviceEnableControl* {.final.} = object
     control*: XID
     length*: cint
     enable*: cint
 
   PXDeviceEnableState* = PXDeviceEnableControl
+  TXDeviceEnableState* {.deprecated: "Use XDeviceEnableState instead".} = XDeviceEnableState
   XDeviceEnableState* = XDeviceEnableControl
 
   PXAnyClassInfo* = ptr XAnyClassInfo
+  TXAnyClassInfo* {.deprecated: "Use XAnyClassInfo instead".} = XAnyClassInfo
   XAnyClassInfo* {.final.} = object
     class*: XID
     length*: cint
 
   PXDeviceInfo* = ptr XDeviceInfo
+  TXDeviceInfo* {.deprecated: "Use XDeviceInfo instead".} = XDeviceInfo
   XDeviceInfo* {.final.} = object
     id*: XID
     `type`*: Atom
@@ -582,6 +631,7 @@ type
     inputclassinfo*: PXAnyClassInfo
 
   PXKeyInfo* = ptr XKeyInfo
+  TXKeyInfo* {.deprecated: "Use XKeyInfo instead".} = XKeyInfo
   XKeyInfo* {.final.} = object
     class*: XID
     length*: cint
@@ -590,18 +640,21 @@ type
     num_keys*: cushort
 
   PXButtonInfo* = ptr XButtonInfo
+  TXButtonInfo* {.deprecated: "Use XButtonInfo instead".} = XButtonInfo
   XButtonInfo* {.final.} = object
     class*: XID
     length*: cint
     num_buttons*: cshort
 
   PXAxisInfo* = ptr XAxisInfo
+  TXAxisInfo* {.deprecated: "Use XAxisInfo instead".} = XAxisInfo
   XAxisInfo* {.final.} = object
     resolution*: cint
     min_value*: cint
     max_value*: cint
 
   PXValuatorInfo* = ptr XValuatorInfo
+  TXValuatorInfo* {.deprecated: "Use XValuatorInfo instead".} = XValuatorInfo
   XValuatorInfo* {.final.} = object
     class*: XID
     length*: cint
@@ -611,33 +664,39 @@ type
     axes*: PXAxisInfo
 
   PXInputClassInfo* = ptr XInputClassInfo
+  TXInputClassInfo* {.deprecated: "Use XInputClassInfo instead".} = XInputClassInfo
   XInputClassInfo* {.final.} = object
     input_class*: cuchar
     event_type_base*: cuchar
 
   PXDevice* = ptr XDevice
+  TXDevice* {.deprecated: "Use XDevice instead".} = XDevice
   XDevice* {.final.} = object
     device_id*: XID
     num_classes*: cint
     classes*: PXInputClassInfo
 
   PXEventList* = ptr XEventList
+  TXEventList* {.deprecated: "Use XEventList instead".} = XEventList
   XEventList* {.final.} = object
     event_type*: XEventClass
     device*: XID
 
   PXDeviceTimeCoord* = ptr XDeviceTimeCoord
+  TXDeviceTimeCoord* {.deprecated: "Use XDeviceTimeCoord instead".} = XDeviceTimeCoord
   XDeviceTimeCoord* {.final.} = object
     time*: Time
     data*: ptr cint
 
   PXDeviceState* = ptr XDeviceState
+  TXDeviceState* {.deprecated: "Use XDeviceState instead".} = XDeviceState
   XDeviceState* {.final.} = object
     device_id*: XID
     num_classes*: cint
     data*: PXInputClass
 
   PXValuatorState* = ptr XValuatorState
+  TXValuatorState* {.deprecated: "Use XValuatorState instead".} = XValuatorState
   XValuatorState* {.final.} = object
     class*: cuchar
     length*: cuchar
@@ -646,6 +705,7 @@ type
     valuators*: ptr cint
 
   PXKeyState* = ptr XKeyState
+  TXKeyState* {.deprecated: "Use XKeyState instead".} = XKeyState
   XKeyState* {.final.} = object
     class*: cuchar
     length*: cuchar
@@ -653,6 +713,7 @@ type
     keys*: array[32, char]
 
   PXButtonState* = ptr XButtonState
+  TXButtonState* {.deprecated: "Use XButtonState instead".} = XButtonState
   XButtonState* {.final.} = object
     class*: cuchar
     length*: cuchar

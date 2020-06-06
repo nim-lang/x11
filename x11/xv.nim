@@ -32,7 +32,10 @@ const
   XvRevision* = 2             # Symbols
 
 type
+  TXvPortID* {.deprecated: "Use XvPortID instead".} = XvPortID
   XvPortID* = XID
+
+  TXvEncodingID* {.deprecated: "Use XvEncodingID instead".} = XvEncodingID
   XvEncodingID* = XID
 
 const

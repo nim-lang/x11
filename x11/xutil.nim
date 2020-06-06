@@ -27,11 +27,13 @@ const
   YNegative* = 0x00000020
 
 type
+  TCPoint* {.deprecated: "Use CPoint instead".} = CPoint
   CPoint*{.final.} = object
     x*: cint
     y*: cint
 
   PXSizeHints* = ptr XSizeHints
+  TXSizeHints* {.deprecated: "Use XSizeHints instead".} = XSizeHints
   XSizeHints*{.final.} = object
     flags*: clong
     x*, y*: cint
@@ -60,6 +62,7 @@ const
 
 type
   PXWMHints* = ptr XWMHints
+  TXWMHints* {.deprecated: "Use XWMHints instead".} = XWMHints
   XWMHints*{.final.} = object
     flags*: clong
     input*: Bool
@@ -91,6 +94,7 @@ const
 
 type
   PXTextProperty* = ptr XTextProperty
+  TXTextProperty* {.deprecated: "Use XTextProperty instead".} = XTextProperty
   XTextProperty*{.final.} = object
     value*: Pcuchar
     encoding*: Atom
@@ -105,17 +109,21 @@ const
 
 type
   PXICCEncodingStyle* = ptr XICCEncodingStyle
+  TXICCEncodingStyle* {.deprecated: "Use XICCEncodingStyle instead".} = XICCEncodingStyle
   XICCEncodingStyle* = enum
     XStringStyle, XCompoundTextStyle, XTextStyle, XStdICCTextStyle,
     XUTF8StringStyle
+
   PPXIconSize* = ptr PXIconSize
   PXIconSize* = ptr XIconSize
+  TXIconSize* {.deprecated: "Use XIconSize instead".} = XIconSize
   XIconSize*{.final.} = object
     min_width*, min_height*: cint
     max_width*, max_height*: cint
     width_inc*, height_inc*: cint
 
   PXClassHint* = ptr XClassHint
+  TXClassHint* {.deprecated: "Use XClassHint instead".} = XClassHint
   XClassHint*{.final.} = object
     res_name*: cstring
     res_class*: cstring
@@ -123,6 +131,7 @@ type
 
 type
   PXComposeStatus* = ptr XComposeStatus
+  TXComposeStatus* {.deprecated: "Use XComposeStatus instead".} = XComposeStatus
   XComposeStatus*{.final.} = object
     compose_ptr*: XPointer
     chars_matched*: cint
@@ -130,9 +139,12 @@ type
 
 type
   PXRegion* = ptr XRegion
+  TXRegion* {.deprecated: "Use XRegion instead".} = XRegion
   XRegion*{.final.} = object
-  Region* = PXRegion
+
   PRegion* = ptr Region
+  TRegion* {.deprecated: "Use Region instead".} = Region
+  Region* = PXRegion
 
 const
   RectangleOut* = 0
@@ -141,6 +153,7 @@ const
 
 type
   PXVisualInfo* = ptr XVisualInfo
+  TXVisualInfo* {.deprecated: "Use XVisualInfo instead".} = XVisualInfo
   XVisualInfo*{.final.} = object
     visual*: PVisual
     visualid*: VisualID
@@ -170,6 +183,7 @@ const
 type
   PPXStandardColormap* = ptr PXStandardColormap
   PXStandardColormap* = ptr XStandardColormap
+  TXStandardColormap* {.deprecated: "Use XStandardColormap instead".} = XStandardColormap
   XStandardColormap*{.final.} = object
     colormap*: Colormap
     red_max*: culong
@@ -195,6 +209,7 @@ const
 
 type
   PXContext* = ptr XContext
+  TXContext* {.deprecated: "Use XContext instead".} = XContext
   XContext* = cint
 
 proc XAllocClassHint*(): PXClassHint{.cdecl, dynlib: libX11, importc.}

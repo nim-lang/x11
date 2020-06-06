@@ -30,8 +30,11 @@ const
 
 type
   PShmSeg* = ptr ShmSeg
+  TShmSeg* {.deprecated: "Use ShmSeg instead".} = ShmSeg
   ShmSeg* = culong
+
   PXShmCompletionEvent* = ptr XShmCompletionEvent
+  TXShmCompletionEvent* {.deprecated: "Use XShmCompletionEvent instead".} = XShmCompletionEvent
   XShmCompletionEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -44,6 +47,7 @@ type
     offset*: culong
 
   PXShmSegmentInfo* = ptr XShmSegmentInfo
+  TXShmSegmentInfo* {.deprecated: "Use XShmSegmentInfo instead".} = XShmSegmentInfo
   XShmSegmentInfo*{.final.} = object
     shmseg*: ShmSeg
     shmid*: cint
