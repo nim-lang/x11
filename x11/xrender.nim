@@ -33,14 +33,14 @@ else:
 #
 
 type
-  PGlyph* = ptr TGlyph
-  TGlyph* = int32
-  PGlyphSet* = ptr TGlyphSet
-  TGlyphSet* = int32
-  PPicture* = ptr TPicture
-  TPicture* = int32
-  PPictFormat* = ptr TPictFormat
-  TPictFormat* = int32
+  PGlyph* = ptr Glyph
+  Glyph* = int32
+  PGlyphSet* = ptr GlyphSet
+  GlyphSet* = int32
+  PPicture* = ptr Picture
+  Picture* = int32
+  PPictFormat* = ptr PictFormat
+  PictFormat* = int32
 
 const
   RENDER_NAME* = "RENDER"
@@ -114,8 +114,8 @@ const
   CPLastBit* = 11
 
 type
-  PXRenderDirectFormat* = ptr TXRenderDirectFormat
-  TXRenderDirectFormat*{.final.} = object
+  PXRenderDirectFormat* = ptr XRenderDirectFormat
+  XRenderDirectFormat*{.final.} = object
     red*: int16
     redMask*: int16
     green*: int16
@@ -125,14 +125,13 @@ type
     alpha*: int16
     alphaMask*: int16
 
-  PXRenderPictFormat* = ptr TXRenderPictFormat
-  TXRenderPictFormat*{.final.} = object
-    id*: TPictFormat
+  PXRenderPictFormat* = ptr XRenderPictFormat
+  XRenderPictFormat*{.final.} = object
+    id*: PictFormat
     thetype*: int32
     depth*: int32
-    direct*: TXRenderDirectFormat
-    colormap*: TColormap
-
+    direct*: XRenderDirectFormat
+    colormap*: Colormap
 
 const
   PictFormatID* = 1 shl 0
@@ -149,25 +148,25 @@ const
   PictFormatColormap* = 1 shl 11
 
 type
-  PXRenderVisual* = ptr TXRenderVisual
-  TXRenderVisual*{.final.} = object
+  PXRenderVisual* = ptr XRenderVisual
+  XRenderVisual*{.final.} = object
     visual*: PVisual
     format*: PXRenderPictFormat
 
-  PXRenderDepth* = ptr TXRenderDepth
-  TXRenderDepth*{.final.} = object
+  PXRenderDepth* = ptr XRenderDepth
+  XRenderDepth*{.final.} = object
     depth*: int32
     nvisuals*: int32
     visuals*: PXRenderVisual
 
-  PXRenderScreen* = ptr TXRenderScreen
-  TXRenderScreen*{.final.} = object
+  PXRenderScreen* = ptr XRenderScreen
+  XRenderScreen*{.final.} = object
     depths*: PXRenderDepth
     ndepths*: int32
     fallback*: PXRenderPictFormat
 
-  PXRenderInfo* = ptr TXRenderInfo
-  TXRenderInfo*{.final.} = object
+  PXRenderInfo* = ptr XRenderInfo
+  XRenderInfo*{.final.} = object
     format*: PXRenderPictFormat
     nformat*: int32
     screen*: PXRenderScreen
@@ -177,23 +176,23 @@ type
     visual*: PXRenderVisual
     nvisual*: int32
 
-  PXRenderPictureAttributes* = ptr TXRenderPictureAttributes
-  TXRenderPictureAttributes*{.final.} = object
-    repeat*: TBool
-    alpha_map*: TPicture
+  PXRenderPictureAttributes* = ptr XRenderPictureAttributes
+  XRenderPictureAttributes*{.final.} = object
+    repeat*: Bool
+    alpha_map*: Picture
     alpha_x_origin*: int32
     alpha_y_origin*: int32
     clip_x_origin*: int32
     clip_y_origin*: int32
-    clip_mask*: TPixmap
-    graphics_exposures*: TBool
+    clip_mask*: Pixmap
+    graphics_exposures*: Bool
     subwindow_mode*: int32
     poly_edge*: int32
     poly_mode*: int32
-    dither*: TAtom
+    dither*: Atom
 
-  PXGlyphInfo* = ptr TXGlyphInfo
-  TXGlyphInfo*{.final.} = object
+  PXGlyphInfo* = ptr XGlyphInfo
+  XGlyphInfo*{.final.} = object
     width*: int16
     height*: int16
     x*: int16
@@ -203,39 +202,39 @@ type
 
 
 proc XRenderQueryExtension*(dpy: PDisplay, event_basep: ptr int32,
-                            error_basep: ptr int32): TBool{.libxrender.}
+                            error_basep: ptr int32): Bool{.libxrender.}
 proc XRenderQueryVersion*(dpy: PDisplay, major_versionp: ptr int32,
-                          minor_versionp: ptr int32): TStatus{.libxrender.}
-proc XRenderQueryFormats*(dpy: PDisplay): TStatus{.libxrender.}
+                          minor_versionp: ptr int32): Status{.libxrender.}
+proc XRenderQueryFormats*(dpy: PDisplay): Status{.libxrender.}
 proc XRenderFindVisualFormat*(dpy: PDisplay, visual: PVisual): PXRenderPictFormat{.
     libxrender.}
 proc XRenderFindFormat*(dpy: PDisplay, mask: int32,
                         `template`: PXRenderPictFormat, count: int32): PXRenderPictFormat{.
     libxrender.}
-proc XRenderCreatePicture*(dpy: PDisplay, drawable: TDrawable,
+proc XRenderCreatePicture*(dpy: PDisplay, drawable: Drawable,
                            format: PXRenderPictFormat, valuemask: int32,
-                           attributes: PXRenderPictureAttributes): TPicture{.
+                           attributes: PXRenderPictureAttributes): Picture{.
     libxrender.}
-proc XRenderChangePicture*(dpy: PDisplay, picture: TPicture, valuemask: int32,
+proc XRenderChangePicture*(dpy: PDisplay, picture: Picture, valuemask: int32,
                            attributes: PXRenderPictureAttributes){.libxrender.}
-proc XRenderFreePicture*(dpy: PDisplay, picture: TPicture){.libxrender.}
-proc XRenderComposite*(dpy: PDisplay, op: int32, src: TPicture, mask: TPicture,
-                       dst: TPicture, src_x: int32, src_y: int32, mask_x: int32,
+proc XRenderFreePicture*(dpy: PDisplay, picture: Picture){.libxrender.}
+proc XRenderComposite*(dpy: PDisplay, op: int32, src: Picture, mask: Picture,
+                       dst: Picture, src_x: int32, src_y: int32, mask_x: int32,
                        mask_y: int32, dst_x: int32, dst_y: int32, width: int32,
                        height: int32){.libxrender.}
-proc XRenderCreateGlyphSet*(dpy: PDisplay, format: PXRenderPictFormat): TGlyphSet{.
+proc XRenderCreateGlyphSet*(dpy: PDisplay, format: PXRenderPictFormat): GlyphSet{.
     libxrender.}
-proc XRenderReferenceGlyphSet*(dpy: PDisplay, existing: TGlyphSet): TGlyphSet{.
+proc XRenderReferenceGlyphSet*(dpy: PDisplay, existing: GlyphSet): GlyphSet{.
     libxrender.}
-proc XRenderFreeGlyphSet*(dpy: PDisplay, glyphset: TGlyphSet){.libxrender.}
-proc XRenderAddGlyphs*(dpy: PDisplay, glyphset: TGlyphSet, gids: PGlyph,
+proc XRenderFreeGlyphSet*(dpy: PDisplay, glyphset: GlyphSet){.libxrender.}
+proc XRenderAddGlyphs*(dpy: PDisplay, glyphset: GlyphSet, gids: PGlyph,
                        glyphs: PXGlyphInfo, nglyphs: int32, images: cstring,
                        nbyte_images: int32){.libxrender.}
-proc XRenderFreeGlyphs*(dpy: PDisplay, glyphset: TGlyphSet, gids: PGlyph,
+proc XRenderFreeGlyphs*(dpy: PDisplay, glyphset: GlyphSet, gids: PGlyph,
                         nglyphs: int32){.libxrender.}
-proc XRenderCompositeString8*(dpy: PDisplay, op: int32, src: TPicture,
-                              dst: TPicture, maskFormat: PXRenderPictFormat,
-                              glyphset: TGlyphSet, xSrc: int32, ySrc: int32,
+proc XRenderCompositeString8*(dpy: PDisplay, op: int32, src: Picture,
+                              dst: Picture, maskFormat: PXRenderPictFormat,
+                              glyphset: GlyphSet, xSrc: int32, ySrc: int32,
                               xDst: int32, yDst: int32, str: cstring,
                               nchar: int32){.libxrender.}
 # implementation

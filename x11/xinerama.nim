@@ -6,8 +6,8 @@ const
   xineramaLib = "libXinerama.so"
 
 type
-  PXineramaScreenInfo* = ptr TXineramaScreenInfo
-  TXineramaScreenInfo*{.final.} = object
+  PXineramaScreenInfo* = ptr XineramaScreenInfo
+  XineramaScreenInfo*{.final.} = object
     screen_number*: cint
     x_org*: int16
     y_org*: int16
@@ -15,11 +15,11 @@ type
     height*: int16
 
 
-proc XineramaQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): TBool{.
+proc XineramaQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): Bool{.
     cdecl, dynlib: xineramaLib, importc.}
-proc XineramaQueryVersion*(dpy: PDisplay, major: Pcint, minor: Pcint): TStatus{.
+proc XineramaQueryVersion*(dpy: PDisplay, major: Pcint, minor: Pcint): Status{.
     cdecl, dynlib: xineramaLib, importc.}
-proc XineramaIsActive*(dpy: PDisplay): TBool{.cdecl, dynlib: xineramaLib, importc.}
+proc XineramaIsActive*(dpy: PDisplay): Bool{.cdecl, dynlib: xineramaLib, importc.}
 proc XineramaQueryScreens*(dpy: PDisplay, number: Pcint): PXineramaScreenInfo{.
     cdecl, dynlib: xineramaLib, importc.}
 

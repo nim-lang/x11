@@ -32,8 +32,8 @@ const
   XvRevision* = 2             # Symbols
 
 type
-  TXvPortID* = TXID
-  TXvEncodingID* = TXID
+  XvPortID* = XID
+  XvEncodingID* = XID
 
 const
   XvNone* = 0

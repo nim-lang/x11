@@ -47,35 +47,35 @@ const
   XF86DGADirectColormap* = 0x00000200
 
 proc XF86DGAQueryVersion*(dpy: PDisplay, majorVersion: Pcint,
-                          minorVersion: Pcint): TBool{.cdecl,
+                          minorVersion: Pcint): Bool{.cdecl,
     dynlib: libXxf86dga, importc.}
-proc XF86DGAQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): TBool{.
+proc XF86DGAQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): Bool{.
     cdecl, dynlib: libXxf86dga, importc.}
 proc XF86DGAGetVideoLL*(dpy: PDisplay, screen: cint, base_addr: Pcint,
-                        width: Pcint, bank_size: Pcint, ram_size: Pcint): TStatus{.
+                        width: Pcint, bank_size: Pcint, ram_size: Pcint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
 proc XF86DGAGetVideo*(dpy: PDisplay, screen: cint, base_addr: PPcchar,
-                      width: Pcint, bank_size: Pcint, ram_size: Pcint): TStatus{.
+                      width: Pcint, bank_size: Pcint, ram_size: Pcint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGADirectVideo*(dpy: PDisplay, screen: cint, enable: cint): TStatus{.
+proc XF86DGADirectVideo*(dpy: PDisplay, screen: cint, enable: cint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGADirectVideoLL*(dpy: PDisplay, screen: cint, enable: cint): TStatus{.
+proc XF86DGADirectVideoLL*(dpy: PDisplay, screen: cint, enable: cint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
 proc XF86DGAGetViewPortSize*(dpy: PDisplay, screen: cint, width: Pcint,
-                             height: Pcint): TStatus{.cdecl,
+                             height: Pcint): Status{.cdecl,
     dynlib: libXxf86dga, importc.}
-proc XF86DGASetViewPort*(dpy: PDisplay, screen: cint, x: cint, y: cint): TStatus{.
+proc XF86DGASetViewPort*(dpy: PDisplay, screen: cint, x: cint, y: cint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGAGetVidPage*(dpy: PDisplay, screen: cint, vid_page: Pcint): TStatus{.
+proc XF86DGAGetVidPage*(dpy: PDisplay, screen: cint, vid_page: Pcint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGASetVidPage*(dpy: PDisplay, screen: cint, vid_page: cint): TStatus{.
+proc XF86DGASetVidPage*(dpy: PDisplay, screen: cint, vid_page: cint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGAInstallColormap*(dpy: PDisplay, screen: cint, Colormap: TColormap): TStatus{.
+proc XF86DGAInstallColormap*(dpy: PDisplay, screen: cint, Colormap: Colormap): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
 proc XF86DGAForkApp*(screen: cint): cint{.cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGAQueryDirectVideo*(dpy: PDisplay, screen: cint, flags: Pcint): TStatus{.
+proc XF86DGAQueryDirectVideo*(dpy: PDisplay, screen: cint, flags: Pcint): Status{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XF86DGAViewPortChanged*(dpy: PDisplay, screen: cint, n: cint): TBool{.
+proc XF86DGAViewPortChanged*(dpy: PDisplay, screen: cint, n: cint): Bool{.
     cdecl, dynlib: libXxf86dga, importc.}
 const
   X_XDGAQueryVersion* = 0     # 1 through 9 are in xf86dga1.pp
@@ -116,8 +116,8 @@ const
   XF86DGANumberErrors* = (XF86DGAOperationNotSupported + 1)
 
 type
-  PXDGAMode* = ptr TXDGAMode
-  TXDGAMode*{.final.} = object
+  PXDGAMode* = ptr XDGAMode
+  XDGAMode*{.final.} = object
     num*: cint                # A unique identifier for the mode (num > 0)
     name*: cstring            # name of mode given in the XF86Config
     verticalRefresh*: cfloat
@@ -144,72 +144,72 @@ type
     reserved1*: cint
     reserved2*: cint
 
-  PXDGADevice* = ptr TXDGADevice
-  TXDGADevice*{.final.} = object
-    mode*: TXDGAMode
+  PXDGADevice* = ptr XDGADevice
+  XDGADevice*{.final.} = object
+    mode*: XDGAMode
     data*: Pcuchar
-    pixmap*: TPixmap
+    pixmap*: Pixmap
 
-  PXDGAButtonEvent* = ptr TXDGAButtonEvent
-  TXDGAButtonEvent*{.final.} = object
+  PXDGAButtonEvent* = ptr XDGAButtonEvent
+  XDGAButtonEvent*{.final.} = object
     theType*: cint
     serial*: culong
     display*: PDisplay
     screen*: cint
-    time*: TTime
+    time*: Time
     state*: cuint
     button*: cuint
 
-  PXDGAKeyEvent* = ptr TXDGAKeyEvent
-  TXDGAKeyEvent*{.final.} = object
+  PXDGAKeyEvent* = ptr XDGAKeyEvent
+  XDGAKeyEvent*{.final.} = object
     theType*: cint
     serial*: culong
     display*: PDisplay
     screen*: cint
-    time*: TTime
+    time*: Time
     state*: cuint
     keycode*: cuint
 
-  PXDGAMotionEvent* = ptr TXDGAMotionEvent
-  TXDGAMotionEvent*{.final.} = object
+  PXDGAMotionEvent* = ptr XDGAMotionEvent
+  XDGAMotionEvent*{.final.} = object
     theType*: cint
     serial*: culong
     display*: PDisplay
     screen*: cint
-    time*: TTime
+    time*: Time
     state*: cuint
     dx*: cint
     dy*: cint
 
-  PXDGAEvent* = ptr TXDGAEvent
-  TXDGAEvent*{.final.} = object
+  PXDGAEvent* = ptr XDGAEvent
+  XDGAEvent*{.final.} = object
     pad*: array[0..23, clong] # sorry you have to cast if you want access
                               #Case LongInt Of
                               #      0 : (_type : cint);
-                              #      1 : (xbutton : TXDGAButtonEvent);
-                              #      2 : (xkey : TXDGAKeyEvent);
-                              #      3 : (xmotion : TXDGAMotionEvent);
+                              #      1 : (xbutton : XDGAButtonEvent);
+                              #      2 : (xkey : XDGAKeyEvent);
+                              #      3 : (xmotion : XDGAMotionEvent);
                               #      4 : (pad : Array[0..23] Of clong);
 
 
-proc XDGAQueryExtension*(dpy: PDisplay, eventBase: Pcint, erroBase: Pcint): TBool{.
+proc XDGAQueryExtension*(dpy: PDisplay, eventBase: Pcint, erroBase: Pcint): Bool{.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XDGAQueryVersion*(dpy: PDisplay, majorVersion: Pcint, minorVersion: Pcint): TBool{.
+proc XDGAQueryVersion*(dpy: PDisplay, majorVersion: Pcint, minorVersion: Pcint): Bool{.
     cdecl, dynlib: libXxf86dga, importc.}
 proc XDGAQueryModes*(dpy: PDisplay, screen: cint, num: Pcint): PXDGAMode{.cdecl,
     dynlib: libXxf86dga, importc.}
 proc XDGASetMode*(dpy: PDisplay, screen: cint, mode: cint): PXDGADevice{.cdecl,
     dynlib: libXxf86dga, importc.}
-proc XDGAOpenFramebuffer*(dpy: PDisplay, screen: cint): TBool{.cdecl,
+proc XDGAOpenFramebuffer*(dpy: PDisplay, screen: cint): Bool{.cdecl,
     dynlib: libXxf86dga, importc.}
 proc XDGACloseFramebuffer*(dpy: PDisplay, screen: cint){.cdecl,
     dynlib: libXxf86dga, importc.}
 proc XDGASetViewport*(dpy: PDisplay, screen: cint, x: cint, y: cint, flags: cint){.
     cdecl, dynlib: libXxf86dga, importc.}
-proc XDGAInstallColormap*(dpy: PDisplay, screen: cint, cmap: TColormap){.cdecl,
+proc XDGAInstallColormap*(dpy: PDisplay, screen: cint, cmap: Colormap){.cdecl,
     dynlib: libXxf86dga, importc.}
 proc XDGACreateColormap*(dpy: PDisplay, screen: cint, device: PXDGADevice,
-                         alloc: cint): TColormap{.cdecl, dynlib: libXxf86dga,
+                         alloc: cint): Colormap{.cdecl, dynlib: libXxf86dga,
     importc.}
 proc XDGASelectInput*(dpy: PDisplay, screen: cint, event_mask: clong){.cdecl,
     dynlib: libXxf86dga, importc.}
@@ -226,7 +226,7 @@ proc XDGACopyTransparentArea*(dpy: PDisplay, screen: cint, srcx: cint,
 proc XDGAGetViewportStatus*(dpy: PDisplay, screen: cint): cint{.cdecl,
     dynlib: libXxf86dga, importc.}
 proc XDGASync*(dpy: PDisplay, screen: cint){.cdecl, dynlib: libXxf86dga, importc.}
-proc XDGASetClientVersion*(dpy: PDisplay): TBool{.cdecl, dynlib: libXxf86dga,
+proc XDGASetClientVersion*(dpy: PDisplay): Bool{.cdecl, dynlib: libXxf86dga,
     importc.}
 proc XDGAChangePixmapMode*(dpy: PDisplay, screen: cint, x: Pcint, y: Pcint,
                            mode: cint){.cdecl, dynlib: libXxf86dga, importc.}
