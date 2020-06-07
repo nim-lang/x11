@@ -34,9 +34,9 @@ type
   PFcPattern* = ptr FcPattern
 
   FcFontSet* = object
-    nfont: cint
-    sfont: cint
-    fonts: ptr PFcPattern
+    nfont*: cint
+    sfont*: cint
+    fonts*: ptr PFcPattern
   PFcFontSet* = ptr FcFontSet
 
   FcChar8* = cuchar
@@ -52,12 +52,12 @@ type
   XftFontInfo* = object 
   PXftFontInfo* = ptr XftFontInfo
   XftFont* = object
-    ascent: int
-    descent: int
-    height: int
-    max_advance_width: int
-    charset: PFcCharSet
-    pattern: PFcPattern    
+    ascent*: int
+    descent*: int
+    height*: int
+    max_advance_width*: int
+    charset*: PFcCharSet
+    pattern*: PFcPattern    
   PXftFont* = ptr XftFont
 
   XftDraw* = object
@@ -65,33 +65,33 @@ type
 
   XftColor* = object
     pixel*: culong
-    color: XRenderColor
+    color*: XRenderColor
   PXftColor* = ptr XftColor
 
   XftCharSpec* = object
-    ucs4: FcChar32
-    x: cshort
-    y: cshort
+    ucs4*: FcChar32
+    x*: cshort
+    y*: cshort
   PXftCharSpec* = ptr XftCharSpec
 
   XftCharFontSpec* = object
-    font: PXftFont
-    ucs4: FcChar32
-    x: cshort
-    y: cshort
+    font*: PXftFont
+    ucs4*: FcChar32
+    x*: cshort
+    y*: cshort
   PXftCharFontSpec* = ptr XftCharFontSpec
 
   XftGlyphSpec* = object
-    glyph: FT_UInt
-    x: cshort
-    y: cshort
+    glyph*: FT_UInt
+    x*: cshort
+    y*: cshort
   PXftGlyphSpec* = ptr XftGlyphSpec
 
   XftGlyphFontSpec* = object
-    font: PXftFont
-    glyph: FT_UInt
-    x: cshort
-    y: cshort
+    font*: PXftFont
+    glyph*: FT_UInt
+    x*: cshort
+    y*: cshort
   PXftGlyphFontSpec = ptr XftGlyphFontSpec
 
 # xftcolor.c
@@ -99,7 +99,7 @@ proc XftColorAllocName*(
   display: PDisplay,
   visual: PVisual,
   cmap: Colormap,
-  name: ptr cchar,
+  name: cstring,
   result: PXftColor
 ): XBool {.cdecl, dynlib: xftLib, importc.}
 
@@ -371,13 +371,13 @@ proc XftFontOpen*(
 proc XftFontOpenName*(
   display: PDisplay,
   screen: cint,
-  name: ptr cchar
+  name: cstring
 ): PXftFont {.cdecl, dynlib: xftLib, importc.}
 
 proc XftFontOpenXlfd*(
   display: PDisplay,
   screen: cint,
-  xlfd: ptr cchar
+  xlfd: cstring
 ): PXftFont {.cdecl, dynlib: xftLib, importc.}
 
 # xftfreetype.c
@@ -407,7 +407,6 @@ proc XftFontInfoEqual*(
   a: PXftFontInfo,
   b: PXftFontInfo
 ): FcBool {.cdecl, dynlib: xftLib, importc.}
-
 
 proc XftFontOpenInfo*(
   display: PDisplay,
@@ -473,7 +472,7 @@ proc XftCharIndex*(
 
 # xftinit.c
 proc XftInit*(
-  config: ptr cchar
+  config: cstring
 ): FcBool {.cdecl, dynlib: xftLib, importc.}
 
 proc XftGetVersion*(): cint {.cdecl, dynlib: xftLib, importc.}
@@ -487,7 +486,7 @@ proc XftListFonts*(
 
 # xftname.c
 proc XftNameParse*(
-  name: ptr cchar
+  name: cstring
 ): PFcPattern {.cdecl, dynlib: xftLib, importc.}
 
 # xftrender.c
@@ -674,7 +673,7 @@ proc XftTextRenderUtf16*(
 
 # xftxlfd.c
 proc XftXlfdParse8*(
-  xlfd_orig: ptr cchar,
+  xlfd_orig: cstring,
   ignore_scalable: XBool,
   complete: XBool
 ): PFcPattern {.cdecl, dynlib: xftLib, importc.}

@@ -213,10 +213,10 @@ type
 
   PXRenderColor* = ptr XRenderColor
   XRenderColor* = object
-    red: cushort
-    green: cushort
-    blue: cushort
-    alpha: cushort
+    red*: cushort
+    green*: cushort
+    blue*: cushort
+    alpha*: cushort
 
 {.deprecated: [TXRenderVisual: XRenderVisual].}
 {.deprecated: [TXRenderDepth: XRenderDepth].}
