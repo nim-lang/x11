@@ -300,11 +300,12 @@ else:
 # 
 
 type 
-  PXExtensionVersion* = ptr TXExtensionVersion
-  TXExtensionVersion*{.final.} = object 
+  PXExtensionVersion* = ptr XExtensionVersion
+  XExtensionVersion*{.final.} = object 
     present*: int16
     major_version*: int16
     minor_version*: int16
 
+{.deprecated: [TXExtensionVersion: XExtensionVersion].}
 
 # implementation

@@ -1,4 +1,3 @@
-
 import
   x, xlib
 
@@ -29,49 +28,53 @@ const
   ShmNumberErrors* = BadShmSeg + 1
 
 type
-  PShmSeg* = ptr TShmSeg
-  TShmSeg* = culong
-  PXShmCompletionEvent* = ptr TXShmCompletionEvent
-  TXShmCompletionEvent*{.final.} = object
+  PShmSeg* = ptr ShmSeg
+  ShmSeg* = culong
+
+  PXShmCompletionEvent* = ptr XShmCompletionEvent
+  XShmCompletionEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: TBool
+    send_event*: XBool
     display*: PDisplay
-    drawable*: TDrawable
+    drawable*: Drawable
     major_code*: cint
     minor_code*: cint
-    shmseg*: TShmSeg
+    shmseg*: ShmSeg
     offset*: culong
 
-  PXShmSegmentInfo* = ptr TXShmSegmentInfo
-  TXShmSegmentInfo*{.final.} = object
-    shmseg*: TShmSeg
+  PXShmSegmentInfo* = ptr XShmSegmentInfo
+  XShmSegmentInfo*{.final.} = object
+    shmseg*: ShmSeg
     shmid*: cint
     shmaddr*: cstring
-    readOnly*: TBool
+    readOnly*: XBool
 
+{.deprecated: [TShmSeg: ShmSeg].}
+{.deprecated: [TXShmCompletionEvent: XShmCompletionEvent].}
+{.deprecated: [TXShmSegmentInfo: XShmSegmentInfo].}
 
-proc XShmQueryExtension*(para1: PDisplay): TBool{.cdecl, dynlib: libXext, importc.}
+proc XShmQueryExtension*(para1: PDisplay): XBool{.cdecl, dynlib: libXext, importc.}
 proc XShmGetEventBase*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
-proc XShmQueryVersion*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: PBool): TBool{.
+proc XShmQueryVersion*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: PBool): XBool{.
     cdecl, dynlib: libXext, importc.}
 proc XShmPixmapFormat*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
-proc XShmAttach*(para1: PDisplay, para2: PXShmSegmentInfo): TStatus{.cdecl,
+proc XShmAttach*(para1: PDisplay, para2: PXShmSegmentInfo): Status{.cdecl,
     dynlib: libXext, importc.}
-proc XShmDetach*(para1: PDisplay, para2: PXShmSegmentInfo): TStatus{.cdecl,
+proc XShmDetach*(para1: PDisplay, para2: PXShmSegmentInfo): Status{.cdecl,
     dynlib: libXext, importc.}
-proc XShmPutImage*(para1: PDisplay, para2: TDrawable, para3: TGC,
+proc XShmPutImage*(para1: PDisplay, para2: Drawable, para3: GC,
                    para4: PXImage, para5: cint, para6: cint, para7: cint,
-                   para8: cint, para9: cuint, para10: cuint, para11: TBool): TStatus{.
+                   para8: cint, para9: cuint, para10: cuint, para11: XBool): Status{.
     cdecl, dynlib: libXext, importc.}
-proc XShmGetImage*(para1: PDisplay, para2: TDrawable, para3: PXImage,
-                   para4: cint, para5: cint, para6: culong): TStatus{.cdecl,
+proc XShmGetImage*(para1: PDisplay, para2: Drawable, para3: PXImage,
+                   para4: cint, para5: cint, para6: culong): Status{.cdecl,
     dynlib: libXext, importc.}
 proc XShmCreateImage*(para1: PDisplay, para2: PVisual, para3: cuint,
                       para4: cint, para5: cstring, para6: PXShmSegmentInfo,
                       para7: cuint, para8: cuint): PXImage{.cdecl,
     dynlib: libXext, importc.}
-proc XShmCreatePixmap*(para1: PDisplay, para2: TDrawable, para3: cstring,
+proc XShmCreatePixmap*(para1: PDisplay, para2: Drawable, para3: cstring,
                        para4: PXShmSegmentInfo, para5: cuint, para6: cuint,
-                       para7: cuint): TPixmap{.cdecl, dynlib: libXext, importc.}
+                       para7: cuint): Pixmap{.cdecl, dynlib: libXext, importc.}
 # implementation

@@ -4,7 +4,11 @@
 #   http://netpbm.sourceforge.net/doc/ppm.html
 #   https://github.com/def-/nim-syscall
 
-import x11/xlib, x11/xutil, x11/xshm, x11/x
+import
+  x11/xlib,
+  x11/xutil,
+  x11/xshm,
+  x11/x
 
 when defined(amd64):
   type Number = enum
@@ -51,17 +55,17 @@ when isMainModule:
 
   block:
     var major, minor: cint
-    var pixmaps: TBool
+    var pixmaps: XBool
     discard XShmQueryVersion(display, addr major, addr minor, addr pixmaps)
     echo "MIT-SHM Version ", major, ".", minor, ", Pixmaps supported: ", pixmaps
 
-  var attributes: TXWindowAttributes
+  var attributes: XWindowAttributes
   discard XGetWindowAttributes(
     display,
     DefaultRootWindow(display),
     addr attributes)
 
-  var shminfo: TXShmSegmentInfo
+  var shminfo: XShmSegmentInfo
   let screen = DefaultScreen(display)
   var image = XShmCreateImage(
     display,

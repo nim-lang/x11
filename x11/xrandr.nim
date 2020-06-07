@@ -56,22 +56,38 @@ const
 # *
 
 type
-  PRotation* = ptr TRotation
-  TRotation* = cushort
-  PSizeID* = ptr TSizeID
-  TSizeID* = cushort
-  PSubpixelOrder* = ptr TSubpixelOrder
-  TSubpixelOrder* = cushort
-  PRRCrtc* = ptr TRRCrtc
-  TRRCrtc* = TXID
-  PRROutput* = ptr TRROutput
-  TRROutput* = TXID
-  PRRMode* = ptr TRRMode
-  TRRMode* = TXID
-  PXRRModeFlags* = ptr TXRRModeFlags
-  TXRRModeFlags* = culong
-  PConnection* = ptr TConnection
-  TConnection* = cushort
+  PRotation* = ptr Rotation
+  Rotation* = cushort
+
+  PSizeID* = ptr SizeID
+  SizeID* = cushort
+
+  PSubpixelOrder* = ptr SubpixelOrder
+  SubpixelOrder* = cushort
+
+  PRRCrtc* = ptr RRCrtc
+  RRCrtc* = XID
+
+  PRROutput* = ptr RROutput
+  RROutput* = XID
+
+  PRRMode* = ptr RRMode
+  RRMode* = XID
+
+  PXRRModeFlags* = ptr XRRModeFlags
+  XRRModeFlags* = culong
+
+  PConnection* = ptr Connection
+  Connection* = cushort
+
+{.deprecated: [TRotation: Rotation].}
+{.deprecated: [TSizeID: SizeID].}
+{.deprecated: [TSubpixelOrder: SubpixelOrder].}
+{.deprecated: [TRRCrtc: RRCrtc].}
+{.deprecated: [TRROutput: RROutput].}
+{.deprecated: [TRRMode: RRMode].}
+{.deprecated: [TXRRModeFlags: XRRModeFlags].}
+{.deprecated: [TConnection: Connection].}
 
 const
   RANDR_NAME* = "RANDR"
@@ -103,72 +119,72 @@ const
   RR_UnknownConnection* = 2
 
 type
-  PXRRScreenSize* = ptr TXRRScreenSize
-  TXRRScreenSize*{.final.} = object  #
-                                     #   Events.
-                                     #
+  PXRRScreenSize* = ptr XRRScreenSize
+  XRRScreenSize*{.final.} = object  #
+                                    #   Events.
+                                    #
     width*, height*: cint
     mwidth*, mheight*: cint
 
-  TXRRScreenChangeNotifyEvent*{.final.} = object  # internal representation is private to the library
-    typ*: cint                # event base
-    serial*: culong           # # of last request processed by server
-    send_event*: TBool        # true if this came from a SendEvent request
-    display*: PDisplay        # Display the event was read from
-    window*: TWindow          # window which selected for this event
-    root*: TWindow            # Root window for changed screen
-    timestamp*: TTime         # when the screen change occurred
-    config_timestamp*: TTime  # when the last configuration change
-    size_index*: TSizeID
-    subpixel_order*: TSubpixelOrder
-    rotation*: TRotation
+  XRRScreenChangeNotifyEvent*{.final.} = object  # internal representation is private to the library
+    typ*: cint               # event base
+    serial*: culong          # # of last request processed by server
+    send_event*: XBool        # true if this came from a SendEvent request
+    display*: PDisplay       # Display the event was read from
+    window*: Window          # window which selected for this event
+    root*: Window            # Root window for changed screen
+    timestamp*: Time         # when the screen change occurred
+    config_timestamp*: Time  # when the last configuration change
+    size_index*: SizeID
+    subpixel_order*: SubpixelOrder
+    rotation*: Rotation
     width*: cint
     height*: cint
     mwidth*: cint
     mheight*: cint
 
-  PXRRScreenConfiguration* = ptr TXRRScreenConfiguration
-  TXRRScreenConfiguration* {.final.} = object
+  PXRRScreenConfiguration* = ptr XRRScreenConfiguration
+  XRRScreenConfiguration* {.final.} = object
 
-  PXRRModeInfo* = ptr TXRRModeInfo
-  TXRRModeInfo* {.final.} = object
-    id*: TRRMode
+  PXRRModeInfo* = ptr XRRModeInfo
+  XRRModeInfo* {.final.} = object
+    id*: RRMode
     width*, height*: cuint
     dotClock*: culong
     hSyncStart*, hSyncEnd*, hTotal*, hSkew*: cuint
     vSyncStart*, vSyncEnd*, vTotal*: cuint
     name*: cstring
     nameLength*: cuint
-    modeFlags*: TXRRModeFlags
+    modeFlags*: XRRModeFlags
 
-  PXRRScreenResources* = ptr TXRRScreenResources
-  TXRRScreenResources* {.final.} = object
-    timestamp*, configTimestamp*: TTime
+  PXRRScreenResources* = ptr XRRScreenResources
+  XRRScreenResources* {.final.} = object
+    timestamp*, configTimestamp*: Time
     ncrtc*: cint
-    crtcs*: ptr UncheckedArray[TRRCrtc]
+    crtcs*: ptr UncheckedArray[RRCrtc]
     noutput*: cint
-    outputs*: ptr UncheckedArray[TRROutput]
+    outputs*: ptr UncheckedArray[RROutput]
     nmode*: cint
-    modes*: ptr UncheckedArray[TXRRModeInfo]
+    modes*: ptr UncheckedArray[XRRModeInfo]
 
-  PXRROutputInfo* = ptr TXRROutputInfo
-  TXRROutputInfo* {.final.} = object
-    timestamp*: TTime
-    crtc*: TRRCrtc
+  PXRROutputInfo* = ptr XRROutputInfo
+  XRROutputInfo* {.final.} = object
+    timestamp*: Time
+    crtc*: RRCrtc
     name*: cstring
     nameLen*: cint
     mmWidth*, mmHeight*: culong
-    connection*: TConnection
-    subpixelOrder*: TSubpixelOrder
+    connection*: Connection
+    subpixelOrder*: SubpixelOrder
     ncrtc*: cint
-    crtcs*: ptr UncheckedArray[TRRCrtc]
+    crtcs*: ptr UncheckedArray[RRCrtc]
     nclone*: cint
-    clones*: ptr UncheckedArray[TRROutput]
+    clones*: ptr UncheckedArray[RROutput]
     nmode*, npreferred*: cint
-    modes*: ptr UncheckedArray[TRRMode]
+    modes*: ptr UncheckedArray[RRMode]
 
-  PXRRPropertyInfo* = ptr TXRRPropertyInfo
-  TXRRPropertyInfo* {.final.} = object
+  PXRRPropertyInfo* = ptr XRRPropertyInfo
+  XRRPropertyInfo* {.final.} = object
     pending, range, immutable: bool
     numValues: cint
     values: ptr UncheckedArray[clong]
@@ -176,18 +192,25 @@ type
   RandrFormat* = enum
     randrFormat16bit = 16, randrFormat32bit = 32
 
+{.deprecated: [TXRRScreenSize: XRRScreenSize].}
+{.deprecated: [TXRRScreenChangeNotifyEvent: XRRScreenChangeNotifyEvent].}
+{.deprecated: [TXRRScreenConfiguration: XRRScreenConfiguration].}
+{.deprecated: [TXRRModeInfo: XRRModeInfo].}
+{.deprecated: [TXRRScreenResources: XRRScreenResources].}
+{.deprecated: [TXRROutputInfo: XRROutputInfo].}
+{.deprecated: [TXRRPropertyInfo: XRRPropertyInfo].}
 
-proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): TBool{.
+proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): XBool{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRQueryVersion*(dpy: PDisplay, major_versionp: Pcint,
-                      minor_versionp: Pcint): TStatus{.cdecl, dynlib: libXrandr,
+                      minor_versionp: Pcint): Status{.cdecl, dynlib: libXrandr,
     importc.}
-proc XRRQueryOutputProperty*(dpy: PDisplay, output: TRROutput, property: TAtom):
+proc XRRQueryOutputProperty*(dpy: PDisplay, output: RROutput, property: Atom):
     PXRRPropertyInfo {.cdecl, dynlib: libXrandr, importc.}
-proc XRRChangeOutputProperty*(dpy: PDisplay, output: TRROutput,
-    property, kind: TAtom, format, mode: cint, data: ptr cuchar, nelements: cint) {.
+proc XRRChangeOutputProperty*(dpy: PDisplay, output: RROutput,
+    property, kind: Atom, format, mode: cint, data: ptr cuchar, nelements: cint) {.
     cdecl, dynlib: libXrandr, importc.}
-proc XRRGetScreenInfo*(dpy: PDisplay, draw: TDrawable): PXRRScreenConfiguration{.
+proc XRRGetScreenInfo*(dpy: PDisplay, draw: Drawable): PXRRScreenConfiguration{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRFreeScreenConfigInfo*(config: PXRRScreenConfiguration){.cdecl,
     dynlib: libXrandr, importc.}
@@ -199,30 +222,30 @@ proc XRRFreeScreenConfigInfo*(config: PXRRScreenConfiguration){.cdecl,
   #  changes.
   #
 proc XRRSetScreenConfig*(dpy: PDisplay, config: PXRRScreenConfiguration,
-                         draw: TDrawable, size_index: cint, rotation: TRotation,
-                         timestamp: TTime): TStatus{.cdecl, dynlib: libXrandr,
+                         draw: Drawable, size_index: cint, rotation: Rotation,
+                         timestamp: Time): Status{.cdecl, dynlib: libXrandr,
     importc.}
   # added in v1.1, sorry for the lame name
 proc XRRSetScreenConfigAndRate*(dpy: PDisplay, config: PXRRScreenConfiguration,
-                                draw: TDrawable, size_index: cint,
-                                rotation: TRotation, rate: cshort,
-                                timestamp: TTime): TStatus{.cdecl,
+                                draw: Drawable, size_index: cint,
+                                rotation: Rotation, rate: cshort,
+                                timestamp: Time): Status{.cdecl,
     dynlib: libXrandr, importc.}
 proc XRRConfigRotations*(config: PXRRScreenConfiguration,
-                         current_rotation: PRotation): TRotation{.cdecl,
+                         current_rotation: PRotation): Rotation{.cdecl,
     dynlib: libXrandr, importc.}
-proc XRRConfigTimes*(config: PXRRScreenConfiguration, config_timestamp: PTime): TTime{.
+proc XRRConfigTimes*(config: PXRRScreenConfiguration, config_timestamp: PTime): Time{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRConfigSizes*(config: PXRRScreenConfiguration, nsizes: Pcint): PXRRScreenSize{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRConfigRates*(config: PXRRScreenConfiguration, sizeID: cint,
                      nrates: Pcint): ptr int16{.cdecl, dynlib: libXrandr, importc.}
 proc XRRConfigCurrentConfiguration*(config: PXRRScreenConfiguration,
-                                    rotation: PRotation): TSizeID{.cdecl,
+                                    rotation: PRotation): SizeID{.cdecl,
     dynlib: libXrandr, importc.}
 proc XRRConfigCurrentRate*(config: PXRRScreenConfiguration): cshort{.cdecl,
     dynlib: libXrandr, importc.}
-proc XRRRootToScreen*(dpy: PDisplay, root: TWindow): cint{.cdecl,
+proc XRRRootToScreen*(dpy: PDisplay, root: Window): cint{.cdecl,
     dynlib: libXrandr, importc.}
   #
   #  returns the screen configuration for the specified screen; does a lazy
@@ -235,19 +258,19 @@ proc XRRScreenConfig*(dpy: PDisplay, screen: cint): PXRRScreenConfiguration{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRConfig*(screen: PScreen): PXRRScreenConfiguration{.cdecl,
     dynlib: libXrandr, importc.}
-proc XRRSelectInput*(dpy: PDisplay, window: TWindow, mask: cint){.cdecl,
+proc XRRSelectInput*(dpy: PDisplay, window: Window, mask: cint){.cdecl,
     dynlib: libXrandr, importc.}
   #
   #  the following are always safe to call, even if RandR is not implemented
   #  on a screen
   #
-proc XRRRotations*(dpy: PDisplay, screen: cint, current_rotation: PRotation): TRotation{.
+proc XRRRotations*(dpy: PDisplay, screen: cint, current_rotation: PRotation): Rotation{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRSizes*(dpy: PDisplay, screen: cint, nsizes: Pcint): PXRRScreenSize{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRRates*(dpy: PDisplay, screen: cint, sizeID: cint, nrates: Pcint): ptr int16{.
     cdecl, dynlib: libXrandr, importc.}
-proc XRRTimes*(dpy: PDisplay, screen: cint, config_timestamp: PTime): TTime{.
+proc XRRTimes*(dpy: PDisplay, screen: cint, config_timestamp: PTime): Time{.
     cdecl, dynlib: libXrandr, importc.}
   #
   #  intended to take RRScreenChangeNotify,  or
@@ -257,11 +280,11 @@ proc XRRTimes*(dpy: PDisplay, screen: cint, config_timestamp: PTime): TTime{.
 proc XRRUpdateConfiguration*(event: PXEvent): cint{.cdecl, dynlib: libXrandr,
     importc.}
 # implementation
-proc XRRGetScreenResourcesCurrent*(dpy: PDisplay, win: TWindow):
+proc XRRGetScreenResourcesCurrent*(dpy: PDisplay, win: Window):
     PXRRScreenResources {.cdecl, dynlib: libXrandr, importc.}
 proc XRRFreeScreenResources*(res: PXRRScreenResources) {.cdecl,
     dynlib: libXrandr, importc.}
-proc XRRGetOutputInfo*(dpy: PDisplay, res: PXRRScreenResources, ret: TRROutput):
+proc XRRGetOutputInfo*(dpy: PDisplay, res: PXRRScreenResources, ret: RROutput):
     PXRROutputInfo {.cdecl, dynlib: libXrandr, importc.}
 proc XRRFreeOutputInfo*(info: PXRROutputInfo) {.cdecl, dynlib: libXrandr,
     importc.}

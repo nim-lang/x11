@@ -16,36 +16,64 @@ const
   X_PROTOCOL_REVISION* = 0
 
 type
-  PXID* = ptr TXID
-  TXID* = culong
-  PMask* = ptr TMask
-  TMask* = culong
+  PXID* = ptr XID
+  XID* = culong
+
+  PMask* = ptr Mask
+  Mask* = culong
+
   PPAtom* = ptr PAtom
-  PAtom* = ptr TAtom
-  TAtom* = culong
-  PVisualID* = ptr TVisualID
-  TVisualID* = culong
-  PTime* = ptr TTime
-  TTime* = culong
+  PAtom* = ptr Atom
+  Atom* = culong
+
+  PVisualID* = ptr VisualID
+  VisualID* = culong
+
+  PTime* = ptr Time
+  Time* = culong
+
   PPWindow* = ptr PWindow
-  PWindow* = ptr TWindow
-  TWindow* = TXID
-  PDrawable* = ptr TDrawable
-  TDrawable* = TXID
-  PFont* = ptr TFont
-  TFont* = TXID
-  PPixmap* = ptr TPixmap
-  TPixmap* = TXID
-  PCursor* = ptr TCursor
-  TCursor* = TXID
-  PColormap* = ptr TColormap
-  TColormap* = TXID
-  PGContext* = ptr TGContext
-  TGContext* = TXID
-  PKeySym* = ptr TKeySym
-  TKeySym* = TXID
-  PKeyCode* = ptr TKeyCode
-  TKeyCode* = cuchar
+  PWindow* = ptr Window
+  Window* = XID
+
+  PDrawable* = ptr Drawable
+  Drawable* = XID
+
+  PFont* = ptr Font
+  Font* = XID
+
+  PPixmap* = ptr Pixmap
+  Pixmap* = XID
+
+  PCursor* = ptr Cursor
+  Cursor* = XID
+
+  PColormap* = ptr Colormap
+  Colormap* = XID
+
+  PGContext* = ptr GContext
+  GContext* = XID
+
+  PKeySym* = ptr KeySym
+  KeySym* = XID
+
+  PKeyCode* = ptr KeyCode
+  KeyCode* = cuchar
+
+{.deprecated: [TXID: XID].}
+{.deprecated: [TMask: Mask].}
+{.deprecated: [TAtom: Atom].}
+{.deprecated: [TVisualID: VisualID].}
+{.deprecated: [TTime: Time].}
+{.deprecated: [TWindow: Window].}
+{.deprecated: [TDrawable: Drawable].}
+{.deprecated: [TFont: Font].}
+{.deprecated: [TPixmap: Pixmap].}
+{.deprecated: [TCursor: Cursor].}
+{.deprecated: [TColormap: Colormap].}
+{.deprecated: [TGContext: GContext].}
+{.deprecated: [TKeySym: KeySym].}
+{.deprecated: [TKeyCode: KeyCode].}
 
 const
   None* = 0
