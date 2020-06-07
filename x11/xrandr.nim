@@ -130,7 +130,7 @@ type
   XRRScreenChangeNotifyEvent*{.final.} = object  # internal representation is private to the library
     typ*: cint               # event base
     serial*: culong          # # of last request processed by server
-    send_event*: Bool        # true if this came from a SendEvent request
+    send_event*: XBool        # true if this came from a SendEvent request
     display*: PDisplay       # Display the event was read from
     window*: Window          # window which selected for this event
     root*: Window            # Root window for changed screen
@@ -199,7 +199,7 @@ type
     randrFormat16bit = 16, randrFormat32bit = 32
 
 
-proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): Bool{.
+proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): XBool{.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRQueryVersion*(dpy: PDisplay, major_versionp: Pcint,
                       minor_versionp: Pcint): Status{.cdecl, dynlib: libXrandr,

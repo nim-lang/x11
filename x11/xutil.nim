@@ -65,7 +65,7 @@ type
   TXWMHints* {.deprecated: "Use XWMHints instead".} = XWMHints
   XWMHints*{.final.} = object
     flags*: clong
-    input*: Bool
+    input*: XBool
     initial_state*: cint
     icon_pixmap*: Pixmap
     icon_window*: Window
@@ -275,7 +275,7 @@ proc XMatchVisualInfo*(para1: PDisplay, para2: cint, para3: cint, para4: cint,
     importc.}
 proc XOffsetRegion*(para1: Region, para2: cint, para3: cint): cint{.cdecl,
     dynlib: libX11, importc.}
-proc XPointInRegion*(para1: Region, para2: cint, para3: cint): Bool{.cdecl,
+proc XPointInRegion*(para1: Region, para2: cint, para3: cint): XBool{.cdecl,
     dynlib: libX11, importc.}
 proc XPolygonRegion*(para1: PXPoint, para2: cint, para3: cint): Region{.cdecl,
     dynlib: libX11, importc.}

@@ -132,7 +132,7 @@ type
     ##  fields of the x,y and x_root,y_root fields.
     `type`*: cint              ##  of event
     serial*: culong            ##  # of last request processed
-    send_event*: Bool          ##  true if from SendEvent request
+    send_event*: XBool          ##  true if from SendEvent request
     display*: PDisplay       ##  Display the event was read from
     window*: Window            ##  "event" window reported relative to
     deviceid*: XID
@@ -145,7 +145,7 @@ type
     y_root*: cint              ##  coordinates relative to root
     state*: cuint              ##  key or button mask
     keycode*: cuint            ##  detail
-    same_screen*: Bool         ##  same screen flag
+    same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
     axes_count*: cuchar
     first_axis*: cuchar
@@ -166,7 +166,7 @@ type
     ##  that support input class Buttons.
     `type`*: cint              ##  of event
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if from a SendEvent request
+    send_event*: XBool          ##  true if from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  "event" window reported relative to
     deviceid*: XID
@@ -179,7 +179,7 @@ type
     y_root*: cint              ##  coordinates relative to root
     state*: cuint              ##  key or button mask
     button*: cuint             ##  detail
-    same_screen*: Bool         ##  same screen flag
+    same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
     axes_count*: cuchar
     first_axis*: cuchar
@@ -200,7 +200,7 @@ type
     ##  that support input class Valuators.
     `type`*: cint              ##  of event
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if from a SendEvent request
+    send_event*: XBool          ##  true if from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  "event" window reported relative to
     deviceid*: XID
@@ -213,7 +213,7 @@ type
     y_root*: cint              ##  coordinates relative to root
     state*: cuint              ##  key or button mask
     is_hint*: char             ##  detail
-    same_screen*: Bool         ##  same screen flag
+    same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
     axes_count*: cuchar
     first_axis*: cuchar
@@ -226,7 +226,7 @@ type
     ##  of an extension device that can be focused is changed.
     `type`*: cint              ##  of event
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if from a SendEvent request
+    send_event*: XBool          ##  true if from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  "event" window reported relative to
     deviceid*: XID
@@ -253,7 +253,7 @@ type
     ##  positioning devices that are capable of generating proximity information.
     `type`*: cint              ##  ProximityIn or ProximityOut
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window
     deviceid*: XID
@@ -265,7 +265,7 @@ type
     x_root*: cint
     y_root*: cint
     state*: cuint
-    same_screen*: Bool
+    same_screen*: XBool
     device_state*: cuint       ##  device key or button mask
     axes_count*: cuchar
     first_axis*: cuchar
@@ -292,7 +292,7 @@ type
     ##  for those clients who have selected DeviceState.
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window
     deviceid*: XID
@@ -332,7 +332,7 @@ type
     ##  modifier mapping, or button mapping of an extension device is changed.
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  unused
     deviceid*: XID
@@ -349,7 +349,7 @@ type
     ##  XChangeKeyboard or XChangePointer request is made.
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  unused
     deviceid*: XID
@@ -370,11 +370,11 @@ type
     ##  then that control has changed meaningfully.
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  unused
     time*: Time
-    devchange*: Bool
+    devchange*: XBool
     deviceid*: XID
     control*: XID
 
@@ -383,7 +383,7 @@ type
   XDevicePropertyNotifyEvent* {.final.} = object
     `type`*: cint
     serial*: culong            ##  # of last request processed by server
-    send_event*: Bool          ##  true if this came from a SendEvent request
+    send_event*: XBool          ##  true if this came from a SendEvent request
     display*: PDisplay         ##  Display the event was read from
     window*: Window            ##  unused
     time*: Time
@@ -724,16 +724,16 @@ type
 
 proc XChangeKeyboardDevice*(a1: PDisplay, a2: PXDevice): cint
 proc XChangePointerDevice*(a1: PDisplay, a2: PXDevice, a3, a4: cint): cint
-proc XGrabDevice*(a1: PDisplay, a2: PXDevice, a3: Window, a4: Bool, a5: cint,
+proc XGrabDevice*(a1: PDisplay, a2: PXDevice, a3: Window, a4: XBool, a5: cint,
                  a6: ptr UncheckedArray[XEventClass], a7, a8: cint, a9: Time): cint
 proc XUngrabDevice*(a1: PDisplay, a2: PXDevice, a3: Time): cint
 proc XGrabDeviceKey*(a1: PDisplay, a2: PXDevice, a3, a4: cuint,
-                    a5: PXDevice, a6: Window, a7: Bool, a8: cuint,
+                    a5: PXDevice, a6: Window, a7: XBool, a8: cuint,
                     a9: ptr UncheckedArray[XEventClass], a10, a11: cint): cint
 proc XUngrabDeviceKey*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: cuint,
                       a5: PXDevice, a6: Window): cint
 proc XGrabDeviceButton*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: cuint,
-                       a5: PXDevice, a6: Window, a7: Bool, a8: cuint,
+                       a5: PXDevice, a6: Window, a7: XBool, a8: cuint,
                        a9: ptr UncheckedArray[XEventClass], a10: cint, a11: cint): cint
 proc XUngrabDeviceButton*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: cuint,
                          a5: PXDevice, a6: Window): cint
@@ -775,7 +775,7 @@ proc XGetSelectedExtensionEvents*(a1: PDisplay, a2: Window, a3: ptr cint,
 proc XChangeDeviceDontPropagateList*(a1: PDisplay, a2: Window, a3: cint,
                                     a4: ptr UncheckedArray[XEventClass], a5: cint): cint
 proc XGetDeviceDontPropagateList*(a1: PDisplay, a2: Window, a3: ptr cint): ptr UncheckedArray[XEventClass]
-proc XSendExtensionEvent*(a1: PDisplay, a2: PXDevice, a3: Window, a4: Bool, a5: cint,
+proc XSendExtensionEvent*(a1: PDisplay, a2: PXDevice, a3: Window, a4: XBool, a5: cint,
                          a6: ptr UncheckedArray[XEventClass], a7: PXEvent): Status
 proc XGetDeviceMotionEvents*(a1: PDisplay, a2: PXDevice, a3, a4: Time,
                             a5, a6, a7: ptr cint): PXDeviceTimeCoord
@@ -786,7 +786,7 @@ proc XChangeDeviceProperty*(a1: PDisplay, a2: PXDevice, a3: Atom, a4: Atom, a5: 
                            a6: cint, a7: cstring, a8: cint)
 proc XDeleteDeviceProperty*(a1: PDisplay, a2: PXDevice, a3: Atom)
 proc XGetDeviceProperty*(a1: PDisplay, a2: PXDevice, a3: Atom, a4, a5: clong,
-                        a6: Bool, a7: Atom, a8: PAtom, a9: ptr cint, a10: ptr culong,
+                        a6: XBool, a7: Atom, a8: PAtom, a9: ptr cint, a10: ptr culong,
                         a11: ptr culong, a12: ptr cstring): Status
 
 {.pop.}

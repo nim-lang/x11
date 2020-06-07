@@ -105,7 +105,7 @@ type
   XvVideoNotifyEvent*{.final.} = object
     theType*: cint
     serial*: culong          # # of last request processed by server
-    send_event*: Bool        # true if this came from a SendEvent request
+    send_event*: XBool        # true if this came from a SendEvent request
     display*: PDisplay       # Display the event was read from
     drawable*: Drawable      # drawable
     reason*: culong          # what generated this event
@@ -117,7 +117,7 @@ type
   XvPortNotifyEvent*{.final.} = object
     theType*: cint
     serial*: culong          # # of last request processed by server
-    send_event*: Bool        # true if this came from a SendEvent request
+    send_event*: XBool        # true if this came from a SendEvent request
     display*: PDisplay       # Display the event was read from
     port_id*: XvPortID       # what port
     time*: Time              # milliseconds
@@ -206,15 +206,15 @@ proc XvGrabPort*(display: PDisplay, port: XvPortID, time: Time): cint{.cdecl,
     dynlib: libXv, importc.}
 proc XvUngrabPort*(display: PDisplay, port: XvPortID, time: Time): cint{.
     cdecl, dynlib: libXv, importc.}
-proc XvSelectVideoNotify*(display: PDisplay, drawable: Drawable, onoff: Bool): cint{.
+proc XvSelectVideoNotify*(display: PDisplay, drawable: Drawable, onoff: XBool): cint{.
     cdecl, dynlib: libXv, importc.}
-proc XvSelectPortNotify*(display: PDisplay, port: XvPortID, onoff: Bool): cint{.
+proc XvSelectPortNotify*(display: PDisplay, port: XvPortID, onoff: XBool): cint{.
     cdecl, dynlib: libXv, importc.}
 proc XvSetPortAttribute*(display: PDisplay, port: XvPortID, attribute: Atom,
                          value: cint): cint{.cdecl, dynlib: libXv, importc.}
 proc XvGetPortAttribute*(display: PDisplay, port: XvPortID, attribute: Atom,
                          p_value: cint): cint{.cdecl, dynlib: libXv, importc.}
-proc XvQueryBestSize*(display: PDisplay, port: XvPortID, motion: Bool,
+proc XvQueryBestSize*(display: PDisplay, port: XvPortID, motion: XBool,
                       vid_w, vid_h, drw_w, drw_h: cuint,
                       p_actual_width, p_actual_height: cuint): cint{.cdecl,
     dynlib: libXv, importc.}
@@ -236,7 +236,7 @@ proc XvPutImage*(display: PDisplay, id: XvPortID, d: Drawable, gc: GC,
 proc XvShmPutImage*(display: PDisplay, id: XvPortID, d: Drawable, gc: GC,
                     image: PXvImage, src_x, src_y: cint, src_w, src_h: cuint,
                     dest_x, dest_y: cint, dest_w, dest_h: cuint,
-                    send_event: Bool): cint{.cdecl, dynlib: libXv, importc.}
+                    send_event: XBool): cint{.cdecl, dynlib: libXv, importc.}
 proc XvShmCreateImage*(display: PDisplay, port: XvPortID, id: cint,
                        data: pointer, width, height: cint,
                        shminfo: PXShmSegmentInfo): PXvImage{.cdecl,

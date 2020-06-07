@@ -32,9 +32,9 @@ type
   PXPointer* = ptr XPointer
   TXPointer* {.deprecated: "Use XPointer instead".} = XPointer
   XPointer* = ptr char
-  PBool* = ptr Bool
-  TBool* {.deprecated: "Use Bool instead".} = Bool
-  Bool* = cint
+  PBool* = ptr XBool
+  TBool* {.deprecated: "Use XBool instead".} = XBool
+  XBool* = cint
   PStatus* = ptr Status
   TStatus* {.deprecated: "Use Status instead".} = Status
   Status* = cint
@@ -89,7 +89,7 @@ type
     ts_y_origin*: cint
     font*: Font
     subwindow_mode*: cint
-    graphics_exposures*: Bool
+    graphics_exposures*: XBool
     clip_x_origin*: cint
     clip_y_origin*: cint
     clip_mask*: Pixmap
@@ -141,7 +141,7 @@ type
     black_pixel*: culong
     max_maps*, min_maps*: cint
     backing_store*: cint
-    save_unders*: Bool
+    save_unders*: XBool
     root_input_mask*: clong
 
   PScreenFormat* = ptr ScreenFormat
@@ -164,10 +164,10 @@ type
     backing_store*: cint
     backing_planes*: culong
     backing_pixel*: culong
-    save_under*: Bool
+    save_under*: XBool
     event_mask*: clong
     do_not_propagate_mask*: clong
-    override_redirect*: Bool
+    override_redirect*: XBool
     colormap*: Colormap
     cursor*: Cursor
 
@@ -186,14 +186,14 @@ type
     backing_store*: cint
     backing_planes*: culong
     backing_pixel*: culong
-    save_under*: Bool
+    save_under*: XBool
     colormap*: Colormap
-    map_installed*: Bool
+    map_installed*: XBool
     map_state*: cint
     all_event_masks*: clong
     your_event_mask*: clong
     do_not_propagate_mask*: clong
-    override_redirect*: Bool
+    override_redirect*: XBool
     screen*: PScreen
 
   PXHostAddress* = ptr XHostAddress
@@ -383,7 +383,7 @@ type
   XKeyEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     root*: Window
@@ -393,7 +393,7 @@ type
     x_root*, y_root*: cint
     state*: cuint
     keycode*: cuint
-    same_screen*: Bool
+    same_screen*: XBool
 
   PXKeyPressedEvent* = ptr XKeyPressedEvent
   TXKeyPressedEvent* {.deprecated: "Use XKeyPressedEvent instead".} = XKeyPressedEvent
@@ -408,7 +408,7 @@ type
   XButtonEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     root*: Window
@@ -418,7 +418,7 @@ type
     x_root*, y_root*: cint
     state*: cuint
     button*: cuint
-    same_screen*: Bool
+    same_screen*: XBool
 
   PXButtonPressedEvent* = ptr XButtonPressedEvent
   TXButtonPressedEvent* {.deprecated: "Use XButtonPressedEvent instead".} = XButtonPressedEvent
@@ -433,7 +433,7 @@ type
   XMotionEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     root*: Window
@@ -443,7 +443,7 @@ type
     x_root*, y_root*: cint
     state*: cuint
     is_hint*: cchar
-    same_screen*: Bool
+    same_screen*: XBool
 
   PXPointerMovedEvent* = ptr XPointerMovedEvent
   TXPointerMovedEvent* {.deprecated: "Use XPointerMovedEvent instead".} = XPointerMovedEvent
@@ -454,7 +454,7 @@ type
   XCrossingEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     root*: Window
@@ -464,8 +464,8 @@ type
     x_root*, y_root*: cint
     mode*: cint
     detail*: cint
-    same_screen*: Bool
-    focus*: Bool
+    same_screen*: XBool
+    focus*: XBool
     state*: cuint
 
   PXEnterWindowEvent* = ptr XEnterWindowEvent
@@ -481,7 +481,7 @@ type
   XFocusChangeEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     mode*: cint
@@ -500,7 +500,7 @@ type
   XKeymapEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     key_vector*: array[0..31, cchar]
@@ -510,7 +510,7 @@ type
   XExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     x*, y*: cint
@@ -522,7 +522,7 @@ type
   XGraphicsExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     drawable*: Drawable
     x*, y*: cint
@@ -536,7 +536,7 @@ type
   XNoExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     drawable*: Drawable
     major_code*: cint
@@ -547,7 +547,7 @@ type
   XVisibilityEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     state*: cint
@@ -557,21 +557,21 @@ type
   XCreateWindowEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     parent*: Window
     window*: Window
     x*, y*: cint
     width*, height*: cint
     border_width*: cint
-    override_redirect*: Bool
+    override_redirect*: XBool
 
   PXDestroyWindowEvent* = ptr XDestroyWindowEvent
   TXDestroyWindowEvent* {.deprecated: "Use XDestroyWindowEvent instead".} = XDestroyWindowEvent
   XDestroyWindowEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
@@ -581,29 +581,29 @@ type
   XUnmapEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
-    from_configure*: Bool
+    from_configure*: XBool
 
   PXMapEvent* = ptr XMapEvent
   TXMapEvent* {.deprecated: "Use XMapEvent instead".} = XMapEvent
   XMapEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
-    override_redirect*: Bool
+    override_redirect*: XBool
 
   PXMapRequestEvent* = ptr XMapRequestEvent
   TXMapRequestEvent* {.deprecated: "Use XMapRequestEvent instead".} = XMapRequestEvent
   XMapRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     parent*: Window
     window*: Window
@@ -613,20 +613,20 @@ type
   XReparentEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
     parent*: Window
     x*, y*: cint
-    override_redirect*: Bool
+    override_redirect*: XBool
 
   PXConfigureEvent* = ptr XConfigureEvent
   TXConfigureEvent* {.deprecated: "Use XConfigureEvent instead".} = XConfigureEvent
   XConfigureEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
@@ -634,14 +634,14 @@ type
     width*, height*: cint
     border_width*: cint
     above*: Window
-    override_redirect*: Bool
+    override_redirect*: XBool
 
   PXGravityEvent* = ptr XGravityEvent
   TXGravityEvent* {.deprecated: "Use XGravityEvent instead".} = XGravityEvent
   XGravityEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
@@ -652,7 +652,7 @@ type
   XResizeRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     width*, height*: cint
@@ -662,7 +662,7 @@ type
   XConfigureRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     parent*: Window
     window*: Window
@@ -678,7 +678,7 @@ type
   XCirculateEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     event*: Window
     window*: Window
@@ -689,7 +689,7 @@ type
   XCirculateRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     parent*: Window
     window*: Window
@@ -700,7 +700,7 @@ type
   XPropertyEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     atom*: Atom
@@ -712,7 +712,7 @@ type
   XSelectionClearEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     selection*: Atom
@@ -723,7 +723,7 @@ type
   XSelectionRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     owner*: Window
     requestor*: Window
@@ -737,7 +737,7 @@ type
   XSelectionEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     requestor*: Window
     selection*: Atom
@@ -750,11 +750,11 @@ type
   XColormapEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     colormap*: Colormap
-    c_new*: Bool
+    c_new*: XBool
     state*: cint
 
   PXClientMessageEvent* = ptr XClientMessageEvent
@@ -769,7 +769,7 @@ type
   XClientMessageEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     message_type*: Atom
@@ -781,7 +781,7 @@ type
   XMappingEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
     request*: cint
@@ -804,7 +804,7 @@ type
   XAnyEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     window*: Window
 
@@ -874,7 +874,7 @@ type
     max_char_or_byte2*: cunsigned
     min_byte1*: cunsigned
     max_byte1*: cunsigned
-    all_chars_exist*: Bool
+    all_chars_exist*: XBool
     default_char*: cunsigned
     n_properties*: cint
     properties*: PXFontProp
@@ -1000,7 +1000,7 @@ type
   XIMProc* = proc (para1: XIM, para2: XPointer, para3: XPointer){.cdecl.}
 
   TXICProc* {.deprecated: "Use XICProc instead".} = XICProc
-  XICProc* = proc (para1: XIC, para2: XPointer, para3: XPointer): Bool{.
+  XICProc* = proc (para1: XIC, para2: XPointer, para3: XPointer): XBool{.
       cdecl.}
 
   TXIDProc* {.deprecated: "Use XIDProc instead".} = XIDProc
@@ -1113,7 +1113,7 @@ type
   XIMText*{.final.} = object
     len*: cushort
     feedback*: PXIMFeedback
-    encoding_is_wchar*: Bool
+    encoding_is_wchar*: XBool
     multi_byte*: cstring
 
   PXIMPreeditState* = ptr XIMPreeditState
@@ -1158,7 +1158,7 @@ type
   XIMStringConversionText*{.final.} = object
     len*: cushort
     feedback*: PXIMStringConversionFeedback
-    encoding_is_wchar*: Bool
+    encoding_is_wchar*: XBool
     mbs*: cstring
 
   PXIMStringConversionPosition* = ptr XIMStringConversionPosition
@@ -1263,7 +1263,7 @@ type
 
 type
   funcdisp* = proc (display: PDisplay): cint{.cdecl.}
-  funcifevent* = proc (display: PDisplay, event: PXEvent, p: XPointer): Bool{.
+  funcifevent* = proc (display: PDisplay, event: PXEvent, p: XPointer): XBool{.
       cdecl.}
   chararr32* = array[0..31, char]
 
@@ -1301,10 +1301,10 @@ proc XGetDefault*(para1: PDisplay, para2: cstring, para3: cstring): cstring{.
     libx11.}
 proc XDisplayName*(para1: cstring): cstring{.libx11.}
 proc XKeysymToString*(para1: KeySym): cstring{.libx11.}
-proc XSynchronize*(para1: PDisplay, para2: Bool): funcdisp{.libx11.}
+proc XSynchronize*(para1: PDisplay, para2: XBool): funcdisp{.libx11.}
 proc XSetAfterFunction*(para1: PDisplay, para2: funcdisp): funcdisp{.libx11.}
-proc XInternAtom*(para1: PDisplay, para2: cstring, para3: Bool): Atom{.libx11.}
-proc XInternAtoms*(para1: PDisplay, para2: PPchar, para3: cint, para4: Bool,
+proc XInternAtom*(para1: PDisplay, para2: cstring, para3: XBool): Atom{.libx11.}
+proc XInternAtoms*(para1: PDisplay, para2: PPchar, para3: cint, para4: XBool,
                    para5: PAtom): Status{.libx11.}
 proc XCopyColormapAndFree*(para1: PDisplay, para2: Colormap): Colormap{.libx11.}
 proc XCreateColormap*(para1: PDisplay, para2: Window, para3: PVisual,
@@ -1432,10 +1432,10 @@ proc XAddToExtensionList*(para1: PPXExtData, para2: PXExtData): cint{.libx11.}
 proc XAddToSaveSet*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XAllocColor*(para1: PDisplay, para2: Colormap, para3: PXColor): Status{.
     libx11.}
-proc XAllocColorCells*(para1: PDisplay, para2: Colormap, para3: Bool,
+proc XAllocColorCells*(para1: PDisplay, para2: Colormap, para3: XBool,
                        para4: Pculong, para5: cuint, para6: Pculong,
                        para7: cuint): Status{.libx11.}
-proc XAllocColorPlanes*(para1: PDisplay, para2: Colormap, para3: Bool,
+proc XAllocColorPlanes*(para1: PDisplay, para2: Colormap, para3: XBool,
                         para4: Pculong, para5: cint, para6: cint, para7: cint,
                         para8: cint, para9: Pculong, para10: Pculong,
                         para11: Pculong): Status{.libx11.}
@@ -1457,7 +1457,7 @@ proc XChangeKeyboardControl*(para1: PDisplay, para2: culong,
                              para3: PXKeyboardControl): cint{.libx11.}
 proc XChangeKeyboardMapping*(para1: PDisplay, para2: cint, para3: cint,
                              para4: PKeySym, para5: cint): cint{.libx11.}
-proc XChangePointerControl*(para1: PDisplay, para2: Bool, para3: Bool,
+proc XChangePointerControl*(para1: PDisplay, para2: XBool, para3: XBool,
                             para4: cint, para5: cint, para6: cint): cint{.libx11.}
 proc XChangeProperty*(para1: PDisplay, para2: Window, para3: Atom,
                       para4: Atom, para5: cint, para6: cint, para7: Pcuchar,
@@ -1466,21 +1466,21 @@ proc XChangeSaveSet*(para1: PDisplay, para2: Window, para3: cint): cint{.libx11.
 proc XChangeWindowAttributes*(para1: PDisplay, para2: Window, para3: culong,
                               para4: PXSetWindowAttributes): cint{.libx11.}
 proc XCheckIfEvent*(para1: PDisplay, para2: PXEvent, para3: funcifevent,
-                    para4: XPointer): Bool{.libx11.}
-proc XCheckMaskEvent*(para1: PDisplay, para2: clong, para3: PXEvent): Bool{.
+                    para4: XPointer): XBool{.libx11.}
+proc XCheckMaskEvent*(para1: PDisplay, para2: clong, para3: PXEvent): XBool{.
     libx11.}
-proc XCheckTypedEvent*(para1: PDisplay, para2: cint, para3: PXEvent): Bool{.
+proc XCheckTypedEvent*(para1: PDisplay, para2: cint, para3: PXEvent): XBool{.
     libx11.}
 proc XCheckTypedWindowEvent*(para1: PDisplay, para2: Window, para3: cint,
-                             para4: PXEvent): Bool{.libx11.}
+                             para4: PXEvent): XBool{.libx11.}
 proc XCheckWindowEvent*(para1: PDisplay, para2: Window, para3: clong,
-                        para4: PXEvent): Bool{.libx11.}
+                        para4: PXEvent): XBool{.libx11.}
 proc XCirculateSubwindows*(para1: PDisplay, para2: Window, para3: cint): cint{.
     libx11.}
 proc XCirculateSubwindowsDown*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XCirculateSubwindowsUp*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XClearArea*(para1: PDisplay, para2: Window, para3: cint, para4: cint,
-                 para5: cuint, para6: cuint, para7: Bool): cint{.libx11.}
+                 para5: cuint, para6: cuint, para7: XBool): cint{.libx11.}
 proc XClearWindow*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XCloseDisplay*(para1: PDisplay): cint{.libx11.}
 proc XConfigureWindow*(para1: PDisplay, para2: Window, para3: cuint,
@@ -1508,7 +1508,7 @@ proc XDeleteProperty*(para1: PDisplay, para2: Window, para3: Atom): cint{.
 proc XDestroyWindow*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XDestroySubwindows*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XDoesBackingStore*(para1: PScreen): cint{.libx11.}
-proc XDoesSaveUnders*(para1: PScreen): Bool{.libx11.}
+proc XDoesSaveUnders*(para1: PScreen): XBool{.libx11.}
 proc XDisableAccessControl*(para1: PDisplay): cint{.libx11.}
 proc XDisplayCells*(para1: PDisplay, para2: cint): cint{.libx11.}
 proc XDisplayHeight*(para1: PDisplay, para2: cint): cint{.libx11.}
@@ -1592,7 +1592,7 @@ proc XGetErrorDatabaseText*(para1: PDisplay, para2: cstring, para3: cstring,
     libx11.}
 proc XGetErrorText*(para1: PDisplay, para2: cint, para3: cstring, para4: cint): cint{.
     libx11.}
-proc XGetFontProperty*(para1: PXFontStruct, para2: Atom, para3: Pculong): Bool{.
+proc XGetFontProperty*(para1: PXFontStruct, para2: Atom, para3: Pculong): XBool{.
     libx11.}
 proc XGetGCValues*(para1: PDisplay, para2: GC, para3: culong, para4: PXGCValues): Status{.
     libx11.}
@@ -1613,19 +1613,19 @@ proc XGetScreenSaver*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: Pcint,
 proc XGetTransientForHint*(para1: PDisplay, para2: Window, para3: PWindow): Status{.
     libx11.}
 proc XGetWindowProperty*(para1: PDisplay, para2: Window, para3: Atom,
-                         para4: clong, para5: clong, para6: Bool, para7: Atom,
+                         para4: clong, para5: clong, para6: XBool, para7: Atom,
                          para8: PAtom, para9: Pcint, para10: Pculong,
                          para11: Pculong, para12: PPcuchar): cint{.libx11.}
 proc XGetWindowAttributes*(para1: PDisplay, para2: Window,
                            para3: PXWindowAttributes): Status{.libx11.}
 proc XGrabButton*(para1: PDisplay, para2: cuint, para3: cuint, para4: Window,
-                  para5: Bool, para6: cuint, para7: cint, para8: cint,
+                  para5: XBool, para6: cuint, para7: cint, para8: cint,
                   para9: Window, para10: Cursor): cint{.libx11.}
 proc XGrabKey*(para1: PDisplay, para2: cint, para3: cuint, para4: Window,
-               para5: Bool, para6: cint, para7: cint): cint{.libx11.}
-proc XGrabKeyboard*(para1: PDisplay, para2: Window, para3: Bool, para4: cint,
+               para5: XBool, para6: cint, para7: cint): cint{.libx11.}
+proc XGrabKeyboard*(para1: PDisplay, para2: Window, para3: XBool, para4: cint,
                     para5: cint, para6: Time): cint{.libx11.}
-proc XGrabPointer*(para1: PDisplay, para2: Window, para3: Bool, para4: cuint,
+proc XGrabPointer*(para1: PDisplay, para2: Window, para3: XBool, para4: cuint,
                    para5: cint, para6: cint, para7: Window, para8: Cursor,
                    para9: Time): cint{.libx11.}
 proc XGrabServer*(para1: PDisplay): cint{.libx11.}
@@ -1685,12 +1685,12 @@ proc XQueryColor*(para1: PDisplay, para2: Colormap, para3: PXColor): cint{.
 proc XQueryColors*(para1: PDisplay, para2: Colormap, para3: PXColor,
                    para4: cint): cint{.libx11.}
 proc XQueryExtension*(para1: PDisplay, para2: cstring, para3: Pcint,
-                      para4: Pcint, para5: Pcint): Bool{.libx11.}
+                      para4: Pcint, para5: Pcint): XBool{.libx11.}
   #?
 proc XQueryKeymap*(para1: PDisplay, para2: chararr32): cint{.libx11.}
 proc XQueryPointer*(para1: PDisplay, para2: Window, para3: PWindow,
                     para4: PWindow, para5: Pcint, para6: Pcint, para7: Pcint,
-                    para8: Pcint, para9: Pcuint): Bool{.libx11.}
+                    para8: Pcint, para9: Pcuint): XBool{.libx11.}
 proc XQueryTextExtents*(para1: PDisplay, para2: XID, para3: cstring,
                         para4: cint, para5: Pcint, para6: Pcint, para7: Pcint,
                         para8: PXCharStruct): cint{.libx11.}
@@ -1728,7 +1728,7 @@ proc XRotateWindowProperties*(para1: PDisplay, para2: Window, para3: PAtom,
                               para4: cint, para5: cint): cint{.libx11.}
 proc XScreenCount*(para1: PDisplay): cint{.libx11.}
 proc XSelectInput*(para1: PDisplay, para2: Window, para3: clong): cint{.libx11.}
-proc XSendEvent*(para1: PDisplay, para2: Window, para3: Bool, para4: clong,
+proc XSendEvent*(para1: PDisplay, para2: Window, para3: XBool, para4: clong,
                  para5: PXEvent): Status{.libx11.}
 proc XSetAccessControl*(para1: PDisplay, para2: cint): cint{.libx11.}
 proc XSetArcMode*(para1: PDisplay, para2: GC, para3: cint): cint{.libx11.}
@@ -1750,7 +1750,7 @@ proc XSetFont*(para1: PDisplay, para2: GC, para3: Font): cint{.libx11.}
 proc XSetFontPath*(para1: PDisplay, para2: PPchar, para3: cint): cint{.libx11.}
 proc XSetForeground*(para1: PDisplay, para2: GC, para3: culong): cint{.libx11.}
 proc XSetFunction*(para1: PDisplay, para2: GC, para3: cint): cint{.libx11.}
-proc XSetGraphicsExposures*(para1: PDisplay, para2: GC, para3: Bool): cint{.
+proc XSetGraphicsExposures*(para1: PDisplay, para2: GC, para3: XBool): cint{.
     libx11.}
 proc XSetIconName*(para1: PDisplay, para2: Window, para3: cstring): cint{.
     libx11.}
@@ -1796,7 +1796,7 @@ proc XStoreColors*(para1: PDisplay, para2: Colormap, para3: PXColor,
 proc XStoreName*(para1: PDisplay, para2: Window, para3: cstring): cint{.libx11.}
 proc XStoreNamedColor*(para1: PDisplay, para2: Colormap, para3: cstring,
                        para4: culong, para5: cint): cint{.libx11.}
-proc XSync*(para1: PDisplay, para2: Bool): cint{.libx11.}
+proc XSync*(para1: PDisplay, para2: XBool): cint{.libx11.}
 proc XTextExtents*(para1: PXFontStruct, para2: cstring, para3: cint,
                    para4: Pcint, para5: Pcint, para6: Pcint, para7: PXCharStruct): cint{.
     libx11.}
@@ -1808,7 +1808,7 @@ proc XTextWidth16*(para1: PXFontStruct, para2: PXChar2b, para3: cint): cint{.
     libx11.}
 proc XTranslateCoordinates*(para1: PDisplay, para2: Window, para3: Window,
                             para4: cint, para5: cint, para6: Pcint,
-                            para7: Pcint, para8: PWindow): Bool{.libx11.}
+                            para7: Pcint, para8: PWindow): XBool{.libx11.}
 proc XUndefineCursor*(para1: PDisplay, para2: Window): cint{.libx11.}
 proc XUngrabButton*(para1: PDisplay, para2: cuint, para3: cuint, para4: Window): cint{.
     libx11.}
@@ -1832,7 +1832,7 @@ proc XWindowEvent*(para1: PDisplay, para2: Window, para3: clong, para4: PXEvent)
 proc XWriteBitmapFile*(para1: PDisplay, para2: cstring, para3: Pixmap,
                        para4: cuint, para5: cuint, para6: cint, para7: cint): cint{.
     libx11.}
-proc XSupportsLocale*(): Bool{.libx11.}
+proc XSupportsLocale*(): XBool{.libx11.}
 proc XSetLocaleModifiers*(para1: cstring): cstring{.libx11.}
 proc XOpenOM*(para1: PDisplay, para2: PXrmHashBucketRec, para3: cstring,
               para4: cstring): XOM{.libx11.}
@@ -1853,9 +1853,9 @@ proc XFontsOfFontSet*(para1: XFontSet, para2: PPPXFontStruct, para3: PPPchar): c
     libx11.}
 proc XBaseFontNameListOfFontSet*(para1: XFontSet): cstring{.libx11.}
 proc XLocaleOfFontSet*(para1: XFontSet): cstring{.libx11.}
-proc XContextDependentDrawing*(para1: XFontSet): Bool{.libx11.}
-proc XDirectionalDependentDrawing*(para1: XFontSet): Bool{.libx11.}
-proc XContextualDrawing*(para1: XFontSet): Bool{.libx11.}
+proc XContextDependentDrawing*(para1: XFontSet): XBool{.libx11.}
+proc XDirectionalDependentDrawing*(para1: XFontSet): XBool{.libx11.}
+proc XContextualDrawing*(para1: XFontSet): XBool{.libx11.}
 proc XExtentsOfFontSet*(para1: XFontSet): PXFontSetExtents{.libx11.}
 proc XmbTextEscapement*(para1: XFontSet, para2: cstring, para3: cint): cint{.
     libx11.}
@@ -1922,7 +1922,7 @@ proc Xutf8ResetIC*(para1: XIC): cstring{.libx11.}
 proc XSetICValues*(para1: XIC): cstring{.varargs, libx11.}
 proc XGetICValues*(para1: XIC): cstring{.varargs, libx11.}
 proc XIMOfIC*(para1: XIC): XIM{.libx11.}
-proc XFilterEvent*(para1: PXEvent, para2: Window): Bool{.libx11.}
+proc XFilterEvent*(para1: PXEvent, para2: Window): XBool{.libx11.}
 proc XmbLookupString*(para1: XIC, para2: PXKeyPressedEvent, para3: cstring,
                       para4: cint, para5: PKeySym, para6: PStatus): cint{.libx11.}
 proc XwcLookupString*(para1: XIC, para2: PXKeyPressedEvent, para3: PWideChar,
@@ -1933,16 +1933,16 @@ proc Xutf8LookupString*(para1: XIC, para2: PXKeyPressedEvent, para3: cstring,
 proc XVaCreateNestedList*(unused: cint): XVaNestedList{.varargs, libx11.}
 proc XRegisterIMInstantiateCallback*(para1: PDisplay, para2: PXrmHashBucketRec,
                                      para3: cstring, para4: cstring,
-                                     para5: XIDProc, para6: XPointer): Bool{.
+                                     para5: XIDProc, para6: XPointer): XBool{.
     libx11.}
 proc XUnregisterIMInstantiateCallback*(para1: PDisplay,
                                        para2: PXrmHashBucketRec, para3: cstring,
                                        para4: cstring, para5: XIDProc,
-                                       para6: XPointer): Bool{.libx11.}
+                                       para6: XPointer): XBool{.libx11.}
 type
   TXConnectionWatchProc* {.deprecated: "Use XConnectionWatchProc instead".} = XConnectionWatchProc
   XConnectionWatchProc* = proc (para1: PDisplay, para2: XPointer, para3: cint,
-                                 para4: Bool, para5: PXPointer){.cdecl.}
+                                 para4: XBool, para5: PXPointer){.cdecl.}
 
 proc XInternalConnectionNumbers*(para1: PDisplay, para2: PPcint, para3: Pcint): Status{.
     libx11.}
@@ -2005,7 +2005,7 @@ proc PlanesOfScreen*(s: PScreen): cint
 proc CellsOfScreen*(s: PScreen): cint
 proc MinCmapsOfScreen*(s: PScreen): cint
 proc MaxCmapsOfScreen*(s: PScreen): cint
-proc DoesSaveUnders*(s: PScreen): Bool
+proc DoesSaveUnders*(s: PScreen): XBool
 proc DoesBackingStore*(s: PScreen): cint
 proc EventMaskOfScreen*(s: PScreen): clong
 proc XAllocID*(dpy: PDisplay): XID
@@ -2159,7 +2159,7 @@ proc MinCmapsOfScreen(s: PScreen): cint =
 proc MaxCmapsOfScreen(s: PScreen): cint =
   s.max_maps
 
-proc DoesSaveUnders(s: PScreen): Bool =
+proc DoesSaveUnders(s: PScreen): XBool =
   s.save_unders
 
 proc DoesBackingStore(s: PScreen): cint =

@@ -140,20 +140,20 @@ proc XrmPutLineResource*(para1: PXrmDatabase, para2: cstring){.cdecl,
     dynlib: libX11, importc.}
 proc XrmQGetResource*(para1: XrmDatabase, para2: XrmNameList,
                       para3: XrmClassList, para4: PXrmRepresentation,
-                      para5: PXrmValue): Bool{.cdecl, dynlib: libX11, importc.}
+                      para5: PXrmValue): XBool{.cdecl, dynlib: libX11, importc.}
 proc XrmGetResource*(para1: XrmDatabase, para2: cstring, para3: cstring,
-                     para4: PPchar, para5: PXrmValue): Bool{.cdecl,
+                     para4: PPchar, para5: PXrmValue): XBool{.cdecl,
     dynlib: libX11, importc.}
   # There is no definition of XrmSearchList
-  #function XrmQGetSearchList(para1:XrmDatabase; para2:XrmNameList; para3:XrmClassList; para4:XrmSearchList; para5:longint):Bool;cdecl;external libX11;
-  #function XrmQGetSearchResource(para1:XrmSearchList; para2:XrmName; para3:XrmClass; para4:PXrmRepresentation; para5:PXrmValue):Bool;cdecl;external libX11;
+  #function XrmQGetSearchList(para1:XrmDatabase; para2:XrmNameList; para3:XrmClassList; para4:XrmSearchList; para5:longint):XBool;cdecl;external libX11;
+  #function XrmQGetSearchResource(para1:XrmSearchList; para2:XrmName; para3:XrmClass; para4:PXrmRepresentation; para5:PXrmValue):XBool;cdecl;external libX11;
 proc XrmSetDatabase*(para1: PDisplay, para2: XrmDatabase){.cdecl,
     dynlib: libX11, importc.}
 proc XrmGetDatabase*(para1: PDisplay): XrmDatabase{.cdecl, dynlib: libX11,
     importc.}
 proc XrmGetFileDatabase*(para1: cstring): XrmDatabase{.cdecl, dynlib: libX11,
     importc.}
-proc XrmCombineFileDatabase*(para1: cstring, para2: PXrmDatabase, para3: Bool): Status{.
+proc XrmCombineFileDatabase*(para1: cstring, para2: PXrmDatabase, para3: XBool): Status{.
     cdecl, dynlib: libX11, importc.}
 proc XrmGetStringDatabase*(para1: cstring): XrmDatabase{.cdecl, dynlib: libX11,
     importc.}
@@ -161,18 +161,18 @@ proc XrmPutFileDatabase*(para1: XrmDatabase, para2: cstring){.cdecl,
     dynlib: libX11, importc.}
 proc XrmMergeDatabases*(para1: XrmDatabase, para2: PXrmDatabase){.cdecl,
     dynlib: libX11, importc.}
-proc XrmCombineDatabase*(para1: XrmDatabase, para2: PXrmDatabase, para3: Bool){.
+proc XrmCombineDatabase*(para1: XrmDatabase, para2: PXrmDatabase, para3: XBool){.
     cdecl, dynlib: libX11, importc.}
 const
   XrmEnumAllLevels* = 0
   XrmEnumOneLevel* = 1
 
 type
-  funcbool* = proc (): Bool {.cdecl.}
+  funcbool* = proc (): XBool {.cdecl.}
 
 proc XrmEnumerateDatabase*(para1: XrmDatabase, para2: XrmNameList,
                            para3: XrmClassList, para4: int32, para5: funcbool,
-                           para6: XPointer): Bool{.cdecl, dynlib: libX11,
+                           para6: XPointer): XBool{.cdecl, dynlib: libX11,
     importc.}
 proc XrmLocaleOfDatabase*(para1: XrmDatabase): cstring{.cdecl, dynlib: libX11,
     importc.}

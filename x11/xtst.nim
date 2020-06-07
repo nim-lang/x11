@@ -66,8 +66,8 @@ type
     delivered_events*: XRecordRange8 ##  delivered core and ext events
     device_events*: XRecordRange8 ##  all core and ext device events
     errors*: XRecordRange8     ##  core X and ext errors
-    client_started*: Bool      ##  connection setup reply
-    client_died*: Bool         ##  notice of client disconnect
+    client_started*: XBool      ##  connection setup reply
+    client_died*: XBool         ##  notice of client disconnect
 
   PXRecordClientInfo* = ptr XRecordClientInfo
   TXRecordClientInfo* {.deprecated: "Use XRecordClientInfo instead".} = XRecordClientInfo
@@ -79,7 +79,7 @@ type
   PXRecordState* = ptr XRecordState
   TXRecordState* {.deprecated: "Use XRecordState instead".} = XRecordState
   XRecordState* {.final.} = object
-    enabled*: Bool
+    enabled*: XBool
     datum_flags*: cint
     nclients*: culong
     client_info*: ptr UncheckedArray[XRecordClientInfo]
@@ -91,7 +91,7 @@ type
     server_time*: Time
     client_seq*: culong
     category*: cint
-    client_swapped*: Bool
+    client_swapped*: XBool
     data*: cstring
     data_len*: culong          ##  in 4-byte units
 
@@ -132,22 +132,22 @@ proc XRecordProcessReplies*(a1: PDisplay)
 proc XRecordFreeData*(a1: PXRecordInterceptData)
 proc XRecordDisableContext*(a1: PDisplay, a2: XRecordContext): Status
 proc XRecordFreeContext*(a1: PDisplay, a2: XRecordContext): Status
-proc XTestQueryExtension*(a1: PDisplay, a2, a3, a4, a5: ptr cint): Bool
-proc XTestCompareCursorWithWindow*(a1: PDisplay, a2: Window, a3: Cursor): Bool
-proc XTestCompareCurrentCursorWithWindow*(a1: PDisplay, a2: Window): Bool
-proc XTestFakeKeyEvent*(a1: PDisplay, a2: cuint, a3: Bool, a4: culong): cint
-proc XTestFakeButtonEvent*(a1: PDisplay, a2: cuint, a3: Bool, a4: culong): cint
+proc XTestQueryExtension*(a1: PDisplay, a2, a3, a4, a5: ptr cint): XBool
+proc XTestCompareCursorWithWindow*(a1: PDisplay, a2: Window, a3: Cursor): XBool
+proc XTestCompareCurrentCursorWithWindow*(a1: PDisplay, a2: Window): XBool
+proc XTestFakeKeyEvent*(a1: PDisplay, a2: cuint, a3: XBool, a4: culong): cint
+proc XTestFakeButtonEvent*(a1: PDisplay, a2: cuint, a3: XBool, a4: culong): cint
 proc XTestFakeMotionEvent*(a1: PDisplay, a2, a3, a4: cint, a5: culong): cint
 proc XTestFakeRelativeMotionEvent*(a1: PDisplay, a2, a3: cint, a4: culong): cint
-proc XTestFakeDeviceKeyEvent*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: Bool,
+proc XTestFakeDeviceKeyEvent*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: XBool,
                              a5: ptr cint, a6: cint, a7: culong): cint
-proc XTestFakeDeviceButtonEvent*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: Bool,
+proc XTestFakeDeviceButtonEvent*(a1: PDisplay, a2: PXDevice, a3: cuint, a4: XBool,
                                 a5: ptr cint, a6: cint, a7: culong): cint
-proc XTestFakeProximityEvent*(a1: PDisplay, a2: PXDevice, a3: Bool, a4: ptr cint,
+proc XTestFakeProximityEvent*(a1: PDisplay, a2: PXDevice, a3: XBool, a4: ptr cint,
                              a5: cint, a6: culong): cint
-proc XTestFakeDeviceMotionEvent*(a1: PDisplay, a2: PXDevice, a3: Bool, a4: cint,
+proc XTestFakeDeviceMotionEvent*(a1: PDisplay, a2: PXDevice, a3: XBool, a4: cint,
                                 a5: ptr cint, a6: cint, a7: culong): cint
-proc XTestGrabControl*(a1: PDisplay, a2: Bool): cint
+proc XTestGrabControl*(a1: PDisplay, a2: XBool): cint
 proc XTestSetGContextOfGC*(a1: GC, a2: GContext)
 proc XTestSetVisualIDOfVisual*(a1: PVisual, a2: VisualID)
 proc XTestDiscard*(a1: PDisplay): Status

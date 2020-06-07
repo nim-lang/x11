@@ -38,7 +38,7 @@ type
   XShmCompletionEvent*{.final.} = object
     theType*: cint
     serial*: culong
-    send_event*: Bool
+    send_event*: XBool
     display*: PDisplay
     drawable*: Drawable
     major_code*: cint
@@ -52,12 +52,12 @@ type
     shmseg*: ShmSeg
     shmid*: cint
     shmaddr*: cstring
-    readOnly*: Bool
+    readOnly*: XBool
 
 
-proc XShmQueryExtension*(para1: PDisplay): Bool{.cdecl, dynlib: libXext, importc.}
+proc XShmQueryExtension*(para1: PDisplay): XBool{.cdecl, dynlib: libXext, importc.}
 proc XShmGetEventBase*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
-proc XShmQueryVersion*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: PBool): Bool{.
+proc XShmQueryVersion*(para1: PDisplay, para2: Pcint, para3: Pcint, para4: PBool): XBool{.
     cdecl, dynlib: libXext, importc.}
 proc XShmPixmapFormat*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}
 proc XShmAttach*(para1: PDisplay, para2: PXShmSegmentInfo): Status{.cdecl,
@@ -66,7 +66,7 @@ proc XShmDetach*(para1: PDisplay, para2: PXShmSegmentInfo): Status{.cdecl,
     dynlib: libXext, importc.}
 proc XShmPutImage*(para1: PDisplay, para2: Drawable, para3: GC,
                    para4: PXImage, para5: cint, para6: cint, para7: cint,
-                   para8: cint, para9: cuint, para10: cuint, para11: Bool): Status{.
+                   para8: cint, para9: cuint, para10: cuint, para11: XBool): Status{.
     cdecl, dynlib: libXext, importc.}
 proc XShmGetImage*(para1: PDisplay, para2: Drawable, para3: PXImage,
                    para4: cint, para5: cint, para6: culong): Status{.cdecl,

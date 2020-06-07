@@ -16,11 +16,11 @@ type
     height*: int16
 
 
-proc XineramaQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): Bool{.
+proc XineramaQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): XBool{.
     cdecl, dynlib: xineramaLib, importc.}
 proc XineramaQueryVersion*(dpy: PDisplay, major: Pcint, minor: Pcint): Status{.
     cdecl, dynlib: xineramaLib, importc.}
-proc XineramaIsActive*(dpy: PDisplay): Bool{.cdecl, dynlib: xineramaLib, importc.}
+proc XineramaIsActive*(dpy: PDisplay): XBool{.cdecl, dynlib: xineramaLib, importc.}
 proc XineramaQueryScreens*(dpy: PDisplay, number: Pcint): PXineramaScreenInfo{.
     cdecl, dynlib: xineramaLib, importc.}
 

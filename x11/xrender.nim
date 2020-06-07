@@ -192,14 +192,14 @@ type
   PXRenderPictureAttributes* = ptr XRenderPictureAttributes
   TXRenderPictureAttributes* {.deprecated: "Use XRenderPictureAttributes instead".} = XRenderPictureAttributes
   XRenderPictureAttributes*{.final.} = object
-    repeat*: Bool
+    repeat*: XBool
     alpha_map*: Picture
     alpha_x_origin*: int32
     alpha_y_origin*: int32
     clip_x_origin*: int32
     clip_y_origin*: int32
     clip_mask*: Pixmap
-    graphics_exposures*: Bool
+    graphics_exposures*: XBool
     subwindow_mode*: int32
     poly_edge*: int32
     poly_mode*: int32
@@ -217,7 +217,7 @@ type
 
 
 proc XRenderQueryExtension*(dpy: PDisplay, event_basep: ptr int32,
-                            error_basep: ptr int32): Bool{.libxrender.}
+                            error_basep: ptr int32): XBool{.libxrender.}
 proc XRenderQueryVersion*(dpy: PDisplay, major_versionp: ptr int32,
                           minor_versionp: ptr int32): Status{.libxrender.}
 proc XRenderQueryFormats*(dpy: PDisplay): Status{.libxrender.}
