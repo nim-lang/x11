@@ -211,6 +211,13 @@ type
     xOff*: int16
     yOff*: int16
 
+  PXRenderColor* = ptr XRenderColor
+  XRenderColor* = object
+    red: cushort
+    green: cushort
+    blue: cushort
+    alpha: cushort
+
 {.deprecated: [TXRenderVisual: XRenderVisual].}
 {.deprecated: [TXRenderDepth: XRenderDepth].}
 {.deprecated: [TXRenderScreen: XRenderScreen].}
