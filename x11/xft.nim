@@ -8,9 +8,15 @@ import
 const
   xftLib = "libXft.so"
 
+# Defined in the FreeType library
 type
-  # TODO: From /usr/include/fontconfig/fontconfig.h
-  # Should these Fc* declarations be in a fontconfig.nim?
+  FT_UInt* = cuint
+  PFT_UInt* = ptr FT_UInt
+  FT_Face* = object
+  PFT_Face* = ptr FT_Face
+
+# Defined in the fontconfig library
+type
   FcEndian* = enum
     FcEndianBig, FcEndianLittle
 
@@ -42,6 +48,7 @@ type
   FcChar32* = cuint
   PFcChar32* = ptr FcChar32
 
+type
   XftFontInfo* = object 
   PXftFontInfo* = ptr XftFontInfo
   XftFont* = object
@@ -86,13 +93,6 @@ type
     x: cshort
     y: cshort
   PXftGlyphFontSpec = ptr XftGlyphFontSpec
-
-  # TODO: Defined in the FreeType library
-  # Need a FreeType wrapper?
-  FT_UInt* = cuint
-  PFT_UInt* = ptr FT_UInt
-  FT_Face* = object
-  PFT_Face* = ptr FT_Face
 
 # xftcolor.c
 proc XftColorAllocName*(
