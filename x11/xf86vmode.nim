@@ -88,7 +88,6 @@ const
 
 type
   PXF86VidModeModeLine* = ptr XF86VidModeModeLine
-  TXF86VidModeModeLine* {.deprecated: "Use XF86VidModeModeLine instead".} = XF86VidModeModeLine
   XF86VidModeModeLine*{.final.} = object
     hdisplay*: cushort
     hsyncstart*: cushort
@@ -106,7 +105,6 @@ type
   PPPXF86VidModeModeInfo* = ptr PPXF86VidModeModeInfo
   PPXF86VidModeModeInfo* = ptr PXF86VidModeModeInfo
   PXF86VidModeModeInfo* = ptr XF86VidModeModeInfo
-  TXF86VidModeModeInfo* {.deprecated: "Use XF86VidModeModeInfo instead".} = XF86VidModeModeInfo
   XF86VidModeModeInfo*{.final.} = object
     dotclock*: cuint
     hdisplay*: cushort
@@ -123,13 +121,11 @@ type
     c_private*: PINT32
 
   PXF86VidModeSyncRange* = ptr XF86VidModeSyncRange
-  TXF86VidModeSyncRange* {.deprecated: "Use XF86VidModeSyncRange instead".} = XF86VidModeSyncRange
   XF86VidModeSyncRange*{.final.} = object
     hi*: cfloat
     lo*: cfloat
 
   PXF86VidModeMonitor* = ptr XF86VidModeMonitor
-  TXF86VidModeMonitor* {.deprecated: "Use XF86VidModeMonitor instead".} = XF86VidModeMonitor
   XF86VidModeMonitor*{.final.} = object
     vendor*: cstring
     model*: cstring
@@ -140,7 +136,6 @@ type
     vsync*: PXF86VidModeSyncRange
 
   PXF86VidModeNotifyEvent* = ptr XF86VidModeNotifyEvent
-  TXF86VidModeNotifyEvent* {.deprecated: "Use XF86VidModeNotifyEvent instead".} = XF86VidModeNotifyEvent
   XF86VidModeNotifyEvent*{.final.} = object
     theType*: cint            # of event
     serial*: culong           # # of last request processed by server
@@ -153,12 +148,17 @@ type
     time*: Time              # event timestamp
 
   PXF86VidModeGamma* = ptr XF86VidModeGamma
-  TXF86VidModeGamma* {.deprecated: "Use XF86VidModeGamma instead".} = XF86VidModeGamma
   XF86VidModeGamma*{.final.} = object
     red*: cfloat              # Red Gamma value
     green*: cfloat            # Green Gamma value
     blue*: cfloat             # Blue Gamma value
 
+{.deprecated: [TXF86VidModeModeLine: XF86VidModeModeLine].}
+{.deprecated: [TXF86VidModeModeInfo: XF86VidModeModeInfo].}
+{.deprecated: [TXF86VidModeSyncRange: XF86VidModeSyncRange].}
+{.deprecated: [TXF86VidModeMonitor: XF86VidModeMonitor].}
+{.deprecated: [TXF86VidModeNotifyEvent: XF86VidModeNotifyEvent].}
+{.deprecated: [TXF86VidModeGamma: XF86VidModeGamma].}
 
 when defined(MACROS):
   proc XF86VidModeSelectNextMode*(disp: PDisplay, scr: cint): XBool

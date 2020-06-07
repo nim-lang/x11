@@ -1,4 +1,3 @@
-
 import
   x, xlib
 
@@ -23,8 +22,9 @@ const
 
 type
   PXcmsColorFormat* = ptr XcmsColorFormat
-  TXcmsColorFormat* {.deprecated: "Use XcmsColorFormat instead".} = XcmsColorFormat
   XcmsColorFormat* = int32
+
+{.deprecated: [TXcmsColorFormat: XcmsColorFormat].}
 
 proc XcmsUndefinedFormat*(): XcmsColorFormat
 proc XcmsCIEXYZFormat*(): XcmsColorFormat
@@ -44,63 +44,54 @@ type
   PXcmsFloat* = ptr XcmsFloat
   XcmsFloat* = float64
   PXcmsRGB* = ptr XcmsRGB
-  TXcmsRGB* {.deprecated: "Use XcmsRGB instead".} = XcmsRGB
   XcmsRGB*{.final.} = object
     red*: int16
     green*: int16
     blue*: int16
 
   PXcmsRGBi* = ptr XcmsRGBi
-  TXcmsRGBi* {.deprecated: "Use XcmsRGBi instead".} = XcmsRGBi
   XcmsRGBi*{.final.} = object
     red*: XcmsFloat
     green*: XcmsFloat
     blue*: XcmsFloat
 
   PXcmsCIEXYZ* = ptr XcmsCIEXYZ
-  TXcmsCIEXYZ* {.deprecated: "Use XcmsCIEXYZ instead".} = XcmsCIEXYZ
   XcmsCIEXYZ*{.final.} = object
     X*: XcmsFloat
     Y*: XcmsFloat
     Z*: XcmsFloat
 
   PXcmsCIEuvY* = ptr XcmsCIEuvY
-  TXcmsCIEuvY* {.deprecated: "Use XcmsCIEuvY instead".} = XcmsCIEuvY
   XcmsCIEuvY*{.final.} = object
     u_prime*: XcmsFloat
     v_prime*: XcmsFloat
     Y*: XcmsFloat
 
   PXcmsCIExyY* = ptr XcmsCIExyY
-  TXcmsCIExyY* {.deprecated: "Use XcmsCIExyY instead".} = XcmsCIExyY
   XcmsCIExyY*{.final.} = object
     x*: XcmsFloat
     y*: XcmsFloat
     theY*: XcmsFloat
 
   PXcmsCIELab* = ptr XcmsCIELab
-  TXcmsCIELab* {.deprecated: "Use XcmsCIELab instead".} = XcmsCIELab
   XcmsCIELab*{.final.} = object
     L_star*: XcmsFloat
     a_star*: XcmsFloat
     b_star*: XcmsFloat
 
   PXcmsCIELuv* = ptr XcmsCIELuv
-  TXcmsCIELuv* {.deprecated: "Use XcmsCIELuv instead".} = XcmsCIELuv
   XcmsCIELuv*{.final.} = object
     L_star*: XcmsFloat
     u_star*: XcmsFloat
     v_star*: XcmsFloat
 
   PXcmsTekHVC* = ptr XcmsTekHVC
-  TXcmsTekHVC* {.deprecated: "Use XcmsTekHVC instead".} = XcmsTekHVC
   XcmsTekHVC*{.final.} = object
     H*: XcmsFloat
     V*: XcmsFloat
     C*: XcmsFloat
 
   PXcmsPad* = ptr XcmsPad
-  TXcmsPad* {.deprecated: "Use XcmsPad instead".} = XcmsPad
   XcmsPad*{.final.} = object
     pad0*: XcmsFloat
     pad1*: XcmsFloat
@@ -108,7 +99,6 @@ type
     pad3*: XcmsFloat
 
   PXcmsColor* = ptr XcmsColor
-  TXcmsColor* {.deprecated: "Use XcmsColor instead".} = XcmsColor
   XcmsColor*{.final.} = object   # spec : record
                                  #            case longint of
                                  #               0 : ( RGB : XcmsRGB );
@@ -126,7 +116,6 @@ type
     format*: XcmsColorFormat
 
   PXcmsPerScrnInfo* = ptr XcmsPerScrnInfo
-  TXcmsPerScrnInfo* {.deprecated: "Use XcmsPerScrnInfo instead".} = XcmsPerScrnInfo
   XcmsPerScrnInfo*{.final.} = object
     screenWhitePt*: XcmsColor
     functionSet*: XPointer
@@ -135,16 +124,13 @@ type
     pad*: array[0..2, char]
 
   PXcmsCCC* = ptr XcmsCCC
-  TXcmsCompressionProc* {.deprecated: "Use XcmsCompressionProc instead".} = XcmsCompressionProc
   XcmsCompressionProc* = proc (para1: PXcmsCCC, para2: PXcmsColor,
                                 para3: int32, para4: int32, para5: PBool): Status{.
       cdecl.}
-  TXcmsWhiteAdjustProc* {.deprecated: "Use XcmsWhiteAdjustProc instead".} = XcmsWhiteAdjustProc
   XcmsWhiteAdjustProc* = proc (para1: PXcmsCCC, para2: PXcmsColor,
                                 para3: PXcmsColor, para4: XcmsColorFormat,
                                 para5: PXcmsColor, para6: int32, para7: PBool): Status{.
       cdecl.}
-  TXcmsCCC* {.deprecated: "Use XcmsCCC instead".} = XcmsCCC
   XcmsCCC*{.final.} = object
     dpy*: PDisplay
     screenNumber*: int32
@@ -157,27 +143,20 @@ type
     pPerScrnInfo*: PXcmsPerScrnInfo
 
   PXcmsCCCRec* = ptr XcmsCCCRec
-  TXcmsCCCRec* {.deprecated: "Use XcmsCCCRec instead".} = XcmsCCCRec
   XcmsCCCRec* = XcmsCCC
 
-  TXcmsScreenInitProc* {.deprecated: "Use XcmsScreenInitProc instead".} = XcmsScreenInitProc
   XcmsScreenInitProc* = proc (para1: PDisplay, para2: int32,
                                para3: PXcmsPerScrnInfo): Status{.cdecl.}
-  TXcmsScreenFreeProc* {.deprecated: "Use XcmsScreenFreeProc instead".} = XcmsScreenFreeProc
   XcmsScreenFreeProc* = proc (para1: XPointer){.cdecl.}
 
-  TXcmsConversionProc* {.deprecated: "Use XcmsConversionProc instead".} = XcmsConversionProc
   XcmsConversionProc* = proc (){.cdecl.}
 
   PXcmsFuncListPtr* = ptr XcmsFuncListPtr
-  TXcmsFuncListPtr* {.deprecated: "Use XcmsFuncListPtr instead".} = XcmsFuncListPtr
   XcmsFuncListPtr* = XcmsConversionProc
 
-  TXcmsParseStringProc* {.deprecated: "Use XcmsParseStringProc instead".} = XcmsParseStringProc
   XcmsParseStringProc* = proc (para1: cstring, para2: PXcmsColor): int32{.cdecl.}
 
   PXcmsColorSpace* = ptr XcmsColorSpace
-  TXcmsColorSpace* {.deprecated: "Use XcmsColorSpace instead".} = XcmsColorSpace
   XcmsColorSpace*{.final.} = object
     prefix*: cstring
     id*: XcmsColorFormat
@@ -187,14 +166,35 @@ type
     inverse_flag*: int32
 
   PXcmsFunctionSet* = ptr XcmsFunctionSet
-  TXcmsFunctionSet* {.deprecated: "Use XcmsFunctionSet instead".} = XcmsFunctionSet
-  XcmsFunctionSet*{.final.} = object  # error
-                                       #extern Status XcmsAddColorSpace (
-                                       #in declaration at line 323
+  XcmsFunctionSet*{.final.} = object   # error
+                                       # extern Status XcmsAddColorSpace (
+                                       # in declaration at line 323
     DDColorSpaces*: ptr PXcmsColorSpace
     screenInitProc*: XcmsScreenInitProc
     screenFreeProc*: XcmsScreenFreeProc
 
+{.deprecated: [TXcmsRGB: XcmsRGB].}
+{.deprecated: [TXcmsRGBi: XcmsRGBi].}
+{.deprecated: [TXcmsCIEXYZ: XcmsCIEXYZ].}
+{.deprecated: [TXcmsCIEuvY: XcmsCIEuvY].}
+{.deprecated: [TXcmsCIExyY: XcmsCIExyY].}
+{.deprecated: [TXcmsCIELab: XcmsCIELab].}
+{.deprecated: [TXcmsCIELuv: XcmsCIELuv].}
+{.deprecated: [TXcmsTekHVC: XcmsTekHVC].}
+{.deprecated: [TXcmsPad: XcmsPad].}
+{.deprecated: [TXcmsColor: XcmsColor].}
+{.deprecated: [TXcmsPerScrnInfo: XcmsPerScrnInfo].}
+{.deprecated: [TXcmsCompressionProc: XcmsCompressionProc].}
+{.deprecated: [TXcmsWhiteAdjustProc: XcmsWhiteAdjustProc].}
+{.deprecated: [TXcmsCCC: XcmsCCC].}
+{.deprecated: [TXcmsCCCRec: XcmsCCCRec].}
+{.deprecated: [TXcmsScreenInitProc: XcmsScreenInitProc].}
+{.deprecated: [TXcmsScreenFreeProc: XcmsScreenFreeProc].}
+{.deprecated: [TXcmsConversionProc: XcmsConversionProc].}
+{.deprecated: [TXcmsFuncListPtr: XcmsFuncListPtr].}
+{.deprecated: [TXcmsParseStringProc: XcmsParseStringProc].}
+{.deprecated: [TXcmsColorSpace: XcmsColorSpace].}
+{.deprecated: [TXcmsFunctionSet: XcmsFunctionSet].}
 
 proc XcmsAddFunctionSet*(para1: PXcmsFunctionSet): Status{.cdecl,
     dynlib: libX11, importc.}
@@ -415,3 +415,4 @@ proc ScreenWhitePointOfCCC(ccc: var XcmsCCC): ptr XcmsColor =
 
 proc FunctionSetOfCCC(ccc: XcmsCCC): Xpointer =
   result = ccc.pPerScrnInfo.functionSet
+

@@ -1,4 +1,3 @@
-
 import
   x, xlib
 
@@ -30,11 +29,9 @@ const
 
 type
   PShmSeg* = ptr ShmSeg
-  TShmSeg* {.deprecated: "Use ShmSeg instead".} = ShmSeg
   ShmSeg* = culong
 
   PXShmCompletionEvent* = ptr XShmCompletionEvent
-  TXShmCompletionEvent* {.deprecated: "Use XShmCompletionEvent instead".} = XShmCompletionEvent
   XShmCompletionEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -47,13 +44,15 @@ type
     offset*: culong
 
   PXShmSegmentInfo* = ptr XShmSegmentInfo
-  TXShmSegmentInfo* {.deprecated: "Use XShmSegmentInfo instead".} = XShmSegmentInfo
   XShmSegmentInfo*{.final.} = object
     shmseg*: ShmSeg
     shmid*: cint
     shmaddr*: cstring
     readOnly*: XBool
 
+{.deprecated: [TShmSeg: ShmSeg].}
+{.deprecated: [TXShmCompletionEvent: XShmCompletionEvent].}
+{.deprecated: [TXShmSegmentInfo: XShmSegmentInfo].}
 
 proc XShmQueryExtension*(para1: PDisplay): XBool{.cdecl, dynlib: libXext, importc.}
 proc XShmGetEventBase*(para1: PDisplay): cint{.cdecl, dynlib: libXext, importc.}

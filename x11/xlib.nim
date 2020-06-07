@@ -30,14 +30,15 @@ const
 
 type
   PXPointer* = ptr XPointer
-  TXPointer* {.deprecated: "Use XPointer instead".} = XPointer
   XPointer* = ptr char
   PBool* = ptr XBool
-  TBool* {.deprecated: "Use XBool instead".} = XBool
   XBool* = cint
   PStatus* = ptr Status
-  TStatus* {.deprecated: "Use Status instead".} = Status
   Status* = cint
+
+{.deprecated: [TXPointer: XPointer].}
+{.deprecated: [TXBool: XBool].}
+{.deprecated: [TStatus: Status].}
 
 const
   QueuedAlready* = 0
@@ -47,7 +48,6 @@ const
 type
   PPXExtData* = ptr PXExtData
   PXExtData* = ptr XExtData
-  TXExtData* {.deprecated: "Use XExtData instead".} = XExtData
   XExtData*{.final.} = object
     number*: cint
     next*: PXExtData
@@ -55,7 +55,6 @@ type
     private_data*: XPointer
 
   PXExtCodes* = ptr XExtCodes
-  TXExtCodes* {.deprecated: "Use XExtCodes instead".} = XExtCodes
   XExtCodes*{.final.} = object
     extension*: cint
     major_opcode*: cint
@@ -63,14 +62,12 @@ type
     first_error*: cint
 
   PXPixmapFormatValues* = ptr XPixmapFormatValues
-  TXPixmapFormatValues* {.deprecated: "Use XPixmapFormatValues instead".} = XPixmapFormatValues
   XPixmapFormatValues*{.final.} = object
     depth*: cint
     bits_per_pixel*: cint
     scanline_pad*: cint
 
   PXGCValues* = ptr XGCValues
-  TXGCValues* {.deprecated: "Use XGCValues instead".} = XGCValues
   XGCValues*{.final.} = object
     function*: cint
     plane_mask*: culong
@@ -97,13 +94,10 @@ type
     dashes*: cchar
 
   PXGC* = ptr XGC
-  TXGC* {.deprecated: "Use XGC instead".} = XGC
   XGC*{.final.} = object
-  TGC* {.deprecated: "Use GC instead".} = GC
   GC* = PXGC
   PGC* = ptr GC
   PVisual* = ptr Visual
-  TVisual* {.deprecated: "Use Visual instead".} = Visual
   Visual*{.final.} = object
     ext_data*: PXExtData
     visualid*: VisualID
@@ -113,18 +107,15 @@ type
     map_entries*: cint
 
   PDepth* = ptr Depth
-  TDepth* {.deprecated: "Use Depth instead".} = Depth
   Depth*{.final.} = object
     depth*: cint
     nvisuals*: cint
     visuals*: PVisual
 
   PXDisplay* = ptr XDisplay
-  TXDisplay* {.deprecated: "Use XDisplay instead".} = XDisplay
   XDisplay*{.final.} = object
 
   PScreen* = ptr Screen
-  TScreen* {.deprecated: "Use Screen instead".} = Screen
   Screen*{.final.} = object
     ext_data*: PXExtData
     display*: PXDisplay
@@ -145,7 +136,6 @@ type
     root_input_mask*: clong
 
   PScreenFormat* = ptr ScreenFormat
-  TScreenFormat* {.deprecated: "Use ScreenFormat instead".} = ScreenFormat
   ScreenFormat*{.final.} = object
     ext_data*: PXExtData
     depth*: cint
@@ -153,7 +143,6 @@ type
     scanline_pad*: cint
 
   PXSetWindowAttributes* = ptr XSetWindowAttributes
-  TXSetWindowAttributes* {.deprecated: "Use XSetWindowAttributes instead".} = XSetWindowAttributes
   XSetWindowAttributes*{.final.} = object
     background_pixmap*: Pixmap
     background_pixel*: culong
@@ -172,7 +161,6 @@ type
     cursor*: Cursor
 
   PXWindowAttributes* = ptr XWindowAttributes
-  TXWindowAttributes* {.deprecated: "Use XWindowAttributes instead".} = XWindowAttributes
   XWindowAttributes*{.final.} = object
     x*, y*: cint
     width*, height*: cint
@@ -197,14 +185,12 @@ type
     screen*: PScreen
 
   PXHostAddress* = ptr XHostAddress
-  TXHostAddress* {.deprecated: "Use XHostAddress instead".} = XHostAddress
   XHostAddress*{.final.} = object
     family*: cint
     len*: cint
     address*: cstring
 
   PXServerInterpretedAddress* = ptr XServerInterpretedAddress
-  TXServerInterpretedAddress* {.deprecated: "Use XServerInterpretedAddress instead".} = XServerInterpretedAddress
   XServerInterpretedAddress*{.final.} = object
     typelength*: cint
     valuelength*: cint
@@ -212,7 +198,6 @@ type
     value*: cstring
 
   PXImage* = ptr XImage
-  TF* {.deprecated: "Use F instead".} = F
   F*{.final.} = object
     create_image*: proc (para1: PXDisplay, para2: PVisual, para3: cuint,
                          para4: cint, para5: cint, para6: cstring, para7: cuint,
@@ -226,7 +211,6 @@ type
                       para5: cuint): PXImage{.cdecl.}
     add_pixel*: proc (para1: PXImage, para2: clong): cint{.cdecl.}
 
-  TXImage* {.deprecated: "Use XImage instead".} = XImage
   XImage*{.final.} = object
     width*, height*: cint
     xoffset*: cint
@@ -246,7 +230,6 @@ type
     f*: F
 
   PXWindowChanges* = ptr XWindowChanges
-  TXWindowChanges* {.deprecated: "Use XWindowChanges instead".} = XWindowChanges
   XWindowChanges*{.final.} = object
     x*, y*: cint
     width*, height*: cint
@@ -255,7 +238,6 @@ type
     stack_mode*: cint
 
   PXColor* = ptr XColor
-  TXColor* {.deprecated: "Use XColor instead".} = XColor
   XColor*{.final.} = object
     pixel*: culong
     red*, green*, blue*: cushort
@@ -263,30 +245,25 @@ type
     pad*: cchar
 
   PXSegment* = ptr XSegment
-  TXSegment* {.deprecated: "Use XSegment instead".} = XSegment
   XSegment*{.final.} = object
     x1*, y1*, x2*, y2*: cshort
 
   PXPoint* = ptr XPoint
-  TXPoint* {.deprecated: "Use XPoint instead".} = XPoint
   XPoint*{.final.} = object
     x*, y*: cshort
 
   PXRectangle* = ptr XRectangle
-  TXRectangle* {.deprecated: "Use XRectangle instead".} = XRectangle
   XRectangle*{.final.} = object
     x*, y*: cshort
     width*, height*: cushort
 
   PXArc* = ptr XArc
-  TXArc* {.deprecated: "Use XArc instead".} = XArc
   XArc*{.final.} = object
     x*, y*: cshort
     width*, height*: cushort
     angle1*, angle2*: cshort
 
   PXKeyboardControl* = ptr XKeyboardControl
-  TXKeyboardControl* {.deprecated: "Use XKeyboardControl instead".} = XKeyboardControl
   XKeyboardControl*{.final.} = object
     key_click_percent*: cint
     bell_percent*: cint
@@ -298,7 +275,6 @@ type
     auto_repeat_mode*: cint
 
   PXKeyboardState* = ptr XKeyboardState
-  TXKeyboardState* {.deprecated: "Use XKeyboardState instead".} = XKeyboardState
   XKeyboardState*{.final.} = object
     key_click_percent*: cint
     bell_percent*: cint
@@ -308,31 +284,25 @@ type
     auto_repeats*: array[0..31, cchar]
 
   PXTimeCoord* = ptr XTimeCoord
-  TXTimeCoord* {.deprecated: "Use XTimeCoord instead".} = XTimeCoord
   XTimeCoord*{.final.} = object
     time*: Time
     x*, y*: cshort
 
   PXModifierKeymap* = ptr XModifierKeymap
-  TXModifierKeymap* {.deprecated: "Use XModifierKeymap instead".} = XModifierKeymap
   XModifierKeymap*{.final.} = object
     max_keypermod*: cint
     modifiermap*: PKeyCode
 
   PDisplay* = ptr Display
-  TDisplay* {.deprecated: "Use Display instead".} = Display
   Display* = XDisplay
 
   PXPrivate* = ptr Private
-  TPrivate* {.deprecated: "Use Private instead".} = Private
   Private*{.final.} = object
 
   PXrmHashBucketRec* = ptr XrmHashBucketRec
-  TXrmHashBucketRec* {.deprecated: "Use XrmHashBucketRec instead".} = XrmHashBucketRec
   XrmHashBucketRec*{.final.} = object
 
   PXPrivDisplay* = ptr XPrivDisplay
-  TXPrivDisplay* {.deprecated: "Use XPrivDisplay instead".} = XPrivDisplay
   XPrivDisplay*{.final.} = object
     ext_data*: PXExtData
     private1*: PXPrivate
@@ -379,7 +349,6 @@ type
     xdefaults*: cstring
 
   PXKeyEvent* = ptr XKeyEvent
-  TXKeyEvent* {.deprecated: "Use XKeyEvent instead".} = XKeyEvent
   XKeyEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -396,15 +365,12 @@ type
     same_screen*: XBool
 
   PXKeyPressedEvent* = ptr XKeyPressedEvent
-  TXKeyPressedEvent* {.deprecated: "Use XKeyPressedEvent instead".} = XKeyPressedEvent
   XKeyPressedEvent* = XKeyEvent
 
   PXKeyReleasedEvent* = ptr XKeyReleasedEvent
-  TXKeyReleasedEvent* {.deprecated: "Use XKeyReleasedEvent instead".} = XKeyReleasedEvent
   XKeyReleasedEvent* = XKeyEvent
 
   PXButtonEvent* = ptr XButtonEvent
-  TXButtonEvent* {.deprecated: "Use XButtonEvent instead".} = XButtonEvent
   XButtonEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -421,15 +387,12 @@ type
     same_screen*: XBool
 
   PXButtonPressedEvent* = ptr XButtonPressedEvent
-  TXButtonPressedEvent* {.deprecated: "Use XButtonPressedEvent instead".} = XButtonPressedEvent
   XButtonPressedEvent* = XButtonEvent
 
   PXButtonReleasedEvent* = ptr XButtonReleasedEvent
-  TXButtonReleasedEvent* {.deprecated: "Use XButtonReleasedEvent instead".} = XButtonReleasedEvent
   XButtonReleasedEvent* = XButtonEvent
 
   PXMotionEvent* = ptr XMotionEvent
-  TXMotionEvent* {.deprecated: "Use XMotionEvent instead".} = XMotionEvent
   XMotionEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -446,11 +409,9 @@ type
     same_screen*: XBool
 
   PXPointerMovedEvent* = ptr XPointerMovedEvent
-  TXPointerMovedEvent* {.deprecated: "Use XPointerMovedEvent instead".} = XPointerMovedEvent
   XPointerMovedEvent* = XMotionEvent
 
   PXCrossingEvent* = ptr XCrossingEvent
-  TXCrossingEvent* {.deprecated: "Use XCrossingEvent instead".} = XCrossingEvent
   XCrossingEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -469,15 +430,12 @@ type
     state*: cuint
 
   PXEnterWindowEvent* = ptr XEnterWindowEvent
-  TXEnterWindowEvent* {.deprecated: "Use XEnterWindowEvent instead".} = XEnterWindowEvent
   XEnterWindowEvent* = XCrossingEvent
 
   PXLeaveWindowEvent* = ptr XLeaveWindowEvent
-  TXLeaveWindowEvent* {.deprecated: "Use XLeaveWindowEvent instead".} = XLeaveWindowEvent
   XLeaveWindowEvent* = XCrossingEvent
 
   PXFocusChangeEvent* = ptr XFocusChangeEvent
-  TXFocusChangeEvent* {.deprecated: "Use XFocusChangeEvent instead".} = XFocusChangeEvent
   XFocusChangeEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -488,15 +446,12 @@ type
     detail*: cint
 
   PXFocusInEvent* = ptr XFocusInEvent
-  TXFocusInEvent* {.deprecated: "Use XFocusInEvent instead".} = XFocusInEvent
   XFocusInEvent* = XFocusChangeEvent
 
   PXFocusOutEvent* = ptr XFocusOutEvent
-  TXFocusOutEvent* {.deprecated: "Use XFocusOutEvent instead".} = XFocusOutEvent
   XFocusOutEvent* = XFocusChangeEvent
 
   PXKeymapEvent* = ptr XKeymapEvent
-  TXKeymapEvent* {.deprecated: "Use XKeymapEvent instead".} = XKeymapEvent
   XKeymapEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -506,7 +461,6 @@ type
     key_vector*: array[0..31, cchar]
 
   PXExposeEvent* = ptr XExposeEvent
-  TXExposeEvent* {.deprecated: "Use XExposeEvent instead".} = XExposeEvent
   XExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -518,7 +472,6 @@ type
     count*: cint
 
   PXGraphicsExposeEvent* = ptr XGraphicsExposeEvent
-  TXGraphicsExposeEvent* {.deprecated: "Use XGraphicsExposeEvent instead".} = XGraphicsExposeEvent
   XGraphicsExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -532,7 +485,6 @@ type
     minor_code*: cint
 
   PXNoExposeEvent* = ptr XNoExposeEvent
-  TXNoExposeEvent* {.deprecated: "Use XNoExposeEvent instead".} = XNoExposeEvent
   XNoExposeEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -543,7 +495,6 @@ type
     minor_code*: cint
 
   PXVisibilityEvent* = ptr XVisibilityEvent
-  TXVisibilityEvent* {.deprecated: "Use XVisibilityEvent instead".} = XVisibilityEvent
   XVisibilityEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -553,7 +504,6 @@ type
     state*: cint
 
   PXCreateWindowEvent* = ptr XCreateWindowEvent
-  TXCreateWindowEvent* {.deprecated: "Use XCreateWindowEvent instead".} = XCreateWindowEvent
   XCreateWindowEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -567,7 +517,6 @@ type
     override_redirect*: XBool
 
   PXDestroyWindowEvent* = ptr XDestroyWindowEvent
-  TXDestroyWindowEvent* {.deprecated: "Use XDestroyWindowEvent instead".} = XDestroyWindowEvent
   XDestroyWindowEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -577,7 +526,6 @@ type
     window*: Window
 
   PXUnmapEvent* = ptr XUnmapEvent
-  TXUnmapEvent* {.deprecated: "Use XUnmapEvent instead".} = XUnmapEvent
   XUnmapEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -588,7 +536,6 @@ type
     from_configure*: XBool
 
   PXMapEvent* = ptr XMapEvent
-  TXMapEvent* {.deprecated: "Use XMapEvent instead".} = XMapEvent
   XMapEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -599,7 +546,6 @@ type
     override_redirect*: XBool
 
   PXMapRequestEvent* = ptr XMapRequestEvent
-  TXMapRequestEvent* {.deprecated: "Use XMapRequestEvent instead".} = XMapRequestEvent
   XMapRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -609,7 +555,6 @@ type
     window*: Window
 
   PXReparentEvent* = ptr XReparentEvent
-  TXReparentEvent* {.deprecated: "Use XReparentEvent instead".} = XReparentEvent
   XReparentEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -622,7 +567,6 @@ type
     override_redirect*: XBool
 
   PXConfigureEvent* = ptr XConfigureEvent
-  TXConfigureEvent* {.deprecated: "Use XConfigureEvent instead".} = XConfigureEvent
   XConfigureEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -637,7 +581,6 @@ type
     override_redirect*: XBool
 
   PXGravityEvent* = ptr XGravityEvent
-  TXGravityEvent* {.deprecated: "Use XGravityEvent instead".} = XGravityEvent
   XGravityEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -648,7 +591,6 @@ type
     x*, y*: cint
 
   PXResizeRequestEvent* = ptr XResizeRequestEvent
-  TXResizeRequestEvent* {.deprecated: "Use XResizeRequestEvent instead".} = XResizeRequestEvent
   XResizeRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -658,7 +600,6 @@ type
     width*, height*: cint
 
   PXConfigureRequestEvent* = ptr XConfigureRequestEvent
-  TXConfigureRequestEvent* {.deprecated: "Use XConfigureRequestEvent instead".} = XConfigureRequestEvent
   XConfigureRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -674,7 +615,6 @@ type
     value_mask*: culong
 
   PXCirculateEvent* = ptr XCirculateEvent
-  TXCirculateEvent* {.deprecated: "Use XCirculateEvent instead".} = XCirculateEvent
   XCirculateEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -685,7 +625,6 @@ type
     place*: cint
 
   PXCirculateRequestEvent* = ptr XCirculateRequestEvent
-  TXCirculateRequestEvent* {.deprecated: "Use XCirculateRequestEvent instead".} = XCirculateRequestEvent
   XCirculateRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -696,7 +635,6 @@ type
     place*: cint
 
   PXPropertyEvent* = ptr XPropertyEvent
-  TXPropertyEvent* {.deprecated: "Use XPropertyEvent instead".} = XPropertyEvent
   XPropertyEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -708,7 +646,6 @@ type
     state*: cint
 
   PXSelectionClearEvent* = ptr XSelectionClearEvent
-  TXSelectionClearEvent* {.deprecated: "Use XSelectionClearEvent instead".} = XSelectionClearEvent
   XSelectionClearEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -719,7 +656,6 @@ type
     time*: Time
 
   PXSelectionRequestEvent* = ptr XSelectionRequestEvent
-  TXSelectionRequestEvent* {.deprecated: "Use XSelectionRequestEvent instead".} = XSelectionRequestEvent
   XSelectionRequestEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -733,7 +669,6 @@ type
     time*: Time
 
   PXSelectionEvent* = ptr XSelectionEvent
-  TXSelectionEvent* {.deprecated: "Use XSelectionEvent instead".} = XSelectionEvent
   XSelectionEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -746,7 +681,6 @@ type
     time*: Time
 
   PXColormapEvent* = ptr XColormapEvent
-  TXColormapEvent* {.deprecated: "Use XColormapEvent instead".} = XColormapEvent
   XColormapEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -759,13 +693,11 @@ type
 
   PXClientMessageEvent* = ptr XClientMessageEvent
 
-  TXClientMessageData* {.deprecated: "Use XClientMessageData instead".} = XClientMessageData
   XClientMessageData* {.union.} = object
     b*: array[20, cchar]
     s*: array[10, cshort]
     l*: array[5, clong]
 
-  TXClientMessageEvent* {.deprecated: "Use XClientMessageEvent instead".} = XClientMessageEvent
   XClientMessageEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -777,7 +709,6 @@ type
     data*: XClientMessageData
 
   PXMappingEvent* = ptr XMappingEvent
-  TXMappingEvent* {.deprecated: "Use XMappingEvent instead".} = XMappingEvent
   XMappingEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -789,7 +720,6 @@ type
     count*: cint
 
   PXErrorEvent* = ptr XErrorEvent
-  TXErrorEvent* {.deprecated: "Use XErrorEvent instead".} = XErrorEvent
   XErrorEvent*{.final.} = object
     theType*: cint
     display*: PDisplay
@@ -800,7 +730,6 @@ type
     minor_code*: cuchar
 
   PXAnyEvent* = ptr XAnyEvent
-  TXAnyEvent* {.deprecated: "Use XAnyEvent instead".} = XAnyEvent
   XAnyEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -809,7 +738,6 @@ type
     window*: Window
 
   PXEvent* = ptr XEvent
-  TXEvent* {.deprecated: "Use XEvent instead".} = XEvent
   XEvent*{.final, union.} = object
     theType*: cint
     xany*: XAnyEvent
@@ -845,9 +773,82 @@ type
     xkeymap*: XKeymapEvent
     pad: array[0..23, clong]
 
+{.deprecated: [TXExtData: XExtData].}
+{.deprecated: [TXExtCodes: XExtCodes].}
+{.deprecated: [TXPixmapFormatValues: XPixmapFormatValues].}
+{.deprecated: [TXGCValues: XGCValues].}
+{.deprecated: [TXGC: XGC].}
+{.deprecated: [TGC: GC].}
+{.deprecated: [TVisual: Visual].}
+{.deprecated: [TDepth: Depth].}
+{.deprecated: [TXDisplay: XDisplay].}
+{.deprecated: [TScreen: Screen].}
+{.deprecated: [TScreenFormat: ScreenFormat].}
+{.deprecated: [TXSetWindowAttributes: XSetWindowAttributes].}
+{.deprecated: [TXWindowAttributes: XWindowAttributes].}
+{.deprecated: [TXHostAddress: XHostAddress].}
+{.deprecated: [TXServerInterpretedAddress: XServerInterpretedAddress].}
+{.deprecated: [TF: F].}
+{.deprecated: [TXImage: XImage].}
+{.deprecated: [TXWindowChanges: XWindowChanges].}
+{.deprecated: [TXColor: XColor].}
+{.deprecated: [TXSegment: XSegment].}
+{.deprecated: [TXPoint: XPoint].}
+{.deprecated: [TXRectangle: XRectangle].}
+{.deprecated: [TXArc: XArc].}
+{.deprecated: [TXKeyboardControl: XKeyboardControl].}
+{.deprecated: [TXKeyboardState: XKeyboardState].}
+{.deprecated: [TXTimeCoord: XTimeCoord].}
+{.deprecated: [TXModifierKeymap: XModifierKeymap].}
+{.deprecated: [TDisplay: Display].}
+{.deprecated: [TPrivate: Private].}
+{.deprecated: [TXrmHashBucketRec: XrmHashBucketRec].}
+{.deprecated: [TXPrivDisplay: XPrivDisplay].}
+{.deprecated: [TXKeyEvent: XKeyEvent].}
+{.deprecated: [TXKeyPressedEvent: XKeyPressedEvent].}
+{.deprecated: [TXKeyReleasedEvent: XKeyReleasedEvent].}
+{.deprecated: [TXButtonEvent: XButtonEvent].}
+{.deprecated: [TXButtonPressedEvent: XButtonPressedEvent].}
+{.deprecated: [TXButtonReleasedEvent: XButtonReleasedEvent].}
+{.deprecated: [TXMotionEvent: XMotionEvent].}
+{.deprecated: [TXPointerMovedEvent: XPointerMovedEvent].}
+{.deprecated: [TXCrossingEvent: XCrossingEvent].}
+{.deprecated: [TXEnterWindowEvent: XEnterWindowEvent].}
+{.deprecated: [TXLeaveWindowEvent: XLeaveWindowEvent].}
+{.deprecated: [TXFocusChangeEvent: XFocusChangeEvent].}
+{.deprecated: [TXFocusInEvent: XFocusInEvent].}
+{.deprecated: [TXFocusOutEvent: XFocusOutEvent].}
+{.deprecated: [TXKeymapEvent: XKeymapEvent].}
+{.deprecated: [TXExposeEvent: XExposeEvent].}
+{.deprecated: [TXGraphicsExposeEvent: XGraphicsExposeEvent].}
+{.deprecated: [TXNoExposeEvent: XNoExposeEvent].}
+{.deprecated: [TXVisibilityEvent: XVisibilityEvent].}
+{.deprecated: [TXCreateWindowEvent: XCreateWindowEvent].}
+{.deprecated: [TXDestroyWindowEvent: XDestroyWindowEvent].}
+{.deprecated: [TXUnmapEvent: XUnmapEvent].}
+{.deprecated: [TXMapEvent: XMapEvent].}
+{.deprecated: [TXMapRequestEvent: XMapRequestEvent].}
+{.deprecated: [TXReparentEvent: XReparentEvent].}
+{.deprecated: [TXConfigureEvent: XConfigureEvent].}
+{.deprecated: [TXGravityEvent: XGravityEvent].}
+{.deprecated: [TXResizeRequestEvent: XResizeRequestEvent].}
+{.deprecated: [TXConfigureRequestEvent: XConfigureRequestEvent].}
+{.deprecated: [TXCirculateEvent: XCirculateEvent].}
+{.deprecated: [TXCirculateRequestEvent: XCirculateRequestEvent].}
+{.deprecated: [TXPropertyEvent: XPropertyEvent].}
+{.deprecated: [TXSelectionClearEvent: XSelectionClearEvent].}
+{.deprecated: [TXSelectionRequestEvent: XSelectionRequestEvent].}
+{.deprecated: [TXSelectionEvent: XSelectionEvent].}
+{.deprecated: [TXColormapEvent: XColormapEvent].}
+{.deprecated: [TXClientMessageData: XClientMessageData].}
+{.deprecated: [TXClientMessageEvent: XClientMessageEvent].}
+{.deprecated: [TXMappingEvent: XMappingEvent].}
+{.deprecated: [TXErrorEvent: XErrorEvent].}
+{.deprecated: [TXAnyEvent: XAnyEvent].}
+{.deprecated: [TXEvent: XEvent].}
+
 type
   PXCharStruct* = ptr XCharStruct
-  TXCharStruct* {.deprecated: "Use XCharStruct instead".} = XCharStruct
   XCharStruct*{.final.} = object
     lbearing*: cshort
     rbearing*: cshort
@@ -857,7 +858,6 @@ type
     attributes*: cushort
 
   PXFontProp* = ptr XFontProp
-  TXFontProp* {.deprecated: "Use XFontProp instead".} = XFontProp
   XFontProp*{.final.} = object
     name*: Atom
     card32*: culong
@@ -865,7 +865,6 @@ type
   PPPXFontStruct* = ptr PPXFontStruct
   PPXFontStruct* = ptr PXFontStruct
   PXFontStruct* = ptr XFontStruct
-  TXFontStruct* {.deprecated: "Use XFontStruct instead".} = XFontStruct
   XFontStruct*{.final.} = object
     ext_data*: PXExtData
     fid*: Font
@@ -885,7 +884,6 @@ type
     descent*: cint
 
   PXTextItem* = ptr XTextItem
-  TXTextItem* {.deprecated: "Use XTextItem instead".} = XTextItem
   XTextItem*{.final.} = object
     chars*: cstring
     nchars*: cint
@@ -893,13 +891,11 @@ type
     font*: Font
 
   PXChar2b* = ptr XChar2b
-  TXChar2b* {.deprecated: "Use XChar2b instead".} = XChar2b
   XChar2b*{.final.} = object
     byte1*: cuchar
     byte2*: cuchar
 
   PXTextItem16* = ptr XTextItem16
-  TXTextItem16* {.deprecated: "Use XTextItem16 instead".} = XTextItem16
   XTextItem16*{.final.} = object
     chars*: PXChar2b
     nchars*: cint
@@ -907,7 +903,6 @@ type
     font*: Font
 
   PXEDataObject* = ptr XEDataObject
-  TXEDataObject* {.deprecated: "Use XEDataObject instead".} = XEDataObject
   XEDataObject*{.final.} = object
     display*: PDisplay        # case longint of
                               #          0 : ( display : PDisplay );
@@ -918,25 +913,20 @@ type
                               #          5 : ( font : PXFontStruct );
 
   PXFontSetExtents* = ptr XFontSetExtents
-  TXFontSetExtents* {.deprecated: "Use XFontSetExtents instead".} = XFontSetExtents
   XFontSetExtents*{.final.} = object
     max_ink_extent*: XRectangle
     max_logical_extent*: XRectangle
 
   PXOM* = ptr XOM
-  TXOM* {.deprecated: "Use XOM instead".} = XOM
   XOM*{.final.} = object
 
   PXOC* = ptr XOC
-  TXOC* {.deprecated: "Use XOC instead".} = XOC
   XOC*{.final.} = object
 
   PXFontSet* = ptr XFontSet
-  TXFontSet* {.deprecated: "Use XFontSet instead".} = XFontSet
   XFontSet* = PXOC
 
   PXmbTextItem* = ptr XmbTextItem
-  TXmbTextItem* {.deprecated: "Use XmbTextItem instead".} = XmbTextItem
   XmbTextItem*{.final.} = object
     chars*: cstring
     nchars*: cint
@@ -944,13 +934,25 @@ type
     font_set*: XFontSet
 
   PXwcTextItem* = ptr XwcTextItem
-  TXwcTextItem* {.deprecated: "Use XwcTextItem instead".} = XwcTextItem
   XwcTextItem*{.final.} = object
     chars*: PWideChar         #wchar_t*
     nchars*: cint
     delta*: cint
     font_set*: XFontSet
 
+{.deprecated: [TXCharStruct: XCharStruct].}
+{.deprecated: [TXFontProp: XFontProp].}
+{.deprecated: [TXFontStruct: XFontStruct].}
+{.deprecated: [TXTextItem: XTextItem].}
+{.deprecated: [TXChar2b: XChar2b].}
+{.deprecated: [TXTextItem16: XTextItem16].}
+{.deprecated: [TXEDataObject: XEDataObject].}
+{.deprecated: [TXFontSetExtents: XFontSetExtents].}
+{.deprecated: [TXOM: XOM].}
+{.deprecated: [TXOC: XOC].}
+{.deprecated: [TXFontSet: XFontSet].}
+{.deprecated: [TXmbTextItem: XmbTextItem].}
+{.deprecated: [TXwcTextItem: XwcTextItem].}
 
 const
   XNRequiredCharSet* = "requiredCharSet"
@@ -966,56 +968,56 @@ const
 
 type
   PXOMCharSetList* = ptr XOMCharSetList
-  TXOMCharSetList* {.deprecated: "Use XOMCharSetList instead".} = XOMCharSetList
   XOMCharSetList*{.final.} = object
     charset_count*: cint
     charset_list*: PPChar
 
   PXOrientation* = ptr XOrientation
-  TXOrientation* {.deprecated: "Use XOrientation instead".} = XOrientation
   XOrientation* = enum
     XOMOrientation_LTR_TTB, XOMOrientation_RTL_TTB, XOMOrientation_TTB_LTR,
     XOMOrientation_TTB_RTL, XOMOrientation_Context
 
   PXOMOrientation* = ptr XOMOrientation
-  TXOMOrientation* {.deprecated: "Use XOMOrientation instead".} = XOMOrientation
   XOMOrientation*{.final.} = object
     num_orientation*: cint
     orientation*: PXOrientation
 
   PXOMFontInfo* = ptr XOMFontInfo
-  TXOMFontInfo* {.deprecated: "Use XOMFontInfo instead".} = XOMFontInfo
   XOMFontInfo*{.final.} = object
     num_font*: cint
     font_struct_list*: ptr PXFontStruct
     font_name_list*: PPChar
 
-  TXIM* {.deprecated: "Use XIM instead".} = XIM
   XIM*{.final.} = ptr object
 
-  TXIC* {.deprecated: "Use XIC instead".} = XIC
   XIC*{.final.} = ptr object
 
-  TXIMProc* {.deprecated: "Use XIMProc instead".} = XIMProc
   XIMProc* = proc (para1: XIM, para2: XPointer, para3: XPointer){.cdecl.}
 
-  TXICProc* {.deprecated: "Use XICProc instead".} = XICProc
   XICProc* = proc (para1: XIC, para2: XPointer, para3: XPointer): XBool{.
       cdecl.}
 
-  TXIDProc* {.deprecated: "Use XIDProc instead".} = XIDProc
   XIDProc* = proc (para1: PDisplay, para2: XPointer, para3: XPointer){.cdecl.}
 
   PXIMStyle* = ptr XIMStyle
-  TXIMStyle* {.deprecated: "Use XIMStyle instead".} = XIMStyle
   XIMStyle* = culong
 
   PXIMStyles* = ptr XIMStyles
-  TXIMStyles* {.deprecated: "Use XIMStyles instead".} = XIMStyles
   XIMStyles*{.final.} = object
     count_styles*: cushort
     supported_styles*: PXIMStyle
 
+{.deprecated: [TXOMCharSetList: XOMCharSetList].}
+{.deprecated: [TXOrientation: XOrientation].}
+{.deprecated: [TXOMOrientation: XOMOrientation].}
+{.deprecated: [TXOMFontInfo: XOMFontInfo].}
+{.deprecated: [TXIM: XIM].}
+{.deprecated: [TXIC: XIC].}
+{.deprecated: [TXIMProc: XIMProc].}
+{.deprecated: [TXICProc: XICProc].}
+{.deprecated: [TXIDProc: XIDProc].}
+{.deprecated: [TXIMStyle: XIMStyle].}
+{.deprecated: [TXIMStyles: XIMStyles].}
 
 const
   XIMPreeditArea* = 0x00000001
@@ -1077,24 +1079,25 @@ const
 
 type
   PXVaNestedList* = ptr XVaNestedList
-  TXVaNestedList* {.deprecated: "Use XVaNestedList instead".} = XVaNestedList
   XVaNestedList* = pointer
 
   PXIMCallback* = ptr XIMCallback
-  TXIMCallback* {.deprecated: "Use XIMCallback instead".} = XIMCallback
   XIMCallback*{.final.} = object
     client_data*: XPointer
     callback*: XIMProc
 
   PXICCallback* = ptr XICCallback
-  TXICCallback* {.deprecated: "Use XICCallback instead".} = XICCallback
   XICCallback*{.final.} = object
     client_data*: XPointer
     callback*: XICProc
 
   PXIMFeedback* = ptr XIMFeedback
-  TXIMFeedback* {.deprecated: "Use XIMFeedback instead".} = XIMFeedback
   XIMFeedback* = culong
+
+{.deprecated: [TXVaNestedList: XVaNestedList].}
+{.deprecated: [TXIMCallback: XIMCallback].}
+{.deprecated: [TXICCallback: XICCallback].}
+{.deprecated: [TXIMFeedback: XIMFeedback].}
 
 const
   XIMReverse* = 1
@@ -1109,7 +1112,6 @@ const
 
 type
   PXIMText* = ptr XIMText
-  TXIMText* {.deprecated: "Use XIMText instead".} = XIMText
   XIMText*{.final.} = object
     len*: cushort
     feedback*: PXIMFeedback
@@ -1117,8 +1119,10 @@ type
     multi_byte*: cstring
 
   PXIMPreeditState* = ptr XIMPreeditState
-  TXIMPreeditState* {.deprecated: "Use XIMPreeditState instead".} = XIMPreeditState
   XIMPreeditState* = culong
+
+{.deprecated: [TXIMText: XIMText].}
+{.deprecated: [TXIMPreeditState: XIMPreeditState].}
 
 const
   XIMPreeditUnKnown* = 0
@@ -1127,13 +1131,14 @@ const
 
 type
   PXIMPreeditStateNotifyCallbackStruct* = ptr XIMPreeditStateNotifyCallbackStruct
-  TXIMPreeditStateNotifyCallbackStruct* {.deprecated: "Use XIMPreeditStateNotifyCallbackStruct instead".} = XIMPreeditStateNotifyCallbackStruct
   XIMPreeditStateNotifyCallbackStruct*{.final.} = object
     state*: XIMPreeditState
 
   PXIMResetState* = ptr XIMResetState
-  TXIMResetState* {.deprecated: "Use XIMResetState instead".} = XIMResetState
   XIMResetState* = culong
+
+{.deprecated: [TXIMPreeditStateNotifyCallbackStruct: XIMPreeditStateNotifyCallbackStruct].}
+{.deprecated: [TXIMResetState: XIMResetState].}
 
 const
   XIMInitialState* = 1
@@ -1141,8 +1146,9 @@ const
 
 type
   PXIMStringConversionFeedback* = ptr XIMStringConversionFeedback
-  TXIMStringConversionFeedback* {.deprecated: "Use XIMStringConversionFeedback instead".} = XIMStringConversionFeedback
   XIMStringConversionFeedback* = culong
+
+{.deprecated: [TXIMStringConversionFeedback: XIMStringConversionFeedback].}
 
 const
   XIMStringConversionLeftEdge* = 0x00000001
@@ -1154,7 +1160,6 @@ const
 
 type
   PXIMStringConversionText* = ptr XIMStringConversionText
-  TXIMStringConversionText* {.deprecated: "Use XIMStringConversionText instead".} = XIMStringConversionText
   XIMStringConversionText*{.final.} = object
     len*: cushort
     feedback*: PXIMStringConversionFeedback
@@ -1162,12 +1167,14 @@ type
     mbs*: cstring
 
   PXIMStringConversionPosition* = ptr XIMStringConversionPosition
-  TXIMStringConversionPosition* {.deprecated: "Use XIMStringConversionPosition instead".} = XIMStringConversionPosition
   XIMStringConversionPosition* = cushort
 
   PXIMStringConversionType* = ptr XIMStringConversionType
-  TXIMStringConversionType* {.deprecated: "Use XIMStringConversionType instead".} = XIMStringConversionType
   XIMStringConversionType* = cushort
+
+{.deprecated: [TXIMStringConversionText: XIMStringConversionText].}
+{.deprecated: [TXIMStringConversionPosition: XIMStringConversionPosition].}
+{.deprecated: [TXIMStringConversionType: XIMStringConversionType].}
 
 const
   XIMStringConversionBuffer* = 0x00000001
@@ -1177,8 +1184,9 @@ const
 
 type
   PXIMStringConversionOperation* = ptr XIMStringConversionOperation
-  TXIMStringConversionOperation* {.deprecated: "Use XIMStringConversionOperation instead".} = XIMStringConversionOperation
   XIMStringConversionOperation* = cushort
+
+{.deprecated: [TXIMStringConversionOperation: XIMStringConversionOperation].}
 
 const
   XIMStringConversionSubstitution* = 0x00000001
@@ -1186,14 +1194,12 @@ const
 
 type
   PXIMCaretDirection* = ptr XIMCaretDirection
-  TXIMCaretDirection* {.deprecated: "Use XIMCaretDirection instead".} = XIMCaretDirection
   XIMCaretDirection* = enum
     XIMForwardChar, XIMBackwardChar, XIMForwardWord, XIMBackwardWord,
     XIMCaretUp, XIMCaretDown, XIMNextLine, XIMPreviousLine, XIMLineStart,
     XIMLineEnd, XIMAbsolutePosition, XIMDontChange
 
   PXIMStringConversionCallbackStruct* = ptr XIMStringConversionCallbackStruct
-  TXIMStringConversionCallbackStruct* {.deprecated: "Use XIMStringConversionCallbackStruct instead".} = XIMStringConversionCallbackStruct
   XIMStringConversionCallbackStruct*{.final.} = object
     position*: XIMStringConversionPosition
     direction*: XIMCaretDirection
@@ -1202,7 +1208,6 @@ type
     text*: PXIMStringConversionText
 
   PXIMPreeditDrawCallbackStruct* = ptr XIMPreeditDrawCallbackStruct
-  TXIMPreeditDrawCallbackStruct* {.deprecated: "Use XIMPreeditDrawCallbackStruct instead".} = XIMPreeditDrawCallbackStruct
   XIMPreeditDrawCallbackStruct*{.final.} = object
     caret*: cint
     chg_first*: cint
@@ -1210,44 +1215,48 @@ type
     text*: PXIMText
 
   PXIMCaretStyle* = ptr XIMCaretStyle
-  TXIMCaretStyle* {.deprecated: "Use XIMCaretStyle instead".} = XIMCaretStyle
   XIMCaretStyle* = enum
     XIMIsInvisible, XIMIsPrimary, XIMIsSecondary
 
   PXIMPreeditCaretCallbackStruct* = ptr XIMPreeditCaretCallbackStruct
-  TXIMPreeditCaretCallbackStruct* {.deprecated: "Use XIMPreeditCaretCallbackStruct instead".} = XIMPreeditCaretCallbackStruct
   XIMPreeditCaretCallbackStruct*{.final.} = object
     position*: cint
     direction*: XIMCaretDirection
     style*: XIMCaretStyle
 
   PXIMStatusDataType* = ptr XIMStatusDataType
-  TXIMStatusDataType* {.deprecated: "Use XIMStatusDataType instead".} = XIMStatusDataType
   XIMStatusDataType* = enum
     XIMTextType, XIMBitmapType
 
   PXIMStatusDrawCallbackStruct* = ptr XIMStatusDrawCallbackStruct
-  TXIMStatusDrawCallbackStruct* {.deprecated: "Use XIMStatusDrawCallbackStruct instead".} = XIMStatusDrawCallbackStruct
   XIMStatusDrawCallbackStruct*{.final.} = object
     theType*: XIMStatusDataType
     bitmap*: Pixmap
 
   PXIMHotKeyTrigger* = ptr XIMHotKeyTrigger
-  TXIMHotKeyTrigger* {.deprecated: "Use XIMHotKeyTrigger instead".} = XIMHotKeyTrigger
   XIMHotKeyTrigger*{.final.} = object
     keysym*: KeySym
     modifier*: cint
     modifier_mask*: cint
 
   PXIMHotKeyTriggers* = ptr XIMHotKeyTriggers
-  TXIMHotKeyTriggers* {.deprecated: "Use XIMHotKeyTriggers instead".} = XIMHotKeyTriggers
   XIMHotKeyTriggers*{.final.} = object
     num_hot_key*: cint
     key*: PXIMHotKeyTrigger
 
   PXIMHotKeyState* = ptr XIMHotKeyState
-  TXIMHotKeyState* {.deprecated: "Use XIMHotKeyState instead".} = XIMHotKeyState
   XIMHotKeyState* = culong
+
+{.deprecated: [TXIMCaretDirection: XIMCaretDirection].}
+{.deprecated: [TXIMStringConversionCallbackStruct: XIMStringConversionCallbackStruct].}
+{.deprecated: [TXIMPreeditDrawCallbackStruct: XIMPreeditDrawCallbackStruct].}
+{.deprecated: [TXIMCaretStyle: XIMCaretStyle].}
+{.deprecated: [TXIMPreeditCaretCallbackStruct: XIMPreeditCaretCallbackStruct].}
+{.deprecated: [TXIMStatusDataType: XIMStatusDataType].}
+{.deprecated: [TXIMStatusDrawCallbackStruct: XIMStatusDrawCallbackStruct].}
+{.deprecated: [TXIMHotKeyTrigger: XIMHotKeyTrigger].}
+{.deprecated: [TXIMHotKeyTriggers: XIMHotKeyTriggers].}
+{.deprecated: [TXIMHotKeyState: XIMHotKeyState].}
 
 const
   XIMHotKeyStateON* = 0x00000001
@@ -1255,10 +1264,11 @@ const
 
 type
   PXIMValuesList* = ptr XIMValuesList
-  TXIMValuesList* {.deprecated: "Use XIMValuesList instead".} = XIMValuesList
   XIMValuesList*{.final.} = object
     count_values*: cushort
     supported_values*: PPChar
+
+{.deprecated: [TXIMValuesList: XIMValuesList].}
 
 
 type
@@ -1391,14 +1401,15 @@ proc XScreenOfDisplay*(para1: PDisplay, para2: cint): PScreen{.libx11.}
 proc XDefaultScreenOfDisplay*(para1: PDisplay): PScreen{.libx11.}
 proc XEventMaskOfScreen*(para1: PScreen): clong{.libx11.}
 proc XScreenNumberOfScreen*(para1: PScreen): cint{.libx11.}
+
 type
-  TXErrorHandler* {.deprecated: "Use XErrorHandler instead".} = XErrorHandler
   XErrorHandler* = proc (para1: PDisplay, para2: PXErrorEvent): cint{.cdecl.}
+{.deprecated: [TXErrorHandler: XErrorHandler].}
 
 proc XSetErrorHandler*(para1: XErrorHandler): XErrorHandler{.libx11.}
 type
-  TXIOErrorHandler* {.deprecated: "Use XIOErrorHandler instead".} = XIOErrorHandler
   XIOErrorHandler* = proc (para1: PDisplay): cint{.cdecl.}
+{.deprecated: [TXIOErrorHandler: XIOErrorHandler].}
 
 proc XSetIOErrorHandler*(para1: XIOErrorHandler): XIOErrorHandler{.libx11.}
 proc XListPixmapFormats*(para1: PDisplay, para2: Pcint): PXPixmapFormatValues{.
@@ -1940,9 +1951,9 @@ proc XUnregisterIMInstantiateCallback*(para1: PDisplay,
                                        para4: cstring, para5: XIDProc,
                                        para6: XPointer): XBool{.libx11.}
 type
-  TXConnectionWatchProc* {.deprecated: "Use XConnectionWatchProc instead".} = XConnectionWatchProc
   XConnectionWatchProc* = proc (para1: PDisplay, para2: XPointer, para3: cint,
                                  para4: XBool, para5: PXPointer){.cdecl.}
+{.deprecated: [TXConnectionWatchProc: XConnectionWatchProc].}
 
 proc XInternalConnectionNumbers*(para1: PDisplay, para2: PPcint, para3: Pcint): Status{.
     libx11.}

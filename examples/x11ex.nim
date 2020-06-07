@@ -45,7 +45,7 @@ proc create_window =
                                      PointerMotionMask or ExposureMask)
   discard XMapWindow(display, win)
 
-  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.Bool)
+  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.XBool)
   discard XSetWMProtocols(display, win, wmDeleteMessage.addr, 1)
   running = true
 

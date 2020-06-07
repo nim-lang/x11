@@ -57,36 +57,37 @@ const
 
 type
   PRotation* = ptr Rotation
-  TRotation* {.deprecated: "Use Rotation instead".} = Rotation
   Rotation* = cushort
 
   PSizeID* = ptr SizeID
-  TSizeID* {.deprecated: "Use SizeID instead".} = SizeID
   SizeID* = cushort
 
   PSubpixelOrder* = ptr SubpixelOrder
-  TSubpixelOrder* {.deprecated: "Use SubpixelOrder instead".} = SubpixelOrder
   SubpixelOrder* = cushort
 
   PRRCrtc* = ptr RRCrtc
-  TRRCrtc* {.deprecated: "Use RRCrtc instead".} = RRCrtc
   RRCrtc* = XID
 
   PRROutput* = ptr RROutput
-  TRROutput* {.deprecated: "Use RROutput instead".} = RROutput
   RROutput* = XID
 
   PRRMode* = ptr RRMode
-  TRRMode* {.deprecated: "Use RRMode instead".} = RRMode
   RRMode* = XID
 
   PXRRModeFlags* = ptr XRRModeFlags
-  TXRRModeFlags* {.deprecated: "Use XRRModeFlags instead".} = XRRModeFlags
   XRRModeFlags* = culong
 
   PConnection* = ptr Connection
-  TConnection* {.deprecated: "Use Connection instead".} = Connection
   Connection* = cushort
+
+{.deprecated: [TRotation: Rotation].}
+{.deprecated: [TSizeID: SizeID].}
+{.deprecated: [TSubpixelOrder: SubpixelOrder].}
+{.deprecated: [TRRCrtc: RRCrtc].}
+{.deprecated: [TRROutput: RROutput].}
+{.deprecated: [TRRMode: RRMode].}
+{.deprecated: [TXRRModeFlags: XRRModeFlags].}
+{.deprecated: [TConnection: Connection].}
 
 const
   RANDR_NAME* = "RANDR"
@@ -119,14 +120,12 @@ const
 
 type
   PXRRScreenSize* = ptr XRRScreenSize
-  TXRRScreenSize* {.deprecated: "Use XRRScreenSize instead".} = XRRScreenSize
   XRRScreenSize*{.final.} = object  #
                                     #   Events.
                                     #
     width*, height*: cint
     mwidth*, mheight*: cint
 
-  TXRRScreenChangeNotifyEvent* {.deprecated: "Use XRRScreenChangeNotifyEvent instead".} = XRRScreenChangeNotifyEvent
   XRRScreenChangeNotifyEvent*{.final.} = object  # internal representation is private to the library
     typ*: cint               # event base
     serial*: culong          # # of last request processed by server
@@ -145,11 +144,9 @@ type
     mheight*: cint
 
   PXRRScreenConfiguration* = ptr XRRScreenConfiguration
-  TXRRScreenConfiguration* {.deprecated: "Use XRRScreenConfiguration instead".} = XRRScreenConfiguration
   XRRScreenConfiguration* {.final.} = object
 
   PXRRModeInfo* = ptr XRRModeInfo
-  TXRRModeInfo* {.deprecated: "Use XRRModeInfo instead".} = XRRModeInfo
   XRRModeInfo* {.final.} = object
     id*: RRMode
     width*, height*: cuint
@@ -161,7 +158,6 @@ type
     modeFlags*: XRRModeFlags
 
   PXRRScreenResources* = ptr XRRScreenResources
-  TXRRScreenResources* {.deprecated: "Use XRRScreenResources instead".} = XRRScreenResources
   XRRScreenResources* {.final.} = object
     timestamp*, configTimestamp*: Time
     ncrtc*: cint
@@ -172,7 +168,6 @@ type
     modes*: ptr UncheckedArray[XRRModeInfo]
 
   PXRROutputInfo* = ptr XRROutputInfo
-  TXRROutputInfo* {.deprecated: "Use XRROutputInfo instead".} = XRROutputInfo
   XRROutputInfo* {.final.} = object
     timestamp*: Time
     crtc*: RRCrtc
@@ -189,7 +184,6 @@ type
     modes*: ptr UncheckedArray[RRMode]
 
   PXRRPropertyInfo* = ptr XRRPropertyInfo
-  TXRRPropertyInfo* {.deprecated: "Use XRRPropertyInfo instead".} = XRRPropertyInfo
   XRRPropertyInfo* {.final.} = object
     pending, range, immutable: bool
     numValues: cint
@@ -198,6 +192,13 @@ type
   RandrFormat* = enum
     randrFormat16bit = 16, randrFormat32bit = 32
 
+{.deprecated: [TXRRScreenSize: XRRScreenSize].}
+{.deprecated: [TXRRScreenChangeNotifyEvent: XRRScreenChangeNotifyEvent].}
+{.deprecated: [TXRRScreenConfiguration: XRRScreenConfiguration].}
+{.deprecated: [TXRRModeInfo: XRRModeInfo].}
+{.deprecated: [TXRRScreenResources: XRRScreenResources].}
+{.deprecated: [TXRROutputInfo: XRROutputInfo].}
+{.deprecated: [TXRRPropertyInfo: XRRPropertyInfo].}
 
 proc XRRQueryExtension*(dpy: PDisplay, event_basep, error_basep: Pcint): XBool{.
     cdecl, dynlib: libXrandr, importc.}

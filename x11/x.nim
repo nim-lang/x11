@@ -17,62 +17,63 @@ const
 
 type
   PXID* = ptr XID
-  TXID* {.deprecated: "Use XID instead".} = XID
   XID* = culong
 
   PMask* = ptr Mask
-  TMask* {.deprecated: "Use Mask instead".} = Mask
   Mask* = culong
 
   PPAtom* = ptr PAtom
   PAtom* = ptr Atom
-  TAtom* {.deprecated: "Use Atom instead".} = Atom
   Atom* = culong
 
   PVisualID* = ptr VisualID
-  TVisualID* {.deprecated: "Use VisualID instead".} = VisualID
   VisualID* = culong
 
   PTime* = ptr Time
-  TTime* {.deprecated: "Use Time instead".} = Time
   Time* = culong
 
   PPWindow* = ptr PWindow
   PWindow* = ptr Window
-  TWindow* {.deprecated: "Use Window instead".} = Window
   Window* = XID
 
   PDrawable* = ptr Drawable
-  TDrawable* {.deprecated: "Use Drawable instead".} = Drawable
   Drawable* = XID
 
   PFont* = ptr Font
-  TFont* {.deprecated: "Use Font instead".} = Font
   Font* = XID
 
   PPixmap* = ptr Pixmap
-  TPixmap* {.deprecated: "Use Pixmap instead".} = Pixmap
   Pixmap* = XID
 
   PCursor* = ptr Cursor
-  TCursor* {.deprecated: "Use Cursor instead".} = Cursor
   Cursor* = XID
 
   PColormap* = ptr Colormap
-  TColormap* {.deprecated: "Use Colormap instead".} = Colormap
   Colormap* = XID
 
   PGContext* = ptr GContext
-  TGContext* {.deprecated: "Use GContext instead".} = GContext
   GContext* = XID
 
   PKeySym* = ptr KeySym
-  TKeySym* {.deprecated: "Use KeySym instead".} = KeySym
   KeySym* = XID
 
   PKeyCode* = ptr KeyCode
-  TKeyCode* {.deprecated: "Use KeyCode instead".} = KeyCode
   KeyCode* = cuchar
+
+{.deprecated: [TXID: XID].}
+{.deprecated: [TMask: Mask].}
+{.deprecated: [TAtom: Atom].}
+{.deprecated: [TVisualID: VisualID].}
+{.deprecated: [TTime: Time].}
+{.deprecated: [TWindow: Window].}
+{.deprecated: [TDrawable: Drawable].}
+{.deprecated: [TFont: Font].}
+{.deprecated: [TPixmap: Pixmap].}
+{.deprecated: [TCursor: Cursor].}
+{.deprecated: [TColormap: Colormap].}
+{.deprecated: [TGContext: GContext].}
+{.deprecated: [TKeySym: KeySym].}
+{.deprecated: [TKeyCode: KeyCode].}
 
 const
   None* = 0

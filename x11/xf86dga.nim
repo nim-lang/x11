@@ -117,7 +117,6 @@ const
 
 type
   PXDGAMode* = ptr XDGAMode
-  TXDGAMode* {.deprecated: "Use XDGAMode instead".} = XDGAMode
   XDGAMode*{.final.} = object
     num*: cint                # A unique identifier for the mode (num > 0)
     name*: cstring            # name of mode given in the XF86Config
@@ -146,14 +145,12 @@ type
     reserved2*: cint
 
   PXDGADevice* = ptr XDGADevice
-  TXDGADevice* {.deprecated: "Use XDGADevice instead".} = XDGADevice
   XDGADevice*{.final.} = object
     mode*: XDGAMode
     data*: Pcuchar
     pixmap*: Pixmap
 
   PXDGAButtonEvent* = ptr XDGAButtonEvent
-  TXDGAButtonEvent* {.deprecated: "Use XDGAButtonEvent instead".} = XDGAButtonEvent
   XDGAButtonEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -164,7 +161,6 @@ type
     button*: cuint
 
   PXDGAKeyEvent* = ptr XDGAKeyEvent
-  TXDGAKeyEvent* {.deprecated: "Use XDGAKeyEvent instead".} = XDGAKeyEvent
   XDGAKeyEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -175,7 +171,6 @@ type
     keycode*: cuint
 
   PXDGAMotionEvent* = ptr XDGAMotionEvent
-  TXDGAMotionEvent* {.deprecated: "Use XDGAMotionEvent instead".} = XDGAMotionEvent
   XDGAMotionEvent*{.final.} = object
     theType*: cint
     serial*: culong
@@ -187,7 +182,6 @@ type
     dy*: cint
 
   PXDGAEvent* = ptr XDGAEvent
-  TXDGAEvent* {.deprecated: "Use XDGAEvent instead".} = XDGAEvent
   XDGAEvent*{.final.} = object
     pad*: array[0..23, clong] # sorry you have to cast if you want access
                               # Case LongInt Of
@@ -197,6 +191,12 @@ type
                               #      3 : (xmotion : XDGAMotionEvent);
                               #      4 : (pad : Array[0..23] Of clong);
 
+{.deprecated: [TXDGAMode: XDGAMode].}
+{.deprecated: [TXDGADevice: XDGADevice].}
+{.deprecated: [TXDGAButtonEvent: XDGAButtonEvent].}
+{.deprecated: [TXDGAKeyEvent: XDGAKeyEvent].}
+{.deprecated: [TXDGAMotionEvent: XDGAMotionEvent].}
+{.deprecated: [TXDGAEvent: XDGAEvent].}
 
 proc XDGAQueryExtension*(dpy: PDisplay, eventBase: Pcint, erroBase: Pcint): XBool{.
     cdecl, dynlib: libXxf86dga, importc.}

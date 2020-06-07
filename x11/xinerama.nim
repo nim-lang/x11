@@ -7,7 +7,6 @@ const
 
 type
   PXineramaScreenInfo* = ptr XineramaScreenInfo
-  TXineramaScreenInfo* {.deprecated: "Use XineramaScreenInfo instead".} = XineramaScreenInfo
   XineramaScreenInfo*{.final.} = object
     screen_number*: cint
     x_org*: int16
@@ -15,6 +14,7 @@ type
     width*: int16
     height*: int16
 
+{.deprecated: [TXineramaScreenInfo: XineramaScreenInfo].}
 
 proc XineramaQueryExtension*(dpy: PDisplay, event_base: Pcint, error_base: Pcint): XBool{.
     cdecl, dynlib: xineramaLib, importc.}

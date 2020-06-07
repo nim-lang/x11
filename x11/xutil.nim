@@ -27,13 +27,11 @@ const
   YNegative* = 0x00000020
 
 type
-  TCPoint* {.deprecated: "Use CPoint instead".} = CPoint
   CPoint*{.final.} = object
     x*: cint
     y*: cint
 
   PXSizeHints* = ptr XSizeHints
-  TXSizeHints* {.deprecated: "Use XSizeHints instead".} = XSizeHints
   XSizeHints*{.final.} = object
     flags*: clong
     x*, y*: cint
@@ -45,6 +43,8 @@ type
     base_width*, base_height*: cint
     win_gravity*: cint
 
+{.deprecated: [TCPoint: CPoint].}
+{.deprecated: [TXSizeHints: XSizeHints].}
 
 const
   USPosition* = 1 shl 0
@@ -62,7 +62,6 @@ const
 
 type
   PXWMHints* = ptr XWMHints
-  TXWMHints* {.deprecated: "Use XWMHints instead".} = XWMHints
   XWMHints*{.final.} = object
     flags*: clong
     input*: XBool
@@ -72,6 +71,8 @@ type
     icon_x*, icon_y*: cint
     icon_mask*: Pixmap
     window_group*: XID
+
+{.deprecated: [TXWMHints: XWMHints].}
 
 
 const
@@ -94,12 +95,13 @@ const
 
 type
   PXTextProperty* = ptr XTextProperty
-  TXTextProperty* {.deprecated: "Use XTextProperty instead".} = XTextProperty
   XTextProperty*{.final.} = object
     value*: Pcuchar
     encoding*: Atom
     format*: cint
     nitems*: culong
+
+{.deprecated: [TXTextProperty: XTextProperty].}
 
 
 const
@@ -109,42 +111,44 @@ const
 
 type
   PXICCEncodingStyle* = ptr XICCEncodingStyle
-  TXICCEncodingStyle* {.deprecated: "Use XICCEncodingStyle instead".} = XICCEncodingStyle
   XICCEncodingStyle* = enum
     XStringStyle, XCompoundTextStyle, XTextStyle, XStdICCTextStyle,
     XUTF8StringStyle
 
   PPXIconSize* = ptr PXIconSize
   PXIconSize* = ptr XIconSize
-  TXIconSize* {.deprecated: "Use XIconSize instead".} = XIconSize
   XIconSize*{.final.} = object
     min_width*, min_height*: cint
     max_width*, max_height*: cint
     width_inc*, height_inc*: cint
 
   PXClassHint* = ptr XClassHint
-  TXClassHint* {.deprecated: "Use XClassHint instead".} = XClassHint
   XClassHint*{.final.} = object
     res_name*: cstring
     res_class*: cstring
 
+{.deprecated: [TXICCEncodingStyle: XICCEncodingStyle].}
+{.deprecated: [TXIconSize: XIconSize].}
+{.deprecated: [TXClassHint: XClassHint].}
 
 type
   PXComposeStatus* = ptr XComposeStatus
-  TXComposeStatus* {.deprecated: "Use XComposeStatus instead".} = XComposeStatus
   XComposeStatus*{.final.} = object
     compose_ptr*: XPointer
     chars_matched*: cint
 
+{.deprecated: [TXComposeStatus: XComposeStatus].}
+
 
 type
   PXRegion* = ptr XRegion
-  TXRegion* {.deprecated: "Use XRegion instead".} = XRegion
   XRegion*{.final.} = object
 
   PRegion* = ptr Region
-  TRegion* {.deprecated: "Use Region instead".} = Region
   Region* = PXRegion
+
+{.deprecated: [TXRegion: XRegion].}
+{.deprecated: [TRegion: Region].}
 
 const
   RectangleOut* = 0
@@ -153,7 +157,6 @@ const
 
 type
   PXVisualInfo* = ptr XVisualInfo
-  TXVisualInfo* {.deprecated: "Use XVisualInfo instead".} = XVisualInfo
   XVisualInfo*{.final.} = object
     visual*: PVisual
     visualid*: VisualID
@@ -165,6 +168,8 @@ type
     blue_mask*: culong
     colormap_size*: cint
     bits_per_rgb*: cint
+
+{.deprecated: [TXVisualInfo: XVisualInfo].}
 
 
 const
@@ -183,7 +188,6 @@ const
 type
   PPXStandardColormap* = ptr PXStandardColormap
   PXStandardColormap* = ptr XStandardColormap
-  TXStandardColormap* {.deprecated: "Use XStandardColormap instead".} = XStandardColormap
   XStandardColormap*{.final.} = object
     colormap*: Colormap
     red_max*: culong
@@ -195,6 +199,8 @@ type
     base_pixel*: culong
     visualid*: VisualID
     killid*: XID
+
+{.deprecated: [TXStandardColormap: XStandardColormap].}
 
 
 const
@@ -209,8 +215,9 @@ const
 
 type
   PXContext* = ptr XContext
-  TXContext* {.deprecated: "Use XContext instead".} = XContext
   XContext* = cint
+
+{.deprecated: [TXContext: XContext].}
 
 proc XAllocClassHint*(): PXClassHint{.cdecl, dynlib: libX11, importc.}
 proc XAllocIconSize*(): PXIconSize{.cdecl, dynlib: libX11, importc.}

@@ -58,7 +58,6 @@ include "x11pragma.nim"
 
 type
   PXkbAnyEvent* = ptr XkbAnyEvent
-  TXkbAnyEvent* {.deprecated: "Use XkbAnyEvent instead".} = XkbAnyEvent
   XkbAnyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # # of last req processed by server
@@ -68,10 +67,11 @@ type
     xkb_type*: int16          # XKB event minor code
     device*: int16            # device ID
 
+{.deprecated: [TXkbAnyEvent: XkbAnyEvent].}
+
 
 type
   PXkbNewKeyboardNotifyEvent* = ptr XkbNewKeyboardNotifyEvent
-  TXkbNewKeyboardNotifyEvent* {.deprecated: "Use XkbNewKeyboardNotifyEvent instead".} = XkbNewKeyboardNotifyEvent
   XkbNewKeyboardNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -89,10 +89,11 @@ type
     req_major*: int8          # major and minor opcode of req
     req_minor*: int8          # that caused change, if applicable
 
+{.deprecated: [TXkbNewKeyboardNotifyEvent: XkbNewKeyboardNotifyEvent].}
+
 
 type
   PXkbMapNotifyEvent* = ptr XkbMapNotifyEvent
-  TXkbMapNotifyEvent* {.deprecated: "Use XkbMapNotifyEvent instead".} = XkbMapNotifyEvent
   XkbMapNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -121,10 +122,11 @@ type
     num_vmodmap_keys*: int16
     vmods*: int16             # mask of changed virtual mods
 
+{.deprecated: [TXkbMapNotifyEvent: XkbMapNotifyEvent].}
+
 
 type
   PXkbStateNotifyEvent* = ptr XkbStateNotifyEvent
-  TXkbStateNotifyEvent* {.deprecated: "Use XkbStateNotifyEvent instead".} = XkbStateNotifyEvent
   XkbStateNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # # of last req processed by server
@@ -153,10 +155,11 @@ type
     req_major*: int8          # Major opcode of request
     req_minor*: int8          # Minor opcode of request
 
+{.deprecated: [TXkbStateNotifyEvent: XkbStateNotifyEvent].}
+
 
 type
   PXkbControlsNotifyEvent* = ptr XkbControlsNotifyEvent
-  TXkbControlsNotifyEvent* {.deprecated: "Use XkbControlsNotifyEvent instead".} = XkbControlsNotifyEvent
   XkbControlsNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -174,10 +177,11 @@ type
     req_major*: int8          # if keycode==0, major and minor
     req_minor*: int8          # opcode of req that caused change
 
+{.deprecated: [TXkbControlsNotifyEvent: XkbControlsNotifyEvent].}
+
 
 type
   PXkbIndicatorNotifyEvent* = ptr XkbIndicatorNotifyEvent
-  TXkbIndicatorNotifyEvent* {.deprecated: "Use XkbIndicatorNotifyEvent instead".} = XkbIndicatorNotifyEvent
   XkbIndicatorNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -189,10 +193,11 @@ type
     changed*: int16           # indicators with new state or map
     state*: int16             # current state of all indicators
 
+{.deprecated: [TXkbIndicatorNotifyEvent: XkbIndicatorNotifyEvent].}
+
 
 type
   PXkbNamesNotifyEvent* = ptr XkbNamesNotifyEvent
-  TXkbNamesNotifyEvent* {.deprecated: "Use XkbNamesNotifyEvent instead".} = XkbNamesNotifyEvent
   XkbNamesNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -214,10 +219,11 @@ type
     first_key*: int16         # first key with new name
     num_keys*: int16          # number of keys with new names
 
+{.deprecated: [TXkbNamesNotifyEvent: XkbNamesNotifyEvent].}
+
 
 type
   PXkbCompatMapNotifyEvent* = ptr XkbCompatMapNotifyEvent
-  TXkbCompatMapNotifyEvent* {.deprecated: "Use XkbCompatMapNotifyEvent instead".} = XkbCompatMapNotifyEvent
   XkbCompatMapNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -231,10 +237,11 @@ type
     num_si*: int16            # number of new symbol interps
     num_total_si*: int16      # total # of symbol interps
 
+{.deprecated: [TXkbCompatMapNotifyEvent: XkbCompatMapNotifyEvent].}
+
 
 type
   PXkbBellNotifyEvent* = ptr XkbBellNotifyEvent
-  TXkbBellNotifyEvent* {.deprecated: "Use XkbBellNotifyEvent instead".} = XkbBellNotifyEvent
   XkbBellNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -252,10 +259,11 @@ type
     window*: Window           # window associated with event
     event_only*: bool         # "event only" requested
 
+{.deprecated: [TXkbBellNotifyEvent: XkbBellNotifyEvent].}
+
 
 type
   PXkbActionMessageEvent* = ptr XkbActionMessageEvent
-  TXkbActionMessageEvent* {.deprecated: "Use XkbActionMessageEvent instead".} = XkbActionMessageEvent
   XkbActionMessageEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -271,10 +279,11 @@ type
     mods*: int16              # effective mods
     message*: array[0..XkbActionMessageLength, char] # message -- leave space for NUL
 
+{.deprecated: [TXkbActionMessageEvent: XkbActionMessageEvent].}
+
 
 type
   PXkbAccessXNotifyEvent* = ptr XkbAccessXNotifyEvent
-  TXkbAccessXNotifyEvent* {.deprecated: "Use XkbAccessXNotifyEvent instead".} = XkbAccessXNotifyEvent
   XkbAccessXNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -288,10 +297,11 @@ type
     sk_delay*: int16          # current slow keys delay
     debounce_delay*: int16    # current debounce delay
 
+{.deprecated: [TXkbAccessXNotifyEvent: XkbAccessXNotifyEvent].}
+
 
 type
   PXkbExtensionDeviceNotifyEvent* = ptr XkbExtensionDeviceNotifyEvent
-  TXkbExtensionDeviceNotifyEvent* {.deprecated: "Use XkbExtensionDeviceNotifyEvent instead".} = XkbExtensionDeviceNotifyEvent
   XkbExtensionDeviceNotifyEvent*{.final.} = object
     theType*: int16           # XkbAnyEvent
     serial*: int32            # of last req processed by server
@@ -311,10 +321,11 @@ type
     led_class*: int16         # feedback class for led changes
     led_id*: int16            # feedback id for led changes
 
+{.deprecated: [TXkbExtensionDeviceNotifyEvent: XkbExtensionDeviceNotifyEvent].}
+
 
 type
   PXkbEvent* = ptr XkbEvent
-  TXkbEvent* {.deprecated: "Use XkbEvent instead".} = XkbEvent
   XkbEvent*{.final.} = object
     theType*: int16
     any*: XkbAnyEvent
@@ -331,11 +342,14 @@ type
     device*: XkbExtensionDeviceNotifyEvent
     core*: XEvent
 
+{.deprecated: [TXkbEvent: XkbEvent].}
+
 
 type
   PXkbKbdDpyStatePtr* = ptr XkbKbdDpyStateRec
-  TXkbKbdDpyStateRec* {.deprecated: "Use XkbKbdDpyStateRec instead".} = XkbKbdDpyStateRec
   XkbKbdDpyStateRec*{.final.} = object  # XkbOpenDisplay error codes
+
+{.deprecated: [TXkbKbdDpyStateRec: XkbKbdDpyStateRec].}
 
 const
   XkbOD_Success* = 0

@@ -55,7 +55,7 @@ when isMainModule:
 
   block:
     var major, minor: cint
-    var pixmaps: Bool
+    var pixmaps: XBool
     discard XShmQueryVersion(display, addr major, addr minor, addr pixmaps)
     echo "MIT-SHM Version ", major, ".", minor, ", Pixmaps supported: ", pixmaps
 
