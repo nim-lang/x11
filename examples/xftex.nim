@@ -35,11 +35,9 @@ proc create_window =
 
   screen = XDefaultScreen(display)
 
-  font = XftFontOpenXlfd(display, screen, fontName)
+  font = XftFontOpenName(display, screen, fontName)
   if font == nil:
-    font = XftFontOpenName(display, screen, fontName)
-    if font == nil:
-      quit "Failed to load a valid font"
+    quit "Failed to load a valid font"
 
   depth = XDefaultDepth(display, screen)
   var rootwin = XRootWindow(display, screen)
@@ -82,8 +80,7 @@ proc close_window =
   discard XCloseDisplay(display)
 
 proc draw_screen =
-  # TODO: This is rendering strange characters, but the first letter is always correct.
-  XftDrawStringUtf8(xftDraw, xftColor.addr, font, 20, 70, cast[PFcChar8](displayString.addr), displayString.len.cint)
+  XftDrawStringUtf8(xftDraw, xftColor.addr, font, 20, 70, cast[PFcChar8](displayString[0].addr), displayString.len.cint)
 
 proc handle_event =
   discard XNextEvent(display, xev.addr)
