@@ -16,36 +16,39 @@ const
   X_PROTOCOL_REVISION* = 0
 
 type
-  PXID* = ptr TXID
-  TXID* = culong
+  PXID* = ptr XID
+  XID* = culong
   PMask* = ptr TMask
   TMask* = culong
   PPAtom* = ptr PAtom
-  PAtom* = ptr TAtom
-  TAtom* = culong
+  PAtom* = ptr Atom
+  Atom* = culong
   PVisualID* = ptr TVisualID
   TVisualID* = culong
   PTime* = ptr TTime
   TTime* = culong
   PPWindow* = ptr PWindow
   PWindow* = ptr TWindow
-  TWindow* = TXID
+  TWindow* = XID
   PDrawable* = ptr TDrawable
-  TDrawable* = TXID
+  TDrawable* = XID
   PFont* = ptr TFont
-  TFont* = TXID
+  TFont* = XID
   PPixmap* = ptr TPixmap
-  TPixmap* = TXID
+  TPixmap* = XID
   PCursor* = ptr TCursor
-  TCursor* = TXID
+  TCursor* = XID
   PColormap* = ptr TColormap
-  TColormap* = TXID
+  TColormap* = XID
   PGContext* = ptr TGContext
-  TGContext* = TXID
+  TGContext* = XID
   PKeySym* = ptr TKeySym
-  TKeySym* = TXID
+  TKeySym* = XID
   PKeyCode* = ptr TKeyCode
   TKeyCode* = cuchar
+
+{.deprecated: [TXID: XID].}
+{.deprecated: [TAtom: Atom].}
 
 const
   None* = 0
