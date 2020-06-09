@@ -58,7 +58,7 @@ proc mainLoop() =
       if cast[Atom](event.xclient.data.l[0]) == deleteMessage:
         break
     of KeyPress:
-      var key = XLookupKeysym(cast[PXKeyEvent](event.addr), 0)
+      let key = XLookupKeysym(cast[PXKeyEvent](event.addr), 0)
       if key != 0:
         echo "Key ", key, " pressed"
     of ButtonPressMask:
