@@ -52,10 +52,10 @@ type
   XftFontInfo* = object 
   PXftFontInfo* = ptr XftFontInfo
   XftFont* = object
-    ascent*: int
-    descent*: int
-    height*: int
-    max_advance_width*: int
+    ascent*: cint
+    descent*: cint
+    height*: cint
+    max_advance_width*: cint
     charset*: PFcCharSet
     pattern*: PFcPattern    
   PXftFont* = ptr XftFont
@@ -130,7 +130,7 @@ proc XftDefaultSet*(
 
 proc XftDefaultSubstitute*(
   display: PDisplay,
-  screen: int,
+  screen: cint,
   pattern: PFcPattern
 ) {.cdecl, dynlib: xftLib, importc.}
 
