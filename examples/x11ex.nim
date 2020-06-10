@@ -1,80 +1,78 @@
-import 
+import
   x11/xlib,
   x11/xutil,
   x11/x
 
 const
-  WINDOW_WIDTH = 400
-  WINDOW_HEIGHT = 300
+  windowWidth = 1000
+  windowHeight = 600
+  borderWidth = 5
+  eventMask = ButtonPressMask or KeyPressMask or ExposureMask
 
 var
-  width, height: cuint
   display: PDisplay
-  screen: cint
-  depth: int
-  win: Window
-  sizeHints: XSizeHints
-  wmDeleteMessage: Atom
-  running: bool
-  xev: XEvent
-  display_string = "Hello, Nimrods."
+  window: Window
+  deleteMessage: Atom
+  graphicsContext: GC
 
-proc create_window = 
-  width = WINDOW_WIDTH
-  height = WINDOW_HEIGHT
-
+proc init() =
   display = XOpenDisplay(nil)
   if display == nil:
     quit "Failed to open display"
 
-  screen = XDefaultScreen(display)
-  depth = XDefaultDepth(display, screen)
-  var rootwin = XRootWindow(display, screen)
-  win = XCreateSimpleWindow(display, rootwin, 100, 10,
-                            width, height, 5,
-                            XBlackPixel(display, screen),
-                            XWhitePixel(display, screen))
-  size_hints.flags = PSize or PMinSize or PMaxSize
-  size_hints.min_width =  width.cint
-  size_hints.max_width =  width.cint
-  size_hints.min_height = height.cint
-  size_hints.max_height = height.cint
-  discard XSetStandardProperties(display, win, "Simple Window", "window",
-                         0, nil, 0, addr(size_hints))
-  discard XSelectInput(display, win, ButtonPressMask or KeyPressMask or 
-                                     PointerMotionMask or ExposureMask)
-  discard XMapWindow(display, win)
+  let
+    screen = XDefaultScreen(display)
+    rootWindow = XRootWindow(display, screen)
+    foregroundColor = XBlackPixel(display, screen)
+    backgroundColor = XWhitePixel(display, screen)
 
-  wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.XBool)
-  discard XSetWMProtocols(display, win, wmDeleteMessage.addr, 1)
-  running = true
+  window = XCreateSimpleWindow(display, rootWindow, -1, -1, windowWidth,
+      windowHeight, borderWidth, foregroundColor, backgroundColor)
 
-proc close_window =
-  discard XDestroyWindow(display, win)
+  discard XSetStandardProperties(display, window, "X11 Example", "window", 0,
+      nil, 0, nil)
+
+  discard XSelectInput(display, window, eventMask)
+  discard XMapWindow(display, window)
+
+  deleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", false.XBool)
+  discard XSetWMProtocols(display, window, deleteMessage.addr, 1)
+
+  graphicsContext = XDefaultGC(display, screen)
+
+
+proc drawWindow() =
+  const text = "Hello, Nim programmers."
+  discard XDrawString(display, window, graphicsContext, 10, 50, text, text.len)
+
+
+proc mainLoop() =
+  ## Process events until the quit event is received
+  var event: XEvent
+  while true:
+    discard XNextEvent(display, event.addr)
+    case event.theType
+    of Expose:
+      drawWindow()
+    of ClientMessage:
+      if cast[Atom](event.xclient.data.l[0]) == deleteMessage:
+        break
+    of KeyPress:
+      let key = XLookupKeysym(cast[PXKeyEvent](event.addr), 0)
+      if key != 0:
+        echo "Key ", key, " pressed"
+    of ButtonPressMask:
+      echo "Mouse button ", event.xbutton.button, " pressed at ",
+          event.xbutton.x, ",", event.xbutton.y
+    else:
+      discard
+
+
+proc main() =
+  init()
+  mainLoop()
+  discard XDestroyWindow(display, window)
   discard XCloseDisplay(display)
 
-proc draw_screen =
-  discard XDrawString(display,win, DefaultGC(display,screen), 10,50, display_string.cstring, display_string.len.cint)
 
-proc handle_event =
-  discard XNextEvent(display, xev.addr)
-  case xev.theType
-  of Expose:
-    draw_screen()
-  of ClientMessage:
-    if cast[Atom](xev.xclient.data.l[0]) == wmDeleteMessage:
-      running = false
-  of KeyPress:
-    var key = XLookupKeysym(cast[PXKeyEvent](xev.addr), 0)
-    if key != 0:
-      echo "Keyboard event"
-  of ButtonPressMask, PointerMotionMask:
-    echo "Mouse event"
-  else:
-    discard
-    #echo "Unhandled event ", xev.theType
-
-create_window()
-while running:
-  handle_event()
-close_window()
+main()
