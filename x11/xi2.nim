@@ -223,15 +223,15 @@ const
 ##  XI2 event mask macros
 type XIMask = ptr UncheckedArray[uint8]
 
-template XISetMask*(mask, event: untyped): untyped =
+template XISetMask*(mask: pointer, event: untyped): untyped =
   ((cast[XIMask]((mask)))[(event) shr 3] = (cast[XIMask]((mask)))[
       (event) shr 3] or (1 shl ((event) and 7)))
 
-template XIClearMask*(mask, event: untyped): untyped =
+template XIClearMask*(mask: pointer, event: untyped): untyped =
   ((cast[XIMask]((mask)))[(event) shr 3] = (cast[XIMask]((mask)))[
       (event) shr 3] and not (1 shl ((event) and 7)))
 
-template XIMaskIsSet*(mask, event: untyped): untyped =
+template XIMaskIsSet*(mask: pointer, event: untyped): untyped =
   ((cast[XIMask]((mask)))[(event) shr 3].int and (1 shl ((event) and 7)))
 
 template XIMaskLen*(event: untyped): untyped =
