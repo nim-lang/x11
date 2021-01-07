@@ -737,6 +737,26 @@ type
     display*: PDisplay
     window*: Window
 
+  PXGenericEvent* = ptr XGenericEvent
+  XGenericEvent*{.final.} = object
+    theType*: cint              ##  of event. Always GenericEvent
+    serial*: culong            ##  # of last request processed
+    send_event*: XBool          ##  true if from SendEvent request
+    display*: PDisplay       ##  Display the event was read from
+    extension*: cint           ##  major opcode of extension that caused the event
+    evtype*: cint              ##  actual event type.
+
+  PXGenericEventCookie* = ptr XGenericEventCookie
+  XGenericEventCookie*{.final.} = object
+    theType*: cint              ##  of event. Always GenericEvent
+    serial*: culong            ##  # of last request processed
+    send_event*: XBool          ##  true if from SendEvent request
+    display*: PDisplay       ##  Display the event was read from
+    extension*: cint           ##  major opcode of extension that caused the event
+    evtype*: cint              ##  actual event type.
+    cookie*: cuint
+    data*: pointer
+
   PXEvent* = ptr XEvent
   XEvent*{.final, union.} = object
     theType*: cint
@@ -771,6 +791,8 @@ type
     xmapping*: XMappingEvent
     xerror*: XErrorEvent
     xkeymap*: XKeymapEvent
+    xgeneric*: XGenericEvent
+    xcookie*: XGenericEventCookie
     pad: array[0..23, clong]
 
 {.deprecated: [TXExtData: XExtData].}
@@ -1968,6 +1990,8 @@ proc XSetAuthorization*(para1: cstring, para2: cint, para3: cstring, para4: cint
   #  _Xmbtowc?
   #  _Xwctomb?
   #
+proc XGetEventData*(para1: PDisplay, para2: PXGenericEventCookie): XBool {.libX11.}
+proc XFreeEventData*(para1: PDisplay, para2: PXGenericEventCookie) {.libX11.}
 #when defined(MACROS):
 proc ConnectionNumber*(dpy: PDisplay): cint
 proc RootWindow*(dpy: PDisplay, scr: cint): Window
