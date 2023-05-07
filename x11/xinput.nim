@@ -146,8 +146,8 @@ type
     keycode*: cuint            ##  detail
     same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
-    axes_count*: cuchar
-    first_axis*: cuchar
+    axes_count*: char
+    first_axis*: char
     axis_data*: array[6, cint]
 
   PXDeviceKeyPressedEvent* = PXDeviceKeyEvent
@@ -177,8 +177,8 @@ type
     button*: cuint             ##  detail
     same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
-    axes_count*: cuchar
-    first_axis*: cuchar
+    axes_count*: char
+    first_axis*: char
     axis_data*: array[6, cint]
 
   PXDeviceButtonPressedEvent* = PXDeviceButtonEvent
@@ -208,8 +208,8 @@ type
     is_hint*: char             ##  detail
     same_screen*: XBool         ##  same screen flag
     device_state*: cuint       ##  device key or button mask
-    axes_count*: cuchar
-    first_axis*: cuchar
+    axes_count*: char
+    first_axis*: char
     axis_data*: array[6, cint]
 
   PXDeviceFocusChangeEvent* = ptr XDeviceFocusChangeEvent
@@ -256,8 +256,8 @@ type
     state*: cuint
     same_screen*: XBool
     device_state*: cuint       ##  device key or button mask
-    axes_count*: cuchar
-    first_axis*: cuchar
+    axes_count*: char
+    first_axis*: char
     axis_data*: array[6, cint]
 
   PXProximityInEvent* = PXProximityNotifyEvent
@@ -268,8 +268,8 @@ type
 
   PXInputClass* = ptr XInputClass
   XInputClass* {.final.} = object
-    class*: cuchar
-    length*: cuchar
+    class*: char
+    length*: char
 
   PXDeviceStateNotifyEvent* = ptr XDeviceStateNotifyEvent
   XDeviceStateNotifyEvent* {.final.} = object
@@ -287,23 +287,23 @@ type
 
   PXValuatorStatus* = ptr XValuatorStatus
   XValuatorStatus* {.final.} = object
-    class*: cuchar
-    length*: cuchar
-    num_valuators*: cuchar
-    mode*: cuchar
+    class*: char
+    length*: char
+    num_valuators*: char
+    mode*: char
     valuators*: array[6, cint]
 
   PXKeyStatus* = ptr XKeyStatus
   XKeyStatus* {.final.} = object
-    class*: cuchar
-    length*: cuchar
+    class*: char
+    length*: char
     num_keys*: cshort
     keys*: array[32, char]
 
   PXButtonStatus* = ptr XButtonStatus
   XButtonStatus* {.final.} = object
-    class*: cuchar
-    length*: cuchar
+    class*: char
+    length*: char
     num_buttons*: cshort
     buttons*: array[32, char]
 
@@ -605,15 +605,15 @@ type
   XValuatorInfo* {.final.} = object
     class*: XID
     length*: cint
-    num_axes*: cuchar
-    mode*: cuchar
+    num_axes*: char
+    mode*: char
     motion_buffer*: culong
     axes*: PXAxisInfo
 
   PXInputClassInfo* = ptr XInputClassInfo
   XInputClassInfo* {.final.} = object
-    input_class*: cuchar
-    event_type_base*: cuchar
+    input_class*: char
+    event_type_base*: char
 
   PXDevice* = ptr XDevice
   XDevice* {.final.} = object
@@ -639,23 +639,23 @@ type
 
   PXValuatorState* = ptr XValuatorState
   XValuatorState* {.final.} = object
-    class*: cuchar
-    length*: cuchar
-    num_valuators*: cuchar
-    mode*: cuchar
+    class*: char
+    length*: char
+    num_valuators*: char
+    mode*: char
     valuators*: ptr cint
 
   PXKeyState* = ptr XKeyState
   XKeyState* {.final.} = object
-    class*: cuchar
-    length*: cuchar
+    class*: char
+    length*: char
     num_keys*: cshort
     keys*: array[32, char]
 
   PXButtonState* = ptr XButtonState
   XButtonState* {.final.} = object
-    class*: cuchar
-    length*: cuchar
+    class*: char
+    length*: char
     num_buttons*: cshort
     buttons*: array[32, char]
 

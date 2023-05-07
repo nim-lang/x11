@@ -130,9 +130,9 @@ type
     vendor*: cstring
     model*: cstring
     EMPTY*: cfloat
-    nhsync*: cuchar
+    nhsync*: char
     hsync*: PXF86VidModeSyncRange
-    nvsync*: cuchar
+    nvsync*: char
     vsync*: PXF86VidModeSyncRange
 
   PXF86VidModeNotifyEvent* = ptr XF86VidModeNotifyEvent

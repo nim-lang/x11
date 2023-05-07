@@ -208,7 +208,7 @@ proc XRRQueryVersion*(dpy: PDisplay, major_versionp: Pcint,
 proc XRRQueryOutputProperty*(dpy: PDisplay, output: RROutput, property: Atom):
     PXRRPropertyInfo {.cdecl, dynlib: libXrandr, importc.}
 proc XRRChangeOutputProperty*(dpy: PDisplay, output: RROutput,
-    property, kind: Atom, format, mode: cint, data: ptr cuchar, nelements: cint) {.
+    property, kind: Atom, format, mode: cint, data: ptr char, nelements: cint) {.
     cdecl, dynlib: libXrandr, importc.}
 proc XRRGetScreenInfo*(dpy: PDisplay, draw: Drawable): PXRRScreenConfiguration{.
     cdecl, dynlib: libXrandr, importc.}

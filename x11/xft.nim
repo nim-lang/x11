@@ -39,7 +39,7 @@ type
     fonts*: ptr PFcPattern
   PFcFontSet* = ptr FcFontSet
 
-  FcChar8* = cuchar
+  FcChar8* = char
   PFcChar8* = ptr FcChar8
 
   FcChar16* = cushort
@@ -49,7 +49,7 @@ type
   PFcChar32* = ptr FcChar32
 
 type
-  XftFontInfo* = object 
+  XftFontInfo* = object
   PXftFontInfo* = ptr XftFontInfo
   XftFont* = object
     ascent*: cint
@@ -57,7 +57,7 @@ type
     height*: cint
     max_advance_width*: cint
     charset*: PFcCharSet
-    pattern*: PFcPattern    
+    pattern*: PFcPattern
   PXftFont* = ptr XftFont
 
   XftDraw* = object
@@ -116,7 +116,7 @@ proc XftColorFree*(
   visual: PVisual,
   cmap: Colormap,
   color: PXftColor
-) {.cdecl, dynlib: xftLib, importc.} 
+) {.cdecl, dynlib: xftLib, importc.}
 
 # xftdpy.c
 proc XftDefaultHasRender*(
@@ -139,7 +139,7 @@ proc XftDrawCreate*(
   display: PDisplay,
   drawable: Drawable,
   visual: PVisual,
-  colormap: Colormap 
+  colormap: Colormap
 ): PXftDraw {.cdecl, dynlib: xftLib, importc.}
 
 proc XftDrawCreateBitmap*(
@@ -156,7 +156,7 @@ proc XftDrawCreateAlpha*(
 proc XftDrawChange*(
   draw: PXftDraw,
   drawable: Drawable
-) {.cdecl, dynlib: xftLib, importc.} 
+) {.cdecl, dynlib: xftLib, importc.}
 
 proc XftDrawDisplay*(
   draw: PXftDraw
@@ -195,7 +195,7 @@ proc XftDrawGlyphs*(
   y: cint,
   glyphs: PFt_UInt,
   nglyphs: cint
-) {.cdecl, dynlib: xftLib, importc.} 
+) {.cdecl, dynlib: xftLib, importc.}
 
 proc XftDrawString8*(
   draw: PXftDraw,
@@ -677,4 +677,3 @@ proc XftXlfdParse8*(
   ignore_scalable: XBool,
   complete: XBool
 ): PFcPattern {.cdecl, dynlib: xftLib, importc.}
-

@@ -58,7 +58,7 @@ type
   KeySym* = XID
 
   PKeyCode* = ptr KeyCode
-  KeyCode* = cuchar
+  KeyCode* = char
 
 {.deprecated: [TXID: XID].}
 {.deprecated: [TMask: Mask].}
