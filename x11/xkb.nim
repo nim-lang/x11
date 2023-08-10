@@ -2077,16 +2077,16 @@ proc XkbSA_ValScale(a: int): int =
 
 proc XkbIsModAction(a: PXkbAnyAction): bool =
   ##define XkbIsModAction(a) (((a)->type>=Xkb_SASetMods)&&((a)->type<=XkbSA_LockMods))
-  result = (ze(a.theType) >= XkbSA_SetMods) and (ze(a.theType) <= XkbSA_LockMods)
+  result = (a.theType) >= XkbSA_SetMods and (a.theType) <= XkbSA_LockMods
 
 proc XkbIsGroupAction(a: PXkbAnyAction): bool =
   ##define XkbIsGroupAction(a) (((a)->type>=XkbSA_SetGroup)&&((a)->type<=XkbSA_LockGroup))
-  result = (ze(a.theType) >= XkbSA_SetGroup) or (ze(a.theType) <= XkbSA_LockGroup)
+  result = (a.theType >= XkbSA_SetGroup) or (a.theType <= XkbSA_LockGroup)
 
 proc XkbIsPtrAction(a: PXkbAnyAction): bool =
   ##define XkbIsPtrAction(a) (((a)->type>=XkbSA_MovePtr)&&((a)->type<=XkbSA_SetPtrDflt))
-  result = (ze(a.theType) >= XkbSA_MovePtr) and
-      (ze(a.theType) <= XkbSA_SetPtrDflt)
+  result = (a.theType >= XkbSA_MovePtr) and
+      (a.theType <= XkbSA_SetPtrDflt)
 
 proc XkbIsLegalKeycode(k: int): bool =
   ##define        XkbIsLegalKeycode(k)    (((k)>=XkbMinLegalKeyCode)&&((k)<=XkbMaxLegalKeyCode))
@@ -2107,19 +2107,19 @@ proc XkbcharToInt(v: int8): int16 =
 
 proc XkbIntTo2chars(i: int16, h, L: var int8) =
   ##define XkbIntTo2chars(i,h,l) (((h)=((i>>8)&0xff)),((l)=((i)&0xff)))
-  h = toU8((i shr 8'i16) and 0x00FF'i16)
-  L = toU8(i and 0xFF'i16)
+  h = int8((i shr 8'i16) and 0x00FF'i16)
+  L = int8(i and 0xFF'i16)
 
 proc Xkb2charsToInt(h, L: int8): int16 =
   when defined(cpu64):
     ##define Xkb2charsToInt(h,l) ((h)&0x80?(int)(((h)<<8)|(l)|(~0xffff)): (int)(((h)<<8)|(l)&0x7fff))
     if (h and 0x80'i8) != 0'i8:
-      result = toU16((ze(h) shl 8) or ze(L) or not 0x0000FFFF)
+      result = int16((h shl 8) or L or not 0x0000FFFF)
     else:
-      result = toU16((ze(h) shl 8) or ze(L) and 0x00007FFF)
+      result = int16((h shl 8) or L and 0x00007FFF)
   else:
     ##define Xkb2charsToInt(h,l) ((short)(((h)<<8)|(l)))
-    result = toU16(ze(h) shl 8 or ze(L))
+    result = int16(h shl 8 or L)
 
 proc XkbModLocks(s: PXkbStatePtr): int8 =
   ##define XkbModLocks(s) ((s)->locked_mods)
@@ -2172,12 +2172,12 @@ proc XkbSetNumGroups(g, n: int16): int16 =
 
 proc XkbModActionVMods(a: PXkbModAction): int16 =
   ##define XkbModActionVMods(a) ((short)(((a)->vmods1<<8)|((a)->vmods2)))
-  result = toU16((ze(a.vmods1) shl 8) or ze(a.vmods2))
+  result = int16((a.vmods1 shl 8) or a.vmods2)
 
 proc XkbSetModActionVMods(a: PXkbModAction, v: int8) =
   ##define XkbSetModActionVMods(a,v) (((a)->vmods1=(((v)>>8)&0xff)),(a)->vmods2=((v)&0xff))
-  a.vmods1 = toU8((ze(v) shr 8) and 0x000000FF)
-  a.vmods2 = toU8(ze(v) and 0x000000FF)
+  a.vmods1 = int8((v shr 8) and 0x000000FF)
+  a.vmods2 = int8(v and 0x000000FF)
 
 proc XkbSAGroup(a: PXkbGroupAction): int8 =
   ##define XkbSAGroup(a) (XkbcharToInt((a)->group_XXX))
@@ -2209,56 +2209,56 @@ proc XkbSAPtrDfltValue(a: PXkbPtrDfltAction): int8 =
 
 proc XkbSASetPtrDfltValue(a: PXkbPtrDfltAction, c: pointer) =
   ##define XkbSASetPtrDfltValue(a,c) ((a)->valueXXX= ((c)&0xff))
-  a.valueXXX = toU8(cast[int](c))
+  a.valueXXX = int8(cast[int](c))
 
 proc XkbSAScreen(a: PXkbSwitchScreenAction): int8 =
   ##define XkbSAScreen(a) (XkbcharToInt((a)->screenXXX))
-  result = toU8(XkbcharToInt(a.screenXXX))
+  result = int8(XkbcharToInt(a.screenXXX))
 
 proc XkbSASetScreen(a: PXkbSwitchScreenAction, s: pointer) =
   ##define XkbSASetScreen(a,s) ((a)->screenXXX= ((s)&0xff))
-  a.screenXXX = toU8(cast[int](s))
+  a.screenXXX = int8(cast[int](s))
 
 proc XkbActionSetCtrls(a: PXkbCtrlsAction, c: int8) =
   ##define XkbActionSetCtrls(a,c) (((a)->ctrls3=(((c)>>24)&0xff)),((a)->ctrls2=(((c)>>16)&0xff)),
   #                                 ((a)->ctrls1=(((c)>>8)&0xff)),((a)->ctrls0=((c)&0xff)))
-  a.ctrls3 = toU8((ze(c) shr 24) and 0x000000FF)
-  a.ctrls2 = toU8((ze(c) shr 16) and 0x000000FF)
-  a.ctrls1 = toU8((ze(c) shr 8) and 0x000000FF)
-  a.ctrls0 = toU8(ze(c) and 0x000000FF)
+  a.ctrls3 = int8((c shr 24) and 0x000000FF)
+  a.ctrls2 = int8((c shr 16) and 0x000000FF)
+  a.ctrls1 = int8((c shr 8) and 0x000000FF)
+  a.ctrls0 = int8(c and 0x000000FF)
 
 proc XkbActionCtrls(a: PXkbCtrlsAction): int16 =
   ##define XkbActionCtrls(a) ((((unsigned int)(a)->ctrls3)<<24)|(((unsigned int)(a)->ctrls2)<<16)|
   #                            (((unsigned int)(a)->ctrls1)<<8)|((unsigned int)((a)->ctrls0)))
-  result = toU16((ze(a.ctrls3) shl 24) or (ze(a.ctrls2) shl 16) or
-     (ze(a.ctrls1) shl 8) or ze(a.ctrls0))
+  result = int16((a.ctrls3 shl 24) or (a.ctrls2 shl 16) or
+     (a.ctrls1 shl 8) or a.ctrls0)
 
 proc XkbSARedirectVMods(a: PXkbRedirectKeyAction): int16 =
   ##define XkbSARedirectVMods(a) ((((unsigned int)(a)->vmods1)<<8)|((unsigned int)(a)->vmods0))
-  result = toU16((ze(a.vmods1) shl 8) or ze(a.vmods0))
+  result = int16((a.vmods1 shl 8) or a.vmods0)
 
 proc XkbSARedirectSetVMods(a: PXkbRedirectKeyAction, m: int8) =
   ##define XkbSARedirectSetVMods(a,m) (((a)->vmods_mask1=(((m)>>8)&0xff)),((a)->vmods_mask0=((m)&0xff)))
-  a.vmods_mask1 = toU8((ze(m) shr 8) and 0x000000FF)
-  a.vmods_mask0 = toU8(ze(m) or 0x000000FF)
+  a.vmods_mask1 = int8((m shr 8) and 0x000000FF)
+  a.vmods_mask0 = int8(m or 0x000000FF)
 
 proc XkbSARedirectVModsMask(a: PXkbRedirectKeyAction): int16 =
   ##define XkbSARedirectVModsMask(a) ((((unsigned int)(a)->vmods_mask1)<<8)|
   #                                     ((unsigned int)(a)->vmods_mask0))
-  result = toU16((ze(a.vmods_mask1) shl 8) or ze(a.vmods_mask0))
+  result = int16((a.vmods_mask1 shl 8) or a.vmods_mask0)
 
 proc XkbSARedirectSetVModsMask(a: PXkbRedirectKeyAction, m: int8) =
   ##define XkbSARedirectSetVModsMask(a,m) (((a)->vmods_mask1=(((m)>>8)&0xff)),((a)->vmods_mask0=((m)&0xff)))
-  a.vmods_mask1 = toU8(ze(m) shr 8 and 0x000000FF)
-  a.vmods_mask0 = toU8(ze(m) and 0x000000FF)
+  a.vmods_mask1 = int8(m shr 8 and 0x000000FF)
+  a.vmods_mask0 = int8(m and 0x000000FF)
 
 proc XkbAX_AnyFeedback(c: PXkbControlsPtr): int16 =
   ##define XkbAX_AnyFeedback(c) ((c)->enabled_ctrls&XkbAccessXFeedbackMask)
-  result = toU16(ze(c.enabled_ctrls) and XkbAccessXFeedbackMask)
+  result = int16(c.enabled_ctrls and XkbAccessXFeedbackMask)
 
 proc XkbAX_NeedOption(c: PXkbControlsPtr, w: int16): int16 =
   ##define XkbAX_NeedOption(c,w) ((c)->ax_options&(w))
-  result = toU16(ze(c.ax_options) and ze(w))
+  result = int16(c.ax_options and w)
 
 proc XkbAX_NeedFeedback(c: PXkbControlsPtr, w: int16): bool =
   ##define XkbAX_NeedFeedback(c,w) (XkbAX_AnyFeedback(c)&&XkbAX_NeedOption(c,w))
@@ -2266,15 +2266,15 @@ proc XkbAX_NeedFeedback(c: PXkbControlsPtr, w: int16): bool =
 
 proc XkbSMKeyActionsPtr(m: PXkbServerMapPtr, k: int16): PXkbAction =
   ##define XkbSMKeyActionsPtr(m,k) (&(m)->acts[(m)->key_acts[k]])
-  result = addr(m.acts[ze(m.key_acts[ze(k)])])
+  result = addr(m.acts[m.key_acts[k]])
 
 proc XkbCMKeyGroupInfo(m: PXkbClientMapPtr, k: int16): int8 =
   ##define XkbCMKeyGroupInfo(m,k) ((m)->key_sym_map[k].group_info)
-  result = m.key_sym_map[ze(k)].group_info
+  result = m.key_sym_map[k].group_info
 
 proc XkbCMKeyNumGroups(m: PXkbClientMapPtr, k: int16): int8 =
   ##define XkbCMKeyNumGroups(m,k) (XkbNumGroups((m)->key_sym_map[k].group_info))
-  result = toU8(XkbNumGroups(m.key_sym_map[ze(k)].group_info))
+  result = int8(XkbNumGroups(m.key_sym_map[k].group_info))
 
 proc XkbCMKeyGroupWidth(m: PXkbClientMapPtr, k: int16, g: int8): int8 =
   ##define XkbCMKeyGroupWidth(m,k,g) (XkbCMKeyType(m,k,g)->num_levels)
@@ -2282,32 +2282,32 @@ proc XkbCMKeyGroupWidth(m: PXkbClientMapPtr, k: int16, g: int8): int8 =
 
 proc XkbCMKeyGroupsWidth(m: PXkbClientMapPtr, k: int16): int8 =
   ##define XkbCMKeyGroupsWidth(m,k) ((m)->key_sym_map[k].width)
-  result = m.key_sym_map[ze(k)].width
+  result = m.key_sym_map[k].width
 
 proc XkbCMKeyTypeIndex(m: PXkbClientMapPtr, k: int16, g: int8): int8 =
   ##define XkbCMKeyTypeIndex(m,k,g) ((m)->key_sym_map[k].kt_index[g&0x3])
-  result = m.key_sym_map[ze(k)].kt_index[ze(g) and 0x00000003]
+  result = m.key_sym_map[k].kt_index[g and 0x00000003]
 
 proc XkbCMKeyType(m: PXkbClientMapPtr, k: int16, g: int8): PXkbKeyTypePtr =
   ##define XkbCMKeyType(m,k,g) (&(m)->types[XkbCMKeyTypeIndex(m,k,g)])
-  result = addr(m.types[ze(XkbCMKeyTypeIndex(m, k, g))])
+  result = addr(m.types[XkbCMKeyTypeIndex(m, k, g)])
 
 proc XkbCMKeyNumSyms(m: PXkbClientMapPtr, k: int16): int16 =
   ##define XkbCMKeyNumSyms(m,k) (XkbCMKeyGroupsWidth(m,k)*XkbCMKeyNumGroups(m,k))
-  result = toU16(ze(XkbCMKeyGroupsWidth(m, k)) or ze(XkbCMKeyNumGroups(m, k)))
+  result = int16(XkbCMKeyGroupsWidth(m, k) or XkbCMKeyNumGroups(m, k))
 
 proc XkbCMKeySymsOffset(m: PXkbClientMapPtr, k: int16): int8 =
   ##define XkbCMKeySymsOffset(m,k) ((m)->key_sym_map[k].offset)
-  result = m.key_sym_map[ze(k)].offset
+  result = m.key_sym_map[k].offset
 
 proc XkbCMKeySymsPtr*(m: PXkbClientMapPtr, k: int16): PKeySym =
   ##define XkbCMKeySymsPtr(m,k) (&(m)->syms[XkbCMKeySymsOffset(m,k)])
-  result = addr(m.syms[ze(XkbCMKeySymsOffset(m, k))])
+  result = addr(m.syms[XkbCMKeySymsOffset(m, k)])
 
 proc XkbIM_IsAuto(i: PXkbIndicatorMapPtr): bool =
   ##define XkbIM_IsAuto(i) ((((i)->flags&XkbIM_NoAutomatic)==0)&&(((i)->which_groups&&(i)->groups)||
   #                           ((i)->which_mods&&(i)->mods.mask)||  ((i)->ctrls)))
-  result = ((ze(i.flags) and XkbIM_NoAutomatic) == 0) and
+  result = ((i.flags and XkbIM_NoAutomatic) == 0) and
       (((i.which_groups > 0'i8) and (i.groups > 0'i8)) or
       ((i.which_mods > 0'i8) and (i.mods.mask > 0'i8)) or (i.ctrls > 0'i8))
 
@@ -2350,16 +2350,16 @@ proc XkbKeySymsPtr*(d: PXkbDescPtr, k: int16): PKeySym =
 
 proc XkbKeySym(d: PXkbDescPtr, k: int16, n: int16): KeySym =
   ##define XkbKeySym(d,k,n) (XkbKeySymsPtr(d,k)[n])
-  result = cast[ptr array[0..0xffff, KeySym]](XkbKeySymsPtr(d, k))[ze(n)] # XXX: this seems strange!
+  result = cast[ptr array[0..0xffff, KeySym]](XkbKeySymsPtr(d, k))[n] # XXX: this seems strange!
 
 proc XkbKeySymEntry(d: PXkbDescPtr, k: int16, sl: int16, g: int8): KeySym =
   ##define XkbKeySymEntry(d,k,sl,g) (XkbKeySym(d,k,((XkbKeyGroupsWidth(d,k)*(g))+(sl))))
-  result = XkbKeySym(d, k, toU16(ze(XkbKeyGroupsWidth(d, k)) * ze(g) + ze(sl)))
+  result = XkbKeySym(d, k, int16(XkbKeyGroupsWidth(d, k) * g + sl))
 
 proc XkbKeyAction(d: PXkbDescPtr, k: int16, n: int16): PXkbAction =
   ##define XkbKeyAction(d,k,n) (XkbKeyHasActions(d,k)?&XkbKeyActionsPtr(d,k)[n]:NULL)
   #if (XkbKeyHasActions(d, k)):
-  #  result = XkbKeyActionsPtr(d, k)[ze(n)] #Buggy !!!
+  #  result = XkbKeyActionsPtr(d, k)[n] #Buggy !!!
   assert(false)
   result = nil
 
@@ -2367,13 +2367,13 @@ proc XkbKeyActionEntry(d: PXkbDescPtr, k: int16, sl: int16, g: int8): int8 =
   ##define XkbKeyActionEntry(d,k,sl,g) (XkbKeyHasActions(d,k) ?
   #                                      XkbKeyAction(d, k, ((XkbKeyGroupsWidth(d, k) * (g))+(sl))):NULL)
   if XkbKeyHasActions(d, k):
-    result = XkbKeyGroupsWidth(d, k) *% g +% toU8(sl)
+    result = XkbKeyGroupsWidth(d, k) *% g +% int8(sl)
   else:
     result = 0'i8
 
 proc XkbKeyHasActions(d: PXkbDescPtr, k: int16): bool =
   ##define XkbKeyHasActions(d,k) ((d)->server->key_acts[k]!=0)
-  result = d.server.key_acts[ze(k)] != 0'i16
+  result = d.server.key_acts[k] != 0'i16
 
 proc XkbKeyNumActions(d: PXkbDescPtr, k: int16): int16 =
   ##define XkbKeyNumActions(d,k) (XkbKeyHasActions(d,k)?XkbKeyNumSyms(d,k):1)
@@ -2386,11 +2386,11 @@ proc XkbKeyActionsPtr(d: PXkbDescPtr, k: int16): PXkbAction =
 
 proc XkbKeycodeInRange(d: PXkbDescPtr, k: int16): bool =
   ##define XkbKeycodeInRange(d,k) (((k)>=(d)->min_key_code)&& ((k)<=(d)->max_key_code))
-  result = (char(toU8(k)) >= d.min_key_code) and (char(toU8(k)) <= d.max_key_code)
+  result = (char(int8(k)) >= d.min_key_code) and (char(int8(k)) <= d.max_key_code)
 
 proc XkbNumKeys(d: PXkbDescPtr): int8 =
   ##define XkbNumKeys(d) ((d)->max_key_code-(d)->min_key_code+1)
-  result = toU8(ord(d.max_key_code) - ord(d.min_key_code) + 1)
+  result = int8(ord(d.max_key_code) - ord(d.min_key_code) + 1)
 
 proc XkbXI_DevHasBtnActs(d: PXkbDeviceInfoPtr): bool =
   ##define XkbXI_DevHasBtnActs(d) (((d)->num_btns>0)&&((d)->btn_acts!=NULL))
@@ -2418,92 +2418,92 @@ proc XkbOutlineIndex(s: PXkbShapePtr, o: PXkbOutlinePtr): int32 =
 
 proc XkbShapeDoodadColor(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr): PXkbColorPtr =
   ##define XkbShapeDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
-  result = addr((g.colors[ze(d.color_ndx)]))
+  result = addr((g.colors[d.color_ndx]))
 
 proc XkbShapeDoodadShape(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr): PXkbShapePtr =
   ##define XkbShapeDoodadShape(g,d) (&(g)->shapes[(d)->shape_ndx])
-  result = addr(g.shapes[ze(d.shape_ndx)])
+  result = addr(g.shapes[d.shape_ndx])
 
 proc XkbSetShapeDoodadColor(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr,
                             c: PXkbColorPtr) =
   ##define XkbSetShapeDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  d.color_ndx = int16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbSetShapeDoodadShape(g: PXkbGeometryPtr, d: PXkbShapeDoodadPtr,
                             s: PXkbShapePtr) =
   ##define XkbSetShapeDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
+  d.shape_ndx = int16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
 
 proc XkbTextDoodadColor(g: PXkbGeometryPtr, d: PXkbTextDoodadPtr): PXkbColorPtr =
   ##define XkbTextDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
-  result = addr(g.colors[ze(d.color_ndx)])
+  result = addr(g.colors[d.color_ndx])
 
 proc XkbSetTextDoodadColor(g: PXkbGeometryPtr, d: PXkbTextDoodadPtr,
                            c: PXkbColorPtr) =
   ##define XkbSetTextDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  d.color_ndx = int16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbIndicatorDoodadShape(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr): PXkbShapeDoodadPtr =
   ##define XkbIndicatorDoodadShape(g,d) (&(g)->shapes[(d)->shape_ndx])
-  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[ze(d.shape_ndx)]))
+  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[d.shape_ndx]))
 
 proc XkbIndicatorDoodadOnColor(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr): PXkbColorPtr =
   ##define XkbIndicatorDoodadOnColor(g,d) (&(g)->colors[(d)->on_color_ndx])
-  result = addr(g.colors[ze(d.on_color_ndx)])
+  result = addr(g.colors[d.on_color_ndx])
 
 proc XkbIndicatorDoodadOffColor(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr): PXkbColorPtr =
   ##define XkbIndicatorDoodadOffColor(g,d) (&(g)->colors[(d)->off_color_ndx])
-  result = addr(g.colors[ze(d.off_color_ndx)])
+  result = addr(g.colors[d.off_color_ndx])
 
 proc XkbSetIndicatorDoodadOnColor(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr,
                                   c: PXkbColorPtr) =
   ##define XkbSetIndicatorDoodadOnColor(g,d,c) ((d)->on_color_ndx= (c)-&(g)->colors[0])
-  d.on_color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  d.on_color_ndx = int16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbSetIndicatorDoodadOffColor(g: PXkbGeometryPtr,
                                    d: PXkbIndicatorDoodadPtr, c: PXkbColorPtr) =
   ##define        XkbSetIndicatorDoodadOffColor(g,d,c) ((d)->off_color_ndx= (c)-&(g)->colors[0])
-  d.off_color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  d.off_color_ndx = int16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbSetIndicatorDoodadShape(g: PXkbGeometryPtr, d: PXkbIndicatorDoodadPtr,
                                 s: PXkbShapeDoodadPtr) =
   ##define XkbSetIndicatorDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[ByteAddress](s) - (cast[ByteAddress](addr(g.shapes[0])))) div sizeof(XkbShapeRec))
+  d.shape_ndx = int16((cast[ByteAddress](s) - (cast[ByteAddress](addr(g.shapes[0])))) div sizeof(XkbShapeRec))
 
 proc XkbLogoDoodadColor(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr): PXkbColorPtr =
   ##define XkbLogoDoodadColor(g,d) (&(g)->colors[(d)->color_ndx])
-  result = addr(g.colors[ze(d.color_ndx)])
+  result = addr(g.colors[d.color_ndx])
 
 proc XkbLogoDoodadShape(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr): PXkbShapeDoodadPtr =
   ##define XkbLogoDoodadShape(g,d) (&(g)->shapes[(d)->shape_ndx])
-  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[ze(d.shape_ndx)]))
+  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[d.shape_ndx]))
 
 proc XkbSetLogoDoodadColor(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr,
                            c: PXkbColorPtr) =
   ##define XkbSetLogoDoodadColor(g,d,c) ((d)->color_ndx= (c)-&(g)->colors[0])
-  d.color_ndx = toU16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  d.color_ndx = int16((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbSetLogoDoodadShape(g: PXkbGeometryPtr, d: PXkbLogoDoodadPtr,
                            s: PXkbShapeDoodadPtr) =
   ##define XkbSetLogoDoodadShape(g,d,s) ((d)->shape_ndx= (s)-&(g)->shapes[0])
-  d.shape_ndx = toU16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
+  d.shape_ndx = int16((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
 
 proc XkbKeyShape(g: PXkbGeometryPtr, k: PXkbKeyPtr): PXkbShapeDoodadPtr =
   ##define XkbKeyShape(g,k) (&(g)->shapes[(k)->shape_ndx])
-  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[ze(k.shape_ndx)]))
+  result = cast[PXkbShapeDoodadPtr](addr(g.shapes[k.shape_ndx]))
 
 proc XkbKeyColor(g: PXkbGeometryPtr, k: PXkbKeyPtr): PXkbColorPtr =
   ##define XkbKeyColor(g,k) (&(g)->colors[(k)->color_ndx])
-  result = addr(g.colors[ze(k.color_ndx)])
+  result = addr(g.colors[k.color_ndx])
 
 proc XkbSetKeyShape(g: PXkbGeometryPtr, k: PXkbKeyPtr, s: PXkbShapeDoodadPtr) =
   ##define XkbSetKeyShape(g,k,s) ((k)->shape_ndx= (s)-&(g)->shapes[0])
-  k.shape_ndx = toU8((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
+  k.shape_ndx = int8((cast[ByteAddress](s) - cast[ByteAddress](addr(g.shapes[0]))) div sizeof(XkbShapeRec))
 
 proc XkbSetKeyColor(g: PXkbGeometryPtr, k: PXkbKeyPtr, c: PXkbColorPtr) =
   ##define XkbSetKeyColor(g,k,c) ((k)->color_ndx= (c)-&(g)->colors[0])
-  k.color_ndx = toU8((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
+  k.color_ndx = int8((cast[ByteAddress](c) - cast[ByteAddress](addr(g.colors[0]))) div sizeof(XkbColorRec))
 
 proc XkbGeomColorIndex(g: PXkbGeometryPtr, c: PXkbColorPtr): int32 =
   ##define XkbGeomColorIndex(g,c) ((int)((c)-&(g)->colors[0]))
-  result = toU16((cast[ByteAddress](c) - (cast[ByteAddress](addr(g.colors[0])))) div sizeof(XkbColorRec))
+  result = int16((cast[ByteAddress](c) - (cast[ByteAddress](addr(g.colors[0])))) div sizeof(XkbColorRec))
