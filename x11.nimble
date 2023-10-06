@@ -1,4 +1,4 @@
-version = "1.1"
+version = "1.2"
 author ="Andreas Rumpf"
 description = "Wrapper for X11"
 license = "MIT"
