@@ -288,3 +288,28 @@ proc XRRGetOutputInfo*(dpy: PDisplay, res: PXRRScreenResources, ret: RROutput):
     PXRROutputInfo {.cdecl, dynlib: libXrandr, importc.}
 proc XRRFreeOutputInfo*(info: PXRROutputInfo) {.cdecl, dynlib: libXrandr,
     importc.}
+
+
+type
+  XRRMonitorInfo* = object
+    name*: Atom
+    primary*: XBool
+    automatic*: XBool
+    noutput*: cint
+    x*: cint
+    y*: cint
+    width*: cint
+    height*: cint
+    mwidth*: cint
+    mheight*: cint
+    outputs*: ptr UncheckedArray[RROutput]
+  PXRRMonitorInfo = ptr XRRMonitorInfo
+
+proc XRRAllocateMonitor*(dpy: PDisplay, noutput: cint): PXRRMonitorInfo {.cdecl, dynlib: libXrandr, importc.}
+proc XRRGetMonitors*(dpy: PDisplay, window: Window, get_active: XBool, nmonitors: Pcint): ptr UncheckedArray[XRRMonitorInfo] {.cdecl, dynlib: libXrandr, importc.}
+proc XRRSetMonitor*(dpy: PDisplay, window: Window, monitor: PXRRMonitorInfo) {.cdecl, dynlib: libXrandr, importc.}
+proc XRRDeleteMonitor*(dpy: PDisplay, window: Window, name: Atom) {.cdecl, dynlib: libXrandr, importc.}
+proc XRRFreeMonitors*(monitors: PXRRMonitorInfo) {.cdecl, dynlib: libXrandr, importc.}
+proc XRRFreeMonitors*(monitors: ptr UncheckedArray[XRRMonitorInfo]) =
+  XRRFreeMonitors(cast[PXRRMonitorInfo](monitors))
+
