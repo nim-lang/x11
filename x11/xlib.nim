@@ -8,7 +8,7 @@ type
   cunsigned* = cint
   Pcint* = ptr cint
   PPcint* = ptr Pcint
-  PPcuchar* = ptr ptr cuchar
+  PPcuchar* = ptr ptr char
   PWideChar* = ptr int16
   PPChar* = ptr cstring
   PPPChar* = ptr ptr cstring
@@ -205,7 +205,8 @@ type
         cdecl.}
     destroy_image*: proc (para1: PXImage): cint{.cdecl.}
     get_pixel*: proc (para1: PXImage, para2: cint, para3: cint): culong{.cdecl.}
-    put_pixel*: proc (para1: PXImage, para2: cint, para3: cint, para4: culong): cint{.
+    put_pixel*: proc (para1: PXImage, para2: cint, para3: cint,
+        para4: culong): cint{.
         cdecl.}
     sub_image*: proc (para1: PXImage, para2: cint, para3: cint, para4: cuint,
                       para5: cuint): PXImage{.cdecl.}
@@ -725,9 +726,9 @@ type
     display*: PDisplay
     resourceid*: XID
     serial*: culong
-    error_code*: cuchar
-    request_code*: cuchar
-    minor_code*: cuchar
+    error_code*: char
+    request_code*: char
+    minor_code*: char
 
   PXAnyEvent* = ptr XAnyEvent
   XAnyEvent*{.final.} = object
@@ -914,8 +915,8 @@ type
 
   PXChar2b* = ptr XChar2b
   XChar2b*{.final.} = object
-    byte1*: cuchar
-    byte2*: cuchar
+    byte1*: char
+    byte2*: char
 
   PXTextItem16* = ptr XTextItem16
   XTextItem16*{.final.} = object
@@ -2047,7 +2048,7 @@ proc XAllocID*(dpy: PDisplay): XID
 # implementation
 
 #when defined(MACROS):
-template privDisp : untyped = cast[PXPrivDisplay](dpy)
+template privDisp: untyped = cast[PXPrivDisplay](dpy)
 
 proc ConnectionNumber(dpy: PDisplay): cint =
   privDisp.fd

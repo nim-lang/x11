@@ -38,8 +38,8 @@ type
 
   PXRecordRange8* = ptr XRecordRange8
   XRecordRange8* {.final.} = object
-    first*: cuchar
-    last*: cuchar
+    first*: char
+    last*: char
 
   PXRecordRange16* = ptr XRecordRange16
   XRecordRange16* {.final.} = object

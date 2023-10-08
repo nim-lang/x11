@@ -54,19 +54,19 @@ type
   PXIButtonState* = ptr XIButtonState
   XIButtonState* {.final.} = object
     mask_len*: cint
-    mask*: ptr cuchar
+    mask*: ptr char
 
   PXIValuatorState* = ptr XIValuatorState
   XIValuatorState* {.final.} = object
     mask_len*: cint
-    mask*: ptr cuchar
+    mask*: ptr char
     values*: ptr cdouble
 
   PXIEventMask* = ptr XIEventMask
   XIEventMask* {.final.} = object
     deviceid*: cint
     mask_len*: cint
-    mask*: ptr cuchar
+    mask*: ptr char
 
   PXIAnyClassInfo* = ptr XIAnyClassInfo
   XIAnyClassInfo* {.final.} = object
@@ -403,14 +403,14 @@ proc XIUngrabTouchBegin*(display: PDisplay; deviceid: cint; grab_window: Window;
 proc XIListProperties*(display: PDisplay; deviceid: cint;
                       num_props_return: ptr cint): PAtom
 proc XIChangeProperty*(display: PDisplay; deviceid: cint; property: Atom;
-                      `type`: Atom; format: cint; mode: cint; data: ptr cuchar;
+                      `type`: Atom; format: cint; mode: cint; data: ptr char;
                       num_items: cint)
 proc XIDeleteProperty*(display: PDisplay; deviceid: cint; property: Atom)
 proc XIGetProperty*(display: PDisplay; deviceid: cint; property: Atom; offset: clong;
                    length: clong; delete_property: XBool; `type`: Atom;
                    type_return: PAtom; format_return: ptr cint;
                    num_items_return: ptr culong; bytes_after_return: ptr culong;
-                   data: ptr ptr cuchar): Status
+                   data: ptr ptr char): Status
 proc XIBarrierReleasePointers*(display: PDisplay;
                               barriers: PXIBarrierReleasePointerInfo;
                               num_barriers: cint)
