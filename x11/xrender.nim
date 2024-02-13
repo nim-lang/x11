@@ -34,16 +34,16 @@ else:
 
 type
   PGlyph* = ptr Glyph
-  Glyph* = int32
+  Glyph* = culong
 
   PGlyphSet* = ptr GlyphSet
-  GlyphSet* = int32
+  GlyphSet* = culong
 
   PPicture* = ptr Picture
-  Picture* = int32
+  Picture* = culong
 
   PPictFormat* = ptr PictFormat
-  PictFormat* = int32
+  PictFormat* = culong
 
 {.deprecated: [TGlyph: Glyph].}
 {.deprecated: [TGlyphSet: GlyphSet].}
